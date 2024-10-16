@@ -2,7 +2,7 @@ import UserLoginValidator from "App/Validators/UserLoginValidator";
 import UserRegisterValidator from "App/Validators/UserRegisterValidator";
 import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
-import { hash } from "Helpers/hashing";
+import { hash, verifyHash } from "Helpers/hashing";
 
 export namespace UsersController {
   export async function register(request: Request, response: Response) {
@@ -75,14 +75,6 @@ export namespace UsersController {
 
     const { email, password, principal } = data;
 
-    const passwordHash = password ? await hash(password) : undefined;
-
-    const userData: Partial<User> = {
-      email,
-      password_hash: passwordHash,
-      principal_id: principal,
-    };
-
     try {
       const isUserExists = await User.findOne({
         where: [{ email }, { principal_id: principal }],
@@ -96,10 +88,43 @@ export namespace UsersController {
         });
       }
 
-      response.status(200);
+      if (principal) {
+        if (isUserExists.principal_id !== principal) {
+          response.status(400);
+          return response.json({
+            status: 0,
+            message: 'Email/Identity not found.',
+          });
+        } else {
+          response.status(200);
+          return response.json({
+            status: 1,
+            message: 'Login success!',
+          });
+        }
+      }
+
+      if (password) {
+        if (!await verifyHash(password, isUserExists.password_hash)) {
+          response.status(400);
+          return response.json({
+            status: 0,
+            message: 'Password does not match.',
+          });
+        }
+        else {
+          response.status(200);
+          return response.json({
+            status: 1,
+            message: 'Login success!',
+          });
+        }
+      }
+
+      response.status(400);
       return response.json({
-        status: 1,
-        message: 'Login success!',
+        status: 0,
+        message: 'Email/Identity not found.',
       });
     } catch (error: any) {
       response.status(400);
