@@ -110,7 +110,6 @@ export namespace UsersController {
 
         await handleLoginSuccess(user, response);
       }
-      // Handle login by principal (Internet Identity)
       else if (principal) {
         const user = await User.findOne({ where: { principal_id: principal } });
 
@@ -123,13 +122,42 @@ export namespace UsersController {
 
         await handleLoginSuccess(user, response);
       }
-      // If neither email/password nor principal was provided
       else {
         return response.status(400).json({
           status: 0,
           message: 'No login method.',
         });
       }
+    } catch (error: any) {
+      console.log("error", error);
+      response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
+
+  export async function loginWithIdentity(request: Request, response: Response) {
+    const { principal } = request.body;
+
+    if (!principal) {
+      return response.status(400).json({
+        status: 0,
+        message: 'No login method.',
+      });
+    }
+
+    try {
+      const user = await User.findOne({ where: { principal_id: principal } });
+
+      if (!user) {
+        return response.status(400).json({
+          status: 2,
+          message: 'Identity not found. Please register first.',
+        });
+      }
+
+      await handleLoginSuccess(user, response);
     } catch (error: any) {
       console.log("error", error);
       response.status(500).json({

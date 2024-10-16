@@ -33,10 +33,10 @@ const Header = () => {
             </nav>
 
             <div className="hidden md:flex justify-end items-center gap-x-4">
-                <Link to={PageRoutes.Login}>
+                <Link to={PageRoutes.LOGIN}>
                     <Button variant="ghost">Login</Button>
                 </Link>
-                <Link to={PageRoutes.SignUp}>
+                <Link to={PageRoutes.SIGN_UP}>
                     <Button>Sign Up</Button>
                 </Link>
             </div>
@@ -72,10 +72,10 @@ const Header = () => {
                     </button>
 
                     <div className="flex flex-col items-center space-y-4 mt-4">
-                        <Link to={PageRoutes.Login}>
+                        <Link to={PageRoutes.LOGIN}>
                             <Button variant="ghost">Login</Button>
                         </Link>
-                        <Link to={PageRoutes.SignUp}>
+                        <Link to={PageRoutes.SIGN_UP}>
                             <Button>Sign Up</Button>
                         </Link>
                     </div>
