@@ -17,10 +17,10 @@ const UserSetting = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button className="flex items-center gap-x-1 bg-lima-500 text-white rounded px-2 py-3">
-					<Profile userProfile="https://github.com/shadcn.png" />
-					<ChevronDown />
-				</Button>
+				<button className="rounded-full shadow flex items-center  w-16 border border-gray-400">
+					<Profile userProfile="https://github.com/shadcn.png"/>
+					<ChevronDown className="text-lima-500"/>
+				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -17,17 +17,38 @@ const HomePage = () => {
     const [activeTab, setActiveTab] = useState<string>("Home");
 
     const resources: Stories[] = [
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-
-        { storyImg: "", projectName: "Project Name", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+        { 
+            storyImg: "https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n", 
+            projectName: "Urban Farming Revolution", 
+            description: "A project aimed at boosting sustainable agriculture in urban environments." 
+        },
+        { 
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
+            projectName: "Smart Farming Technologies", 
+            description: "Integrating modern technology with traditional farming methods for better yields." 
+        },
+        { 
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
+            projectName: "Organic Farming Solutions", 
+            description: "Providing innovative solutions for organic farming practices." 
+        },
+        { 
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
+            projectName: "Sustainable Crop Development", 
+            description: "Developing crops that can thrive in urban settings with limited resources." 
+        },
+        { 
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
+            projectName: "Vertical Farming Innovations", 
+            description: "Revolutionizing farming with vertical agriculture techniques." 
+        },
+        { 
+            storyImg: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d", 
+            projectName: "Community Farming Initiative", 
+            description: "Empowering communities to grow their own food using sustainable methods." 
+        },
     ];
-
+    
     return (
         <main className="h-screen mx-[75px] flex flex-col gap-y-4">
             <Header />
@@ -40,7 +61,7 @@ const HomePage = () => {
                     </nav>
                     <section className="p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
                         <h2 className="text-xl font-semibold mb-4">Stories</h2>
-                        <ScrollArea className="h-[40vh] lg:h-[54rem]">
+                        <ScrollArea className="h-[40rem] lg:h-[66rem]">
                             <div className="flex flex-col gap-y-4 px-2">
                                 {resources.map((resource, index) => (
                                     <StoriesCard
