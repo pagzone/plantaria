@@ -25,7 +25,6 @@ const PageSelector:FC<PageSelectorProps> = ({ tutorials, currentPage, setCurrent
         }
     };
 
-    // Logic to show limited number of pagination links at a time
     const maxPageLinks = 5;
     const startPage = Math.max(1, currentPage - Math.floor(maxPageLinks / 2));
     const endPage = Math.min(totalPages, startPage + maxPageLinks - 1);

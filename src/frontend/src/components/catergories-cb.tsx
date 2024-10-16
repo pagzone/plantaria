@@ -63,7 +63,7 @@ export function CategoriesCB() {
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50 text-black"/>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[170px] p-0">
+      <PopoverContent className="w-[190px] p-0">
         <Command>
            <CommandInput placeholder="Search category..." />
           <CommandList>

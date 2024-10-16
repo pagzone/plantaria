@@ -1,11 +1,13 @@
 import { CategoriesCB } from "@/components/catergories-cb"
+import PostDialog from "@/components/post-tutorial"
 import { Input } from "@/components/ui/input"
 import UserSetting from "@/components/user-setting"
 import { PageRoutes } from "@/constants/PageRoutes"
-import { Bell, CirclePlus, Search } from "lucide-react"
+import { Bell, Search } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const Header = () => {
+
   return (
     <header className="py-4 w-full grid grid-cols-3 items-center ">
       <Link className="flex items-center gap-x-2 w-fit cursor-pointer"
@@ -24,7 +26,7 @@ const Header = () => {
       </div>
 
       <div className="flex gap-x-4 items-center justify-end">
-        <CirclePlus className="cursor-pointer text-lima-500" size={28} />
+        <PostDialog/>
         <Bell className="cursor-pointer text-lima-500" size={28} /> 
         <UserSetting/>
       </div>
