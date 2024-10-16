@@ -9,7 +9,7 @@ const Tab: React.FC<TabProps> = ({ label, icon: Icon, isActive, onClick }) => {
 
     return (
         <div
-            className="group flex flex-col items-center cursor-pointer"
+            className="group flex flex-col items-center cursor-pointer max-md:w-44"
             role="button"
             aria-pressed={isActive}
             onClick={onClick}

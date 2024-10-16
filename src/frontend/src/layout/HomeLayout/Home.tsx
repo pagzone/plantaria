@@ -1,3 +1,4 @@
+import { CategoriesCB } from "@/components/catergories-cb";
 import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
@@ -100,8 +101,8 @@ const HomeContent = () => {
     const currenTutorials = tutorials.slice(startIndex, endIndex); 
 
     return (
-        <div className="flex flex-col gap-y-4 h-full">
-            <div className="h-72 ">
+        <div className="flex flex-col gap-y-6 h-full">
+            <div className="h-60 md:h-72 ">
                 <FeaturedCard
                     title={featured.title}
                     description={featured.description}
@@ -109,8 +110,13 @@ const HomeContent = () => {
                 />
             </div>
 
-            <div className="flex flex-col h-full gap-y-2">
-                <h1 className="font-bold text-3xl">Tutorials</h1>
+            <div className="flex flex-col h-full gap-y-4">
+                <div className="flex justify-between">
+                    <h1 className="font-bold text-3xl">Tutorials</h1>
+                    <div className="hidden max-md:block">
+                        <CategoriesCB/>
+                    </div>
+                </div>
                 <div className="flex flex-col justify-center items-center gap-y-4">
                     <div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 overflow-hidden">
                         {

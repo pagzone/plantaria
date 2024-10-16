@@ -50,16 +50,16 @@ const HomePage = () => {
     ];
     
     return (
-        <main className="h-screen mx-[75px] flex flex-col gap-y-4">
+        <main className="h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
             <Header />
-            <div className="flex gap-x-6">
-                <aside className="flex flex-col gap-y-2 w-1/4">
-                    <nav className="flex gap-x-8">
+            <div className="flex md:gap-x-6 max-md:flex-col justify-center items-center max-md:gap-y-1">
+                <aside className="flex md:flex-col gap-y-2 md:w-1/4 w-full justify-center items-center">
+                    <nav className="flex md:gap-x-8 w-full">
                         <Tab label="Home" icon={Home} isActive={activeTab === "Home"} onClick={() => setActiveTab("Home")} />
                         <Tab label="Ranking" icon={Trophy} isActive={activeTab === "Ranking"} onClick={() => setActiveTab("Ranking")} />
                         <Tab label="Favorites" icon={Star} isActive={activeTab === "Favorites"} onClick={() => setActiveTab("Favorites")} />
                     </nav>
-                    <section className="p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
+                    <section className="hidden md:block p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
                         <h2 className="text-xl font-semibold mb-4">Stories</h2>
                         <ScrollArea className="h-[40rem] lg:h-[66rem]">
                             <div className="flex flex-col gap-y-4 px-2">
@@ -77,7 +77,7 @@ const HomePage = () => {
                 </aside>
 
                 {/* CONTENT */}
-                <section className="flex-1">
+                <section className="flex-1 ">
                     {activeTab === "Home" ? (
                         <HomeContent />
                     ) : activeTab === "Ranking" ? (

@@ -55,7 +55,7 @@ export function CategoriesCB() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[170px] justify-between border border-black"
+          className="border border-black"
         >
           {value
             ? categories.find((framework) => framework.value === value)?.label
