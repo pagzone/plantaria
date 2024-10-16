@@ -3,6 +3,7 @@ import UserRegisterValidator from "App/Validators/UserRegisterValidator";
 import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
 import { hash, verifyHash } from "Helpers/hashing";
+import { generateAuthToken } from "Helpers/customToken";
 
 export namespace UsersController {
   export async function register(request: Request, response: Response) {
@@ -59,6 +60,18 @@ export namespace UsersController {
     }
   }
 
+  const handleLoginSuccess = async (user: Partial<User>, response: Response) => {
+    const authToken = generateAuthToken(user);
+
+    response.status(200);
+
+    return response.json({
+      status: 1,
+      message: 'Login success!',
+      token: authToken,
+    });
+  }
+
   export async function login(request: Request, response: Response) {
     const { data, success, error } = UserLoginValidator.validate(request.body);
 
@@ -76,64 +89,56 @@ export namespace UsersController {
     const { email, password, principal } = data;
 
     try {
-      const isUserExists = await User.findOne({
-        where: [{ email }, { principal_id: principal }],
-      });
+      if (email && password) {
+        const user = await User.findOne({ where: { email } });
 
-      if (!isUserExists) {
-        response.status(400);
-        return response.json({
-          status: 0,
-          message: 'Email/Identity not found.',
-        });
-      }
-
-      if (principal) {
-        if (isUserExists.principal_id !== principal) {
-          response.status(400);
-          return response.json({
+        if (!user) {
+          return response.status(400).json({
             status: 0,
-            message: 'Email/Identity not found.',
-          });
-        } else {
-          response.status(200);
-          return response.json({
-            status: 1,
-            message: 'Login success!',
+            message: 'Email not found.',
           });
         }
-      }
 
-      if (password) {
-        if (!await verifyHash(password, isUserExists.password_hash)) {
-          response.status(400);
-          return response.json({
+        const isPasswordMatch = await verifyHash(password, user.password_hash);
+
+        if (!isPasswordMatch) {
+          return response.status(400).json({
             status: 0,
             message: 'Password does not match.',
           });
         }
-        else {
-          response.status(200);
-          return response.json({
-            status: 1,
-            message: 'Login success!',
+
+        await handleLoginSuccess(user, response);
+      }
+      // Handle login by principal (Internet Identity)
+      else if (principal) {
+        const user = await User.findOne({ where: { principal_id: principal } });
+
+        if (!user) {
+          return response.status(400).json({
+            status: 0,
+            message: 'Identity not found.',
           });
         }
-      }
 
-      response.status(400);
-      return response.json({
-        status: 0,
-        message: 'Email/Identity not found.',
-      });
+        await handleLoginSuccess(user, response);
+      }
+      // If neither email/password nor principal was provided
+      else {
+        return response.status(400).json({
+          status: 0,
+          message: 'No login method.',
+        });
+      }
     } catch (error: any) {
-      response.status(400);
-      return response.json({
+      console.log("error", error);
+      response.status(500).json({
         status: 0,
         message: error.message,
       });
     }
   }
+
 
   export async function test(request: Request, response: Response) {
     const users = await User.find();
