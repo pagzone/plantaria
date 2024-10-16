@@ -3,10 +3,17 @@ import Tab from "@/components/tab";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/HomeLayout/Header";
 import HomeContent from "@/layout/HomeLayout/Home";
-import { Home, Star, Trophy } from "lucide-react";
+import { Building2, GalleryHorizontalEnd, Home, Sheet, Star, Trophy } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Ranking from "@/layout/HomeLayout/Ranking";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 type Stories = {
     storyImg: string;
@@ -16,42 +23,43 @@ type Stories = {
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState<string>("Home");
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const resources: Stories[] = [
-        { 
-            storyImg: "https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n", 
-            projectName: "Urban Farming Revolution", 
-            description: "A project aimed at boosting sustainable agriculture in urban environments." 
+        {
+            storyImg: "https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+            projectName: "Urban Farming Revolution",
+            description: "A project aimed at boosting sustainable agriculture in urban environments."
         },
-        { 
-            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
-            projectName: "Smart Farming Technologies", 
-            description: "Integrating modern technology with traditional farming methods for better yields." 
+        {
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+            projectName: "Smart Farming Technologies",
+            description: "Integrating modern technology with traditional farming methods for better yields."
         },
-        { 
-            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
-            projectName: "Organic Farming Solutions", 
-            description: "Providing innovative solutions for organic farming practices." 
+        {
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+            projectName: "Organic Farming Solutions",
+            description: "Providing innovative solutions for organic farming practices."
         },
-        { 
-            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
-            projectName: "Sustainable Crop Development", 
-            description: "Developing crops that can thrive in urban settings with limited resources." 
+        {
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+            projectName: "Sustainable Crop Development",
+            description: "Developing crops that can thrive in urban settings with limited resources."
         },
-        { 
-            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b", 
-            projectName: "Vertical Farming Innovations", 
-            description: "Revolutionizing farming with vertical agriculture techniques." 
+        {
+            storyImg: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+            projectName: "Vertical Farming Innovations",
+            description: "Revolutionizing farming with vertical agriculture techniques."
         },
-        { 
-            storyImg: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d", 
-            projectName: "Community Farming Initiative", 
-            description: "Empowering communities to grow their own food using sustainable methods." 
+        {
+            storyImg: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+            projectName: "Community Farming Initiative",
+            description: "Empowering communities to grow their own food using sustainable methods."
         },
     ];
-    
+
     return (
-        <main className="h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
+        <main className="relative h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
             <Header />
             <div className="flex md:gap-x-6 max-md:flex-col justify-center  max-md:gap-y-1">
                 <aside className="flex md:flex-col gap-y-2 md:w-1/4 w-full justify-center items-center">
@@ -60,6 +68,45 @@ const HomePage = () => {
                         <Tab label="Ranking" icon={Trophy} isActive={activeTab === "Ranking"} onClick={() => setActiveTab("Ranking")} />
                         <Tab label="Favorites" icon={Star} isActive={activeTab === "Favorites"} onClick={() => setActiveTab("Favorites")} />
                     </nav>
+
+                    <div
+                        className={`hidden max-md:block fixed left-0 top-1/2 h-24 transition-all duration-300 ease-in-out 
+                        ${isExpanded ? 'w-16' : 'w-4'} z-20 rounded-e-lg backdrop-blur-md 
+                        bg-gray-400/40 border border-black/20 opacity-90 shadow-md`}
+                        onClick={() => setIsExpanded(!isExpanded)}
+                    >
+                        <div className={`flex flex-col gap-y-2 items-center justify-center h-full transition-opacity duration-300 ease-in-out ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <GalleryHorizontalEnd
+                                            size={25}
+                                            className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                                        />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>View Story</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <Building2
+                                            size={25}
+                                            className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                                        />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Organization</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    </div>
+
                     <section className="hidden md:block p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
                         <h2 className="text-xl font-semibold mb-4">Stories</h2>
                         <ScrollArea className="h-[40rem] lg:h-[66rem]">
@@ -82,7 +129,7 @@ const HomePage = () => {
                     {activeTab === "Home" ? (
                         <HomeContent />
                     ) : activeTab === "Ranking" ? (
-                        <Ranking/>
+                        <Ranking />
                     ) : activeTab === "Favorites" ? (
                         <p>Favorites</p>
                     ) : null}

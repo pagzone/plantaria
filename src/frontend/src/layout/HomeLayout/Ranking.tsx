@@ -12,17 +12,15 @@ const Ranking = () => {
 
     return (
         <div className="h-full flex flex-col px-3 gap-y-4">
-            <div className="w-full flex justify-between">
-                <h1 className="font-bold text-3xl">Rankings</h1>
-                <CategoriesCB />
-            </div>
-            <div className="flex flex-col gap-y-6">
-                <div className="grid grid-cols-2">
+            <h1 className="hidden md:block font-bold md:text-3xl">Rankings</h1>
+
+            <div className="flex flex-col gap-y-6 max-md:mt-4">
+                <div className="grid grid-cols-2 items-center">
                     <div className="flex gap-x-6">
-                        <div className="text-xl font-bold">Rank</div>
-                        <div className="text-xl font-bold">User</div>
+                        <div className="text-base md:text-xl font-semibold font-">Rank</div>
+                        <div className="text-base md:text-xl font-semibold">User</div>
                     </div>
-                    <div className="text-xl font-bold text-center">Contribution Points</div>
+                    <div className="text-base font-semibold text-center truncate">Contribution Points</div>
                 </div>
 
                 <ScrollArea>

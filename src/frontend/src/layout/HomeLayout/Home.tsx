@@ -111,8 +111,8 @@ const HomeContent = () => {
             </div>
 
             <div className="flex flex-col h-full gap-y-4">
-                <div className="flex justify-between">
-                    <h1 className="font-bold text-3xl">Tutorials</h1>
+                <div className="flex justify-between items-center">
+                    <h1 className="text-2xl font-bold md:text-3xl">Tutorials</h1>
                     <div className="hidden max-md:block">
                         <CategoriesCB/>
                     </div>
