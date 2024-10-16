@@ -18,6 +18,7 @@ import { AuthClient } from "@dfinity/auth-client";
 import { Facebook, Google, InternetComputer } from "@/assets/icons";
 import SocialsAuth from "@/components/SocialsAuth";
 import { PageRoutes } from "@/constants/PageRoutes";
+import { ArrowLeft } from "lucide-react";
 
 const LoginPage = () => {
 	const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -65,13 +66,26 @@ const LoginPage = () => {
 
 			{/* Login Section */}
 			<section className="w-full flex flex-col items-center md:block p-6 md:p-12 overflow-y-scroll">
+				<Button
+					variant="ghost"
+					className="w-fit mb-2 flex items-center text-primary hover:text-primary/90 hover:bg-lima-100"
+					asChild
+				>
+					<Link to={PageRoutes.Landing}>
+						<ArrowLeft className="mr-2 h-4 w-4" />
+						Back to Home
+					</Link>
+				</Button>
+				
 				<div className="w-full text-center md:text-left xl:w-2/3">
 					<img className="h-8" src="plantaria-logo.png" alt="plantaria-logo" />
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
 						Welcome back to your Urban Garden.
 					</h1>
 					<p className="mt-1 text-gray-500 text-sm md:text-base">
-						Sign in to <span className="text-lima-700 font-medium">plantaria</span> and join our amazing community
+						Sign in to{" "}
+						<span className="text-lima-700 font-medium">plantaria</span> and
+						join our amazing community
 					</p>
 				</div>
 

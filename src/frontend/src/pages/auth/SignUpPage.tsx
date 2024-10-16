@@ -14,12 +14,25 @@ import { PasswordInput } from "@/components/password-input";
 import { Link } from "react-router-dom";
 import SocialsAuth from "@/components/SocialsAuth";
 import { cn } from "@/lib/utils";
+import { ArrowLeft } from "lucide-react";
+import { PageRoutes } from "@/constants/PageRoutes";
 
 const SignUpPage = () => {
 	return (
 		<div className="h-screen grid grid-cols-1 md:grid-cols-2 relative">
-			{/* Sign In Section */}
+			{/* Sign Up Section */}
 			<section className="w-full flex flex-col items-center md:block p-6 md:p-12 overflow-y-scroll">
+				<Button
+					variant="ghost"
+					className="w-fit mb-2 flex items-center text-primary hover:text-primary/90 hover:bg-lima-100"
+					asChild
+				>
+					<Link to={PageRoutes.Landing}>
+						<ArrowLeft className="mr-2 h-4 w-4" />
+						Back to Home
+					</Link>
+				</Button>
+				
 				<div className="w-full text-center md:text-left xl:w-2/3">
 					<img className="h-8" src="plantaria-logo.png" alt="plantaria-logo" />
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
@@ -27,7 +40,9 @@ const SignUpPage = () => {
 						<span className="block md:inline"> urban garden today</span>
 					</h1>
 					<p className="mt-1 text-gray-500 text-sm md:text-base">
-						Sign up to <span className="text-lima-700 font-medium">plantaria</span> and join our amazing community
+						Sign up to{" "}
+						<span className="text-lima-700 font-medium">plantaria</span> and
+						join our amazing community
 					</p>
 				</div>
 
