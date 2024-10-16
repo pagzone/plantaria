@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import UserSetting from "@/components/user-setting"
 import { PageRoutes } from "@/constants/PageRoutes"
-import { Bell, Menu, Search, X } from "lucide-react"
+import { Bell, LifeBuoy, LogOut, Menu, Search, Settings, User, X } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -58,6 +58,31 @@ const Header = () => {
             {isMenuOpen && (
               <nav className="fixed inset-0 bg-white flex flex-col justify-center items-center gap-y-4 z-50 transition-transform duration-300 md:hidden"
               >
+                <div className="flex flex-col gap-y-4 justify-start">
+                  <Link to={PageRoutes.Profile}
+                       className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <User className="size-6" />
+                    <span className="text-xl">Profile</span>
+                  </Link>
+
+                  <Link to={PageRoutes.Home}
+                       className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <Settings className="size-6" />
+                    <span className="text-xl">Settings</span>
+                  </Link>
+
+                  <Link to={PageRoutes.Home}
+                       className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <LifeBuoy className="size-6" />
+                    <span className="text-xl">Support</span>
+                  </Link>
+
+                  <Link to={PageRoutes.Home}
+                       className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <LogOut className="size-6" />
+                    <span className="text-xl">Log out</span>
+                  </Link>
+                </div>
 
                 <button
                   onClick={() => setIsMenuOpen(false)}

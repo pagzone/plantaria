@@ -6,6 +6,7 @@ import HomeContent from "@/layout/HomeLayout/Home";
 import { Home, Star, Trophy } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Ranking from "@/layout/HomeLayout/Ranking";
 
 type Stories = {
     storyImg: string;
@@ -52,7 +53,7 @@ const HomePage = () => {
     return (
         <main className="h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
             <Header />
-            <div className="flex md:gap-x-6 max-md:flex-col justify-center items-center max-md:gap-y-1">
+            <div className="flex md:gap-x-6 max-md:flex-col justify-center  max-md:gap-y-1">
                 <aside className="flex md:flex-col gap-y-2 md:w-1/4 w-full justify-center items-center">
                     <nav className="flex md:gap-x-8 w-full">
                         <Tab label="Home" icon={Home} isActive={activeTab === "Home"} onClick={() => setActiveTab("Home")} />
@@ -77,11 +78,11 @@ const HomePage = () => {
                 </aside>
 
                 {/* CONTENT */}
-                <section className="flex-1 ">
+                <section className="flex-1">
                     {activeTab === "Home" ? (
                         <HomeContent />
                     ) : activeTab === "Ranking" ? (
-                        <p>Rankings</p>
+                        <Ranking/>
                     ) : activeTab === "Favorites" ? (
                         <p>Favorites</p>
                     ) : null}
