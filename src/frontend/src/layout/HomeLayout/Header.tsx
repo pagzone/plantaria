@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="py-4 w-full grid grid-cols-3 items-center max-md:grid-cols-2">
       <Link className="flex items-center gap-x-2 w-fit cursor-pointer"
-        to={PageRoutes.Home}
+        to={PageRoutes.HOME}
       >
         <img className="size-14" src="Logo.png" alt="logo" />
         <img className="h-6" src="plantaria-logo.png" alt="plantaria-logo" />

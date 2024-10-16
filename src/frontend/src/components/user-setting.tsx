@@ -27,7 +27,7 @@ const UserSetting = () => {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
-						<Link to={PageRoutes.Profile} className="w-full">
+						<Link to={PageRoutes.PROFILE} className="w-full">
 							<User className="mr-2 size-4 inline" />
 							Profile
 						</Link>
