@@ -20,6 +20,7 @@ import { ArrowLeft } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { APIRoutes } from "@/constants/ApiRoutes";
 import SubmitButton from "@/components/submit-button";
+import { LocalStorageKeys } from "@/constants/LocalStorageKeys";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -59,7 +60,7 @@ const LoginPage = () => {
 			const { data }: { data: { token?: string } } = response;
 
 			if (data.token) {
-				localStorage.setItem("token", data.token);
+				localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, data.token);
 				navigate(PageRoutes.HOME);
 			}
 		} catch (error: any) {
