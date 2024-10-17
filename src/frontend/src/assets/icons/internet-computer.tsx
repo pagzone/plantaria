@@ -17,8 +17,8 @@ const InternetComputer = (props: SVGProps<SVGSVGElement>) => {
 						y1="24.011%"
 						y2="77.66%"
 					>
-						<stop offset="21%" stop-color="#F15A24" />
-						<stop offset="68.41%" stop-color="#FBB03B" />
+						<stop offset="21%" stopColor="#F15A24" />
+						<stop offset="68.41%" stopColor="#FBB03B" />
 					</linearGradient>
 					<linearGradient
 						id="logosInternetComputerIcon1"
@@ -27,8 +27,8 @@ const InternetComputer = (props: SVGProps<SVGSVGElement>) => {
 						y1="76.013%"
 						y2="22.341%"
 					>
-						<stop offset="21%" stop-color="#ED1E79" />
-						<stop offset="89.29%" stop-color="#522785" />
+						<stop offset="21%" stopColor="#ED1E79" />
+						<stop offset="89.29%" stopColor="#522785" />
 					</linearGradient>
 				</defs>
 				<path

@@ -77,8 +77,8 @@ const LoginPage = () => {
 					</Link>
 				</Button>
 				
-				<div className="w-full text-center md:text-left xl:w-2/3">
-					<img className="h-8" src="plantaria-logo.png" alt="plantaria-logo" />
+				<div className="w-full text-center md:text-left xl:w-2/3 flex flex-col max-md:items-center">
+					<img className="h-8 w-40" src="plantaria-logo.png" alt="plantaria-logo" />
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
 						Welcome back to your Urban Garden.
 					</h1>

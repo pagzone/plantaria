@@ -15,14 +15,14 @@ const PostDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="rounded-full max-md:hidden flex items-center">
+                <div className="rounded-full max-md:hidden flex items-center">
                         <IconTooltip 
                             IconComponent={CirclePlus} 
                             tooltipText="Post Tutorial"
                             size={30}
-                            className="cursor-pointer text-lima-500"
+                            className="cursor-pointer text-lima-500 "
                     />
-                </button>
+                </div>
             </DialogTrigger>
             <DialogContent className="h-[30rem] w-[50rem] ">
                 <DialogHeader className="flex items-center h-fit">

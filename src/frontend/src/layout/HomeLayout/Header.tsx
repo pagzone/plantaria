@@ -35,30 +35,26 @@ const Header = () => {
 
       <div>
         {auth ? (
-          <div className="flex gap-x-4 items-center justify-end max-md:gap-x-2">
+          <div className="flex md:gap-x-4 items-center justify-end gap-x-2">
+
             <IconTooltip 
                     IconComponent={Search} 
-                    tooltipText="Post Tutorial"
-                    size={30}
-                    className="md:hidden"
-              />
-            <IconTooltip 
-                    IconComponent={GalleryHorizontalEnd} 
-                    tooltipText="Stories"
-                    size={30}
+                    tooltipText="Search"
                     className="md:hidden"
               />
             <PostDialog />
             <IconTooltip 
+                    IconComponent={GalleryHorizontalEnd} 
+                    tooltipText="Stories"
+              />
+            <IconTooltip 
                     IconComponent={Building2} 
                     tooltipText="Organization"
-                    size={30}
                     className="max-md:hidden"
               />
              <IconTooltip 
                     IconComponent={Bell} 
                     tooltipText="Notification"
-                    size={30}
                     className="max-md:hidden"
               />  
             <UserSetting />
@@ -67,11 +63,10 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <Menu 
-                 className="transition-transform duration-300 ease-in-out hover:scale-110"
-                 size={40}
+                 size={35}
                 />
               </button>
-            </div>
+            </div>  
 
             {isMenuOpen && (
               <nav className="fixed inset-0 bg-white flex flex-col justify-center items-center gap-y-4 z-50 transition-transform duration-300 md:hidden"
