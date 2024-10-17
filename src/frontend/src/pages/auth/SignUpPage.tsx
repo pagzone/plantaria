@@ -20,6 +20,9 @@ import { signUpFormSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { APIRoutes } from "@/constants/ApiRoutes";
+import { toast } from "react-hot-toast";
+import SubmitButton from "@/components/submit-button";
 
 const SignUpPage = () => {
 	const form = useForm<z.infer<typeof signUpFormSchema>>({
@@ -29,17 +32,41 @@ const SignUpPage = () => {
 			location: "",
 			email: "",
 			password: "",
-			confirmPassword: ""
+			confirmPassword: "",
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof signUpFormSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values);
-	}
+	form.formState;
 
+	const onSubmit = async (values: z.infer<typeof signUpFormSchema>) => {
+		try {
+			const response = await toast.promise(
+				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.REGISTER}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(values),
+				}).then(async (res) => {
+					const data = await res.json();
+					if (res.ok) {
+						return { success: true, data };
+					} else {
+						throw new Error(data.message || "An error occurred");
+					}
+				}),
+				{
+					loading: "Signing up...",
+					success: "Signed up successfully",
+					error: (error) => error.message,
+				},
+			);
 
+			console.log("User registered:", response.data);
+		} catch (error: any) {
+			console.error("Error during sign up:", error.message);
+		}
+	};
 
 	return (
 		<div className="h-screen grid grid-cols-1 md:grid-cols-2 relative">
@@ -57,7 +84,11 @@ const SignUpPage = () => {
 				</Button>
 
 				<div className="w-full text-center md:text-left xl:w-2/3 flex flex-col max-md:items-center">
-					<img className="h-8 w-40" src="plantaria-logo.png" alt="plantaria-logo" />
+					<img
+						className="h-8 w-40"
+						src="plantaria-logo.png"
+						alt="plantaria-logo"
+					/>
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
 						Start growing your
 						<span className="block md:inline"> urban garden today</span>
@@ -142,9 +173,9 @@ const SignUpPage = () => {
 								)}
 							/>
 
-							<Button type="submit" className="w-full">
+							<SubmitButton className="w-full" formState={form.formState}>
 								Sign Up
-							</Button>
+							</SubmitButton>
 						</form>
 					</Form>
 
