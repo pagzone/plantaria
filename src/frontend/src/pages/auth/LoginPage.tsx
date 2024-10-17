@@ -11,16 +11,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/password-input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginFormSchema } from "@/lib/formSchema";
 import { z } from "zod";
-import { AuthClient } from "@dfinity/auth-client";
-import { Facebook, Google, InternetComputer } from "@/assets/icons";
 import SocialsAuth from "@/components/SocialsAuth";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "react-hot-toast";
+import { APIRoutes } from "@/constants/ApiRoutes";
+import SubmitButton from "@/components/submit-button";
 
 const LoginPage = () => {
+	const navigate = useNavigate();
+
 	const form = useForm<z.infer<typeof loginFormSchema>>({
 		resolver: zodResolver(loginFormSchema),
 		defaultValues: {
@@ -29,22 +32,40 @@ const LoginPage = () => {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof loginFormSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values);
-	}
+	const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
+		try {
+			const response = await toast.promise(
+				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.LOGIN}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(values),
+				}).then(async (res) => {
+					const data = await res.json();
+					if (res.ok) {
+						return { success: true, data };
+					} else {
+						throw new Error(data.message || "An error occurred");
+					}
+				}),
+				{
+					loading: "Signing in...",
+					success: "Signed in successfully",
+					error: (error) => error.message,
+				},
+			);
 
-	const login = async () => {
-		const authClient = await AuthClient.create();
+			const { data }: { data: { token?: string } } = response;
 
-		await authClient.login({
-			identityProvider: "https://identity.ic0.app/#authorize",
-			onSuccess: async () => {
-				const identity = authClient.getIdentity();
-				console.log(identity);
-			},
-		});
+			if (data.token) {
+				localStorage.setItem("token", data.token);
+				navigate(PageRoutes.HOME);
+			}
+		} catch (error: any) {
+			form.resetField("password");
+			console.error("Error during sign in:", error.message);
+		}
 	};
 
 	return (
@@ -76,9 +97,13 @@ const LoginPage = () => {
 						Back to Home
 					</Link>
 				</Button>
-				
+
 				<div className="w-full text-center md:text-left xl:w-2/3 flex flex-col max-md:items-center">
-					<img className="h-8 w-40" src="plantaria-logo.png" alt="plantaria-logo" />
+					<img
+						className="h-8 w-40"
+						src="plantaria-logo.png"
+						alt="plantaria-logo"
+					/>
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
 						Welcome back to your Urban Garden.
 					</h1>
@@ -120,9 +145,9 @@ const LoginPage = () => {
 								)}
 							/>
 
-							<Button type="submit" className="w-full">
-								Login
-							</Button>
+							<SubmitButton className="w-full" formState={form.formState}>
+								Sign In
+							</SubmitButton>
 						</form>
 					</Form>
 
