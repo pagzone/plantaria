@@ -4,6 +4,7 @@ import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
 import { hash, verifyHash } from "Helpers/hashing";
 import { generateAuthToken } from "Helpers/customToken";
+import UserRegisterWithIdentityValidator from "App/Validators/UserRegisterWithIdentityValidator";
 
 export namespace UsersController {
   export async function register(request: Request, response: Response) {
@@ -45,11 +46,14 @@ export namespace UsersController {
         });
       }
 
-      await User.save(userData);
+      const user = await User.save(userData).then((user) => user as Partial<User>);
+
+      const authToken = generateAuthToken(user);
 
       return response.json({
         status: 1,
         message: 'Registration success!',
+        token: authToken,
       });
     } catch (error: any) {
       response.status(400);
@@ -158,6 +162,56 @@ export namespace UsersController {
       }
 
       await handleLoginSuccess(user, response);
+    } catch (error: any) {
+      console.log("error", error);
+      response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
+
+  export const registerWithIdentity = async (request: Request, response: Response) => {
+    const { data, success, error } = UserRegisterWithIdentityValidator.validate(request.body);
+
+    if (!success) {
+      response.status(400);
+      const { path, message } = error.issues?.[0];
+
+      return response.json({
+        status: 0,
+        message: `${path?.join('.')}: ${message}`,
+        data: data
+      });
+    }
+
+    const { name, location, principal } = data;
+
+    try {
+      const user = await User.findOne({ where: { principal_id: principal } });
+
+      if (user) {
+        return response.status(400).json({
+          status: 0,
+          message: 'Email already exists.',
+        });
+      }
+
+      const userData: Partial<User> = {
+        name,
+        location,
+        principal_id: principal,
+      };
+
+      const registeredUser = await User.save(userData).then((user) => user as Partial<User>);
+
+      const authToken = generateAuthToken(registeredUser);
+
+      return response.json({
+        status: 1,
+        message: 'Registration success!',
+        token: authToken,
+      });
     } catch (error: any) {
       console.log("error", error);
       response.status(500).json({

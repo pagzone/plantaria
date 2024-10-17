@@ -16,8 +16,8 @@ const EditDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="bg-lime-700 text-white font-medium flex items-center justify-center gap-x-2 px-4 py-2 rounded-lg hover:bg-lime-600 transition-transform transform hover:scale-[1.05] ">
-                    <UserRoundPen className="w-4 h-4 md:w-5 md:h-5" />
+                <Button className="bg-lime-700 text-white font-medium flex items-center gap-x-1.5 px-4 py-2 rounded-lg hover:bg-lime-600 transition-transform transform hover:scale-[1.05] w-24">
+                    <UserRoundPen size={20} />
                     <span className="text-sm md:text-base">Edit</span>
                 </Button>
             </DialogTrigger>

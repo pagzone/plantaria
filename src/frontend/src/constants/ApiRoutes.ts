@@ -1,5 +1,6 @@
 export enum APIRoutes {
   LOGIN = "/user/login",
   REGISTER = "/user/register",
-  LOGIN_II = "/user/loginii",
+  LOGIN_WITH_IDENTITY = "/user/ii/login",
+  REGISTER_WITH_IDENTITY = "/user/ii/register",
 }

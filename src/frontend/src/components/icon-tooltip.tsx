@@ -8,16 +8,16 @@ interface IconTooltipProps {
     className?: string;           
 }
 
-const IconTooltip: React.FC<IconTooltipProps> = ({ IconComponent, tooltipText, size = 25, className }) => (
+const IconTooltip: React.FC<IconTooltipProps> = ({ IconComponent, tooltipText, size = 30, className }) => (
     <TooltipProvider>
         <Tooltip>
             <TooltipTrigger>
                 <IconComponent
                     size={size}
-                    className={`cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 text-lima-500 ${className}`}
+                    className={`cursor-pointer text-lima-500 ${className}`}
                 />
             </TooltipTrigger>
-            <TooltipContent className="text-black">
+            <TooltipContent>
                 <p>{tooltipText}</p>
             </TooltipContent>
         </Tooltip>

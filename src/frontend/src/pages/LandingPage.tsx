@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { PageRoutes } from "@/constants/PageRoutes";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/LandingLayout/Header";
-import { ArrowRight, ArrowUpRight, Dot, MoveRight } from "lucide-react";
+import { ArrowUpRight, Dot } from "lucide-react";
 import { Link } from "react-router-dom";
 import NumberTicker from "@/components/ui/number-ticker";
 import Marquee from "@/components/ui/marquee";

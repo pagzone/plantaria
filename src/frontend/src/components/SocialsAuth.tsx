@@ -7,6 +7,7 @@ import { PageRoutes } from "@/constants/PageRoutes";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { LocalStorageKeys } from "@/constants/LocalStorageKeys";
+import { toast } from "react-hot-toast";
 
 const SocialsAuth = () => {
 	const [loading, setLoading] = useState(false);
@@ -25,11 +26,9 @@ const SocialsAuth = () => {
 
 				const principal = identity.getPrincipal();
 
-				console.log(principal.toString());
-
-				const response: { status: number; message: string; token: string } =
-					await fetch(
-						`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.LOGIN_II}`,
+				const response = toast.promise(
+					fetch(
+						`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.LOGIN_WITH_IDENTITY}`,
 						{
 							method: "POST",
 							headers: {
@@ -39,17 +38,39 @@ const SocialsAuth = () => {
 								principal: principal.toString(),
 							}),
 						},
-					).then((res) => res.json());
+					).then(async (res) => {
+						const data = await res.json();
+						if (res.ok) {
+							return { success: true, data };
+						} else {
+							throw new Error(data.message || "An error occurred");
+						}
+					}),
+					{
+						loading: "Logging in...",
+						success: "Logged in successfully",
+						error: (error) => error.message,
+					},
+				);
 
-				if (response.status === 1) {
-					console.log(response.status);
-					const { token } = response;
-					console.log(token);
+				const {
+					data,
+				}: { data: { status: number; message?: string; token?: string } } =
+					await response;
+
+				if (data.status === 1) {
+					const { token } = data;
+
+					if (!token) {
+						setLoading(false);
+						return;
+					}
+
 					localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
 					navigate(PageRoutes.HOME);
 				}
 
-				if (response.status === 2) {
+				if (data.status === 2) {
 					navigate(
 						`${PageRoutes.IDENTITY_SIGN_UP}/${encodeURIComponent(principal.toString())}`,
 					);

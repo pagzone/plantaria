@@ -32,13 +32,14 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-hook-form": "^7.53.0",
+		"react-hot-toast": "^2.4.1",
 		"react-router-dom": "^6.26.2",
 		"tailwind-merge": "^2.5.3",
 		"tailwindcss-animate": "^1.0.7",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"@types/node": "^22.7.5",
+		"@types/node": "^22.7.6",
 		"@types/react": "^18.3.11",
 		"@types/react-dom": "^18.3.0",
 		"@vitejs/plugin-react": "^4.3.2",
