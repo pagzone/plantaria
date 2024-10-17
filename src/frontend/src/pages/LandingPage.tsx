@@ -21,7 +21,7 @@ const LandingPage = () => {
 						</div>
 					</div>
 					<Button
-						className="flex items-center gap-1 bg-lima-600 font-medium rounded-full shadow-md transition-transform transform hover:scale-105"
+						className="flex items-center gap-1 bg-primary font-medium rounded-full shadow-md transition-transform transform hover:scale-105"
 						asChild
 					>
 						<Link to={PageRoutes.HOME}>
@@ -71,7 +71,7 @@ const LandingPage = () => {
 				</div>
 			</section>
 
-			<div className="bg-lima-600 h-12" />
+			<div className="bg-primary h-12" />
 
 			<section className="h-auto md:h-[40rem] flex flex-col justify-evenly items-center mx-4 md:mx-[75px]">
 				<h1 className="text-3xl sm:text-5xl font-bold max-md:my-8">
@@ -111,7 +111,7 @@ const LandingPage = () => {
 
 			<section
 				id="goals"
-				className="bg-lima-600 h-auto md:h-[40rem] max-md:py-8"
+				className="bg-primary h-auto md:h-[40rem] max-md:py-8"
 			>
 				<div className="md:mx-[75px] h-full flex flex-col justify-evenly items-center">
 					<h1 className="text-3xl sm:text-5xl font-bold text-white">

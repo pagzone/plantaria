@@ -17,6 +17,7 @@ export default defineConfig({
 				global: "globalThis",
 			},
 		},
+		exclude: ["@radix-ui/react-slot"],
 	},
 	server: {
 		proxy: {
