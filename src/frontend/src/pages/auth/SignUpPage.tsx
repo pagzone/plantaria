@@ -61,6 +61,7 @@ const SignUpPage = () => {
 			);
 
 			console.log("User registered:", response.data);
+			//TODO: get token and redirect to home
 		} catch (error: any) {
 			console.error("Error during sign up:", error.message);
 		}

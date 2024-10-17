@@ -45,11 +45,14 @@ export namespace UsersController {
         });
       }
 
-      await User.save(userData);
+      const user = await User.save(userData).then((user) => user as Partial<User>);
+
+      const authToken = generateAuthToken(user);
 
       return response.json({
         status: 1,
         message: 'Registration success!',
+        token: authToken,
       });
     } catch (error: any) {
       response.status(400);
