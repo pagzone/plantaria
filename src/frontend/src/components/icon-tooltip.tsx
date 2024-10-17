@@ -14,7 +14,7 @@ const IconTooltip: React.FC<IconTooltipProps> = ({ IconComponent, tooltipText, s
             <TooltipTrigger>
                 <IconComponent
                     size={size}
-                    className={`cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 text-lima-500 ${className}`}
+                    className={`cursor-pointer text-lima-500 ${className}`}
                 />
             </TooltipTrigger>
             <TooltipContent className="text-black">

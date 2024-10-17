@@ -22,7 +22,9 @@ export const signUpFormSchema = z
       .string({ message: "Password is required" })
       .min(6, { message: "Password must be at least 6 characters" })
       .max(255, { message: "Password too long" }),
-    confirmPassword: z.string({ message: "Confirm Password is required" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Confirm Password is required" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"], 

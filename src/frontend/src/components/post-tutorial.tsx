@@ -15,7 +15,7 @@ const PostDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="rounded-full max-md:hidden transition-transform duration-300 ease-in-out hover:scale-110 flex items-center">
+                <button className="rounded-full max-md:hidden flex items-center">
                         <IconTooltip 
                             IconComponent={CirclePlus} 
                             tooltipText="Post Tutorial"
