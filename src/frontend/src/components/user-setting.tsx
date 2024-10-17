@@ -1,5 +1,4 @@
 import { ChevronDown, LifeBuoy, LogOut, Settings, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,17 +8,26 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Profile from "./avatar";
 import { PageRoutes } from "@/constants/PageRoutes";
+import { removeToken } from "@/lib/auth";
 
 const UserSetting = () => {
+	const navigate = useNavigate();
+
+	const logout = () => {
+		removeToken();
+
+		navigate(PageRoutes.LANDING);
+	};
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<button className="rounded-full shadow flex items-center  w-16 border border-gray-400 max-md:hidden">
-					<Profile userProfile="https://github.com/shadcn.png"/>
-					<ChevronDown className="text-lima-500"/>
+					<Profile userProfile="https://github.com/shadcn.png" />
+					<ChevronDown className="text-lima-500" />
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
@@ -43,7 +51,7 @@ const UserSetting = () => {
 					<span>Support</span>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={logout}>
 					<LogOut className="mr-2 size-4 inline" />
 					<span>Log out</span>
 				</DropdownMenuItem>
