@@ -71,7 +71,7 @@ const LoginPage = () => {
 					className="w-fit mb-2 flex items-center text-primary hover:text-primary/90 hover:bg-lima-100"
 					asChild
 				>
-					<Link to={PageRoutes.Landing}>
+					<Link to={PageRoutes.LANDING}>
 						<ArrowLeft className="mr-2 h-4 w-4" />
 						Back to Home
 					</Link>
@@ -129,7 +129,7 @@ const LoginPage = () => {
 					<div className="text-center">
 						<span>Don't have an account?</span>{" "}
 						<Link
-							to={PageRoutes.SignUp}
+							to={PageRoutes.SIGN_UP}
 							className="text-primary hover:underline"
 						>
 							Sign Up

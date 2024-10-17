@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="py-4 w-full grid grid-cols-3 items-center max-md:grid-cols-2">
       <Link className="flex items-center gap-x-2 w-fit cursor-pointer"
-        to={PageRoutes.Home}
+        to={PageRoutes.HOME}
       >
         <img className="size-14" src="Logo.png" alt="logo" />
         <img className="h-6" src="plantaria-logo.png" alt="plantaria-logo" />
@@ -60,28 +60,28 @@ const Header = () => {
               <nav className="fixed inset-0 bg-white flex flex-col justify-center items-center gap-y-4 z-50 transition-transform duration-300 md:hidden"
               >
                 <div className="flex flex-col gap-y-4 justify-start">
-                  <Link to={PageRoutes.Profile}
+                  <Link to={PageRoutes.PROFILE}
                         onClick={() => setIsMenuOpen(false)}
                         className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <User className="size-6" />
                     <span className="text-xl">Profile</span>
                   </Link>
 
-                  <Link to={PageRoutes.Home}
+                  <Link to={PageRoutes.HOME}
                         onClick={() => setIsMenuOpen(false)}
                         className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <Settings className="size-6" />
                     <span className="text-xl">Settings</span>
                   </Link>
 
-                  <Link to={PageRoutes.Home}
+                  <Link to={PageRoutes.HOME}
                         onClick={() => setIsMenuOpen(false)}
                        className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <LifeBuoy className="size-6" />
                     <span className="text-xl">Support</span>
                   </Link>
 
-                  <Link to={PageRoutes.Home}
+                  <Link to={PageRoutes.HOME}
                         onClick={() => setIsMenuOpen(false)}
                         className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <LogOut className="size-6" />
@@ -110,12 +110,12 @@ const Header = () => {
             </div>
 
             <div className="max-md:hidden flex justify-end items-center gap-x-4 " >
-              <Link to={PageRoutes.Login}
+              <Link to={PageRoutes.LOGIN}
                     onClick={() => setIsMenuOpen(false)}
               >
                 <Button variant="ghost">Login</Button>
               </Link>
-              <Link to={PageRoutes.SignUp}
+              <Link to={PageRoutes.SIGN_UP}
                     onClick={() => setIsMenuOpen(false)}
               >
                 <Button>Sign Up</Button>
@@ -134,12 +134,12 @@ const Header = () => {
               <nav className="fixed inset-0 bg-white flex flex-col justify-center items-center gap-y-4 z-50 transition-transform duration-300 md:hidden"
               >
                 <div className="flex flex-col items-center space-y-4 mt-4">
-                  <Link to={PageRoutes.Login}
+                  <Link to={PageRoutes.LOGIN}
                    onClick={() => setIsMenuOpen(false)}
                   >
                     <Button variant="ghost">Login</Button>
                   </Link>
-                  <Link to={PageRoutes.SignUp}
+                  <Link to={PageRoutes.SIGN_UP}
                         onClick={() => setIsMenuOpen(false)}
                   >
                     <Button>Sign Up</Button>

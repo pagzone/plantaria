@@ -11,6 +11,7 @@ const Route = Router();
 
 Route.post('/user/login', /* isAuth, */ UsersController.login);
 Route.post('/user/register', /* isAuth, */ UsersController.register);
+Route.post('/user/loginii', /* isAuth, */ UsersController.loginWithIdentity);
 
 /*
 |--------------------------------------------------------------------------
