@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { PageRoutes } from "@/constants/PageRoutes";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/LandingLayout/Header";
-import { ArrowUpRight, Dot, MoveRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Dot, MoveRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import NumberTicker from "@/components/ui/number-ticker";
 import Marquee from "@/components/ui/marquee";
@@ -82,7 +82,7 @@ const LandingPage = () => {
 			<div className="bg-primary">
 				<Marquee repeat={24} className="flex items-center [--duration:20s]">
 					<span className="text-xl font-bold text-white">
-						Nigger's Must Not Have Rights
+						Hunger-Free World
 					</span>
 					<div className="flex items-center flex-1">
 						<Dot className="text-white size-6 inline" />
@@ -110,10 +110,6 @@ const LandingPage = () => {
 							alt="An alarming projection for 2030: over 600 million people worldwide facing hunger."
 							className="w-full h-auto object-scale-down object-center"
 						/>
-						<div className="text-xl flex items-center gap-x-2 underline hover:text-lime-600 transition-colors cursor-pointer">
-							<span>Know more</span>
-							<MoveRight size={30} />
-						</div>
 					</div>
 
 					<div className="w-4/5 md:w-1/4 h-72 flex justify-center items-center">
@@ -124,6 +120,17 @@ const LandingPage = () => {
 						/>
 					</div>
 				</div>
+
+				<Button
+					variant={"ghost"}
+					className="text-xl flex items-center gap-x-2 text-gray-500 hover:text-primary transition-colors cursor-pointer"
+					asChild
+				>
+					<a href="https://sdgs.un.org/goals/goal2" target="_blank">
+						<span>KNOW MORE</span>
+						<ArrowUpRight size={30} />
+					</a>
+				</Button>
 			</section>
 
 			<section
