@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/password-input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialsAuth from "@/components/SocialsAuth";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
@@ -21,8 +21,11 @@ import { z } from "zod";
 import { APIRoutes } from "@/constants/ApiRoutes";
 import { toast } from "react-hot-toast";
 import SubmitButton from "@/components/submit-button";
+import { LocalStorageKeys } from "@/constants/LocalStorageKeys";
 
 const SignUpPage = () => {
+	const navigate = useNavigate();
+
 	const form = useForm<z.infer<typeof signUpFormSchema>>({
 		resolver: zodResolver(signUpFormSchema),
 		defaultValues: {
@@ -60,8 +63,12 @@ const SignUpPage = () => {
 				},
 			);
 
-			console.log("User registered:", response.data);
-			//TODO: get token and redirect to home
+			const { data }: { data: { token?: string } } = response;
+
+			if (data.token) {
+				localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, data.token);
+				navigate(PageRoutes.HOME);
+			}
 		} catch (error: any) {
 			console.error("Error during sign up:", error.message);
 		}
