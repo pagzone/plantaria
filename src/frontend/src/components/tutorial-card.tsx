@@ -21,7 +21,7 @@ const TutorialCard:FC<TutorialCardProps> = ({...params}) => {
     const [onFavorite, setOnFavorite] = useState(false);
 
     return (
-        <Card className="h-96 cursor-pointer"> 
+        <Card className="h-96 cursor-pointer hover:scale-[1.015] hover:shadow-md transition-transform"> 
           <CardHeader className="h-1/2">
            <img className="h-full bg-slate-800 rounded-t-lg object-cover"
                 src={params.tutorialImage} 

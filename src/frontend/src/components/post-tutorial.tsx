@@ -9,15 +9,18 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { CategoriesCB } from "./catergories-cb"
+import IconTooltip from "./icon-tooltip"
 
 const PostDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="rounded-full max-md:hidden">
-                    <CirclePlus
-                        className="cursor-pointer text-lima-500"
-                        size={30}
+                <button className="rounded-full max-md:hidden transition-transform duration-300 ease-in-out hover:scale-110 flex items-center">
+                        <IconTooltip 
+                            IconComponent={CirclePlus} 
+                            tooltipText="Post Tutorial"
+                            size={30}
+                            className="cursor-pointer text-lima-500"
                     />
                 </button>
             </DialogTrigger>

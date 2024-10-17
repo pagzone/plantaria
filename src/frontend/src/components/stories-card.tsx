@@ -15,7 +15,7 @@ type StoriesCardProps = {
 
 const StoriesCard: React.FC<StoriesCardProps> = ({ ...params }) => {
     return (
-        <Card className="rounded-lg shadow-lg overflow-hidden">
+        <Card className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.015] hover:shadow-md">
             <CardHeader>
                 <img
                     className="bg-slate-400 rounded-t-lg object-cover"

@@ -7,12 +7,6 @@ import { Building2, GalleryHorizontalEnd, Home, Sheet, Star, Trophy } from "luci
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Ranking from "@/layout/HomeLayout/Ranking";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 
 type Stories = {
@@ -23,7 +17,6 @@ type Stories = {
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState<string>("Home");
-    const [isExpanded, setIsExpanded] = useState(false);
 
     const resources: Stories[] = [
         {
@@ -61,7 +54,7 @@ const HomePage = () => {
     return (
         <main className="relative h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
             <Header />
-            <div className="flex md:gap-x-6 max-md:flex-col justify-center  max-md:gap-y-1">
+            <div className="flex md:gap-x-6 max-md:flex-col justify-center max-md:gap-y-1">
                 <aside className="flex md:flex-col gap-y-2 md:w-1/4 w-full justify-center items-center">
                     <nav className="flex md:gap-x-8 w-full">
                         <Tab label="Home" icon={Home} isActive={activeTab === "Home"} onClick={() => setActiveTab("Home")} />
@@ -69,48 +62,10 @@ const HomePage = () => {
                         <Tab label="Favorites" icon={Star} isActive={activeTab === "Favorites"} onClick={() => setActiveTab("Favorites")} />
                     </nav>
 
-                    <div
-                        className={`hidden max-md:block fixed left-0 top-1/2 h-24 transition-all duration-300 ease-in-out 
-                        ${isExpanded ? 'w-16' : 'w-4'} z-20 rounded-e-lg backdrop-blur-md 
-                        bg-gray-400/40 border border-black/20 opacity-90 shadow-md`}
-                        onClick={() => setIsExpanded(!isExpanded)}
-                    >
-                        <div className={`flex flex-col gap-y-2 items-center justify-center h-full transition-opacity duration-300 ease-in-out ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
-
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <GalleryHorizontalEnd
-                                            size={25}
-                                            className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
-                                        />
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>View Story</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <Building2
-                                            size={25}
-                                            className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
-                                        />
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Organization</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
-                    </div>
-
                     <section className="hidden md:block p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
                         <h2 className="text-xl font-semibold mb-4">Stories</h2>
-                        <ScrollArea className="h-[40rem] lg:h-[66rem]">
-                            <div className="flex flex-col gap-y-4 px-2">
+                        <ScrollArea className="h-[40rem] lg:h-[67rem]">
+                            <div className="flex flex-col gap-y-4 py-1.5 px-2">
                                 {resources.map((resource, index) => (
                                     <StoriesCard
                                         key={index}

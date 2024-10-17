@@ -1,10 +1,11 @@
 import { CategoriesCB } from "@/components/catergories-cb"
+import IconTooltip from "@/components/icon-tooltip"
 import PostDialog from "@/components/post-tutorial"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import UserSetting from "@/components/user-setting"
 import { PageRoutes } from "@/constants/PageRoutes"
-import { Bell, Building2, LifeBuoy, LogOut, Menu, Search, Settings, User, X } from "lucide-react"
+import { Bell, Building2, GalleryHorizontalEnd, LifeBuoy, LogOut, Menu, Search, Settings, User, X } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -35,24 +36,40 @@ const Header = () => {
       <div>
         {auth ? (
           <div className="flex gap-x-4 items-center justify-end max-md:gap-x-2">
-            <div className="bg-lima-500 rounded-full p-1.5 md:hidden max-md:block flex items-center cursor-pointer">
-              <Search
-                color="#ffffff"
-                strokeWidth={2}
-                size={25}
+            <IconTooltip 
+                    IconComponent={Search} 
+                    tooltipText="Post Tutorial"
+                    size={30}
+                    className="md:hidden"
               />
-            </div>
-
+            <IconTooltip 
+                    IconComponent={GalleryHorizontalEnd} 
+                    tooltipText="Stories"
+                    size={30}
+                    className="md:hidden"
+              />
             <PostDialog />
-            <Building2 className="cursor-pointer text-lima-500" size={28} />
-            <Bell className="cursor-pointer text-lima-500" size={28} />
+            <IconTooltip 
+                    IconComponent={Building2} 
+                    tooltipText="Organization"
+                    size={30}
+                    className="max-md:hidden"
+              />
+             <IconTooltip 
+                    IconComponent={Bell} 
+                    tooltipText="Notification"
+                    size={30}
+                    className="max-md:hidden"
+              />  
             <UserSetting />
-
-            <div className="md:hidden flex justify-end items-center">
+            <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X size={40} /> : <Menu size={40} />}
+                <Menu 
+                 className="transition-transform duration-300 ease-in-out hover:scale-110"
+                 size={40}
+                />
               </button>
             </div>
 
@@ -61,29 +78,44 @@ const Header = () => {
               >
                 <div className="flex flex-col gap-y-4 justify-start">
                   <Link to={PageRoutes.PROFILE}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <User className="size-6" />
                     <span className="text-xl">Profile</span>
                   </Link>
 
                   <Link to={PageRoutes.HOME}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <Bell className="size-6" />
+                    <span className="text-xl">Notification</span>
+                  </Link>
+
+
+                  <Link to={PageRoutes.HOME}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    <Building2 className="size-6" />
+                    <span className="text-xl">Organization</span>
+                  </Link>
+
+                  <Link to={PageRoutes.HOME}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <Settings className="size-6" />
                     <span className="text-xl">Settings</span>
                   </Link>
 
                   <Link to={PageRoutes.HOME}
-                        onClick={() => setIsMenuOpen(false)}
-                       className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <LifeBuoy className="size-6" />
                     <span className="text-xl">Support</span>
                   </Link>
 
                   <Link to={PageRoutes.HOME}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex gap-x-2 items-center cursor-pointer hover:underline">
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex gap-x-2 items-center cursor-pointer hover:underline">
                     <LogOut className="size-6" />
                     <span className="text-xl">Log out</span>
                   </Link>
@@ -111,12 +143,12 @@ const Header = () => {
 
             <div className="max-md:hidden flex justify-end items-center gap-x-4 " >
               <Link to={PageRoutes.LOGIN}
-                    onClick={() => setIsMenuOpen(false)}
+                onClick={() => setIsMenuOpen(false)}
               >
                 <Button variant="ghost">Login</Button>
               </Link>
               <Link to={PageRoutes.SIGN_UP}
-                    onClick={() => setIsMenuOpen(false)}
+                onClick={() => setIsMenuOpen(false)}
               >
                 <Button>Sign Up</Button>
               </Link>
@@ -135,12 +167,12 @@ const Header = () => {
               >
                 <div className="flex flex-col items-center space-y-4 mt-4">
                   <Link to={PageRoutes.LOGIN}
-                   onClick={() => setIsMenuOpen(false)}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     <Button variant="ghost">Login</Button>
                   </Link>
                   <Link to={PageRoutes.SIGN_UP}
-                        onClick={() => setIsMenuOpen(false)}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     <Button>Sign Up</Button>
                   </Link>
