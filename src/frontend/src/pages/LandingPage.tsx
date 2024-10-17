@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import { PageRoutes } from "@/constants/PageRoutes";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/LandingLayout/Header";
-import { ArrowUpRight, MoveRight } from "lucide-react";
+import { ArrowUpRight, Dot, MoveRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import NumberTicker from "@/components/ui/number-ticker";
+import Marquee from "@/components/ui/marquee";
 
 const LandingPage = () => {
 	return (
@@ -44,19 +46,25 @@ const LandingPage = () => {
 					</div>
 
 					<div className="h-60 w-48 md:h-4/5 flex-shrink-0 rounded-3xl bg-lima-700 flex flex-col justify-center items-center text-white shadow-lg snap-center">
-						<span className="text-5xl font-bold">200+</span>
+						<span className="text-5xl font-bold">
+							<NumberTicker className="text-white" value={200} />+
+						</span>
 						<span className="text-lg font-medium">monthly</span>
 						<span className="text-lg font-medium">users</span>
 					</div>
 
 					<div className="h-60 w-60 md:h-4/6 flex-shrink-0 rounded-3xl bg-lima-200 flex flex-col justify-center items-center text-lima-900 shadow-lg snap-center">
-						<span className="text-5xl font-bold">500+</span>
+						<span className="text-5xl font-bold">
+							<NumberTicker className="text-lima-900" value={500} />+
+						</span>
 						<span className="text-lg font-medium">Urban Farming</span>
 						<span className="text-lg font-medium">Tutorials</span>
 					</div>
 
 					<div className="h-60 w-48 md:h-4/5 flex-shrink-0 rounded-3xl bg-lima-500 flex flex-col justify-center items-center text-white shadow-lg snap-center">
-						<span className="text-5xl font-bold">50+</span>
+						<span className="text-5xl font-bold">
+							<NumberTicker className="text-white" value={50} />+
+						</span>
 						<span className="text-lg font-medium">Daily farming</span>
 						<span className="text-lg font-medium">Resources</span>
 					</div>
@@ -71,7 +79,16 @@ const LandingPage = () => {
 				</div>
 			</section>
 
-			<div className="bg-primary h-12" />
+			<div className="bg-primary">
+				<Marquee repeat={24} className="flex items-center [--duration:20s]">
+					<span className="text-xl font-bold text-white">
+						Nigger's Must Not Have Rights
+					</span>
+					<div className="flex items-center flex-1">
+						<Dot className="text-white size-6 inline" />
+					</div>
+				</Marquee>
+			</div>
 
 			<section className="h-auto md:h-[40rem] flex flex-col justify-evenly items-center mx-4 md:mx-[75px]">
 				<h1 className="text-3xl sm:text-5xl font-bold max-md:my-8">
