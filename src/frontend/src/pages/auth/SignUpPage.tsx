@@ -16,8 +16,31 @@ import SocialsAuth from "@/components/SocialsAuth";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 import { PageRoutes } from "@/constants/PageRoutes";
+import { signUpFormSchema } from "@/lib/formSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const SignUpPage = () => {
+	const form = useForm<z.infer<typeof signUpFormSchema>>({
+		resolver: zodResolver(signUpFormSchema),
+		defaultValues: {
+			name: "",
+			location: "",
+			email: "",
+			password: "",
+			confirmPassword: ""
+		},
+	});
+
+	function onSubmit(values: z.infer<typeof signUpFormSchema>) {
+		// Do something with the form values.
+		// ✅ This will be type-safe and validated.
+		console.log(values);
+	}
+
+
+
 	return (
 		<div className="h-screen grid grid-cols-1 md:grid-cols-2 relative">
 			{/* Sign Up Section */}
@@ -32,9 +55,9 @@ const SignUpPage = () => {
 						Back to Home
 					</Link>
 				</Button>
-				
-				<div className="w-full text-center md:text-left xl:w-2/3">
-					<img className="h-8" src="plantaria-logo.png" alt="plantaria-logo" />
+
+				<div className="w-full text-center md:text-left xl:w-2/3 flex flex-col max-md:items-center">
+					<img className="h-8 w-40" src="plantaria-logo.png" alt="plantaria-logo" />
 					<h1 className="mt-4 leading-normal lg:leading-relaxed text-3xl md:text-4xl lg:text-5xl text-primary">
 						Start growing your
 						<span className="block md:inline"> urban garden today</span>
@@ -47,37 +70,91 @@ const SignUpPage = () => {
 				</div>
 
 				<div className="mt-14 w-full space-y-4 ">
-					{/* TODO: Turn this into a form component */}
-					<div className="space-y-3">
-						<div className="space-y-2">
-							<Label htmlFor="name">Name</Label>
-							<Input id="name" />
-						</div>
-						<div className="space-y-2">
-							<Label htmlFor="location">Location</Label>
-							<Input id="location" />
-						</div>
-						<div className="space-y-2">
-							<Label htmlFor="email">Email</Label>
-							<Input id="email" />
-						</div>
-						<div className="space-y-2">
-							<Label htmlFor="password">Password</Label>
-							<PasswordInput id="password" />
-						</div>
-						<div className="space-y-2">
-							<Label htmlFor="confirm-password">Confirm Password</Label>
-							<PasswordInput id="confirm-password" />
-						</div>
-						<Button type="submit" className="w-full">
-							Sign Up
-						</Button>
-					</div>
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 ">
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem className="space-y-2">
+										<FormLabel>Name</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="location"
+								render={({ field }) => (
+									<FormItem className="space-y-2">
+										<FormLabel>Location</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="email"
+								render={({ field }) => (
+									<FormItem className="space-y-2">
+										<FormLabel>Email Address</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="password"
+								render={({ field }) => (
+									<FormItem className="space-y-2">
+										<FormLabel>Password</FormLabel>
+										<FormControl>
+											<PasswordInput {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="confirmPassword"
+								render={({ field }) => (
+									<FormItem className="space-y-2">
+										<FormLabel>Confirm Password</FormLabel>
+										<FormControl>
+											<PasswordInput {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<Button type="submit" className="w-full">
+								Sign Up
+							</Button>
+						</form>
+					</Form>
 
 					<div className="text-center">
 						<span>Already have an account?</span>{" "}
-						<Link to={"/login"} className="text-primary hover:underline">
-							Login
+						<Link
+							to={PageRoutes.LOGIN}
+							className="text-primary hover:underline"
+						>
+							Sign In
 						</Link>
 					</div>
 					<div className="m-0 relative w-full flex justify-center">
