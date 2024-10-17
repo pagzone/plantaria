@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import UserSetting from "@/components/user-setting"
 import { PageRoutes } from "@/constants/PageRoutes"
-import { Bell, LifeBuoy, LogOut, Menu, Search, Settings, User, X } from "lucide-react"
+import { Bell, Building2, LifeBuoy, LogOut, Menu, Search, Settings, User, X } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -44,6 +44,7 @@ const Header = () => {
             </div>
 
             <PostDialog />
+            <Building2 className="cursor-pointer text-lima-500" size={28} />
             <Bell className="cursor-pointer text-lima-500" size={28} />
             <UserSetting />
 

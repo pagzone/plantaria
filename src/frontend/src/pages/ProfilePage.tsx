@@ -72,12 +72,8 @@ const ProfilePage: FC = () => {
 
             <div className="flex flex-col gap-y-5">
               <div className="flex flex-col">
-                <span className="text-gray-500 text-sm">Country</span>
-                <span className="text-sm md:text-lg font-medium text-gray-800">Third World Country</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-gray-500 text-sm">City/State</span>
-                <span className="text-sm md:text-lg font-medium text-gray-800 max-md:truncate">San Jose Arthur Robes</span>
+                <span className="text-gray-500 text-sm">Location</span>
+                <span className="text-sm md:text-lg font-medium text-gray-800 truncate">Third World Country</span>
               </div>
             </div>
             <div className="absolute right-3 md:top-3 top-6">
