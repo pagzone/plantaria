@@ -1,195 +1,82 @@
-// import SocialsAuth from "@/components/SocialsAuth";
-// import { Button } from "@/components/ui/button";
-// import {
-// 	Card,
-// 	CardContent,
-// 	CardDescription,
-// 	CardFooter,
-// 	CardHeader,
-// 	CardTitle,
-// } from "@/components/ui/card";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import { PageRoutes } from "@/constants/PageRoutes";
-// import { Leaf, Users, Sprout, ArrowLeft } from "lucide-react";
-// import { useState } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-
-// export default function IdentitySignUpPage() {
-// 	const navigate = useNavigate();
-// 	const { principal } = useParams();
-// 	const [principalValue, setPrincipalValue] = useState(principal);
-
-// 	return (
-// 		<div
-// 			className="min-h-screen flex flex-col items-center object-cover object-center justify-center p-4 backdrop-blur-lg"
-// 			style={{ backgroundImage: "url('person-looking-at-plants.jpg')" }}
-// 		>
-// 			<Card className="w-full max-w-md relative shadow-md">
-// 				<div className="absolute top-4 left-4">
-// 					<Button
-// 						variant="ghost"
-// 						className="w-fit mb-2 flex items-center text-primary hover:text-primary/90 hover:bg-lima-100"
-// 						onClick={() => navigate(-1)}
-// 					>
-// 						<ArrowLeft className="mr-2 h-4 w-4" />
-// 						Go Back
-// 					</Button>
-// 				</div>
-// 				{principal ? (
-// 					<>
-// 						<CardHeader className="text-center pt-16">
-// 							<CardTitle className="flex justify-center text-2xl font-bold text-green-800">
-// 								<img
-// 									src="plantaria-logo.png"
-// 									alt="Plantaria Logo"
-// 									className="h-12"
-// 								/>
-// 							</CardTitle>
-// 						</CardHeader>
-// 						<CardContent className="space-y-4">
-// 							<div className="space-y-2">
-// 								<h2 className="text-xl font-semibold text-center text-primary">
-// 									Continue signing up
-// 								</h2>
-// 							</div>
-// 							<div>
-// 								<div className="mt-14 w-full space-y-4 ">
-// 									{/* TODO: Turn this into a form component */}
-// 									<div className="space-y-3">
-// 										<div className="space-y-2">
-// 											<Label htmlFor="name">Name</Label>
-// 											<Input id="name" />
-// 										</div>
-// 										<div className="space-y-2">
-// 											<Label htmlFor="location">Location</Label>
-// 											<Input id="location" />
-// 										</div>
-// 										<Button type="submit" className="w-full">
-// 											Sign Up
-// 										</Button>
-// 									</div>
-// 								</div>
-// 							</div>
-// 						</CardContent>
-// 					</>
-// 				) : (
-// 					<>
-// 						<CardHeader className="text-center pt-16">
-// 							<CardTitle className="flex justify-center text-2xl font-bold text-green-800">
-// 								<img
-// 									src="plantaria-logo.png"
-// 									alt="Plantaria Logo"
-// 									className="h-12"
-// 								/>
-// 							</CardTitle>
-// 						</CardHeader>
-// 						<CardContent>
-// 							<div>
-// 								<div className="space-y-3">
-// 									<div className="space-y-2">
-// 										<Label htmlFor="name">Principal ID</Label>
-// 										<Input
-// 											id="principal"
-// 											name="principal"
-// 											type="text"
-// 											placeholder="Enter your Principal ID"
-// 											value={principalValue}
-// 											onChange={(e) => setPrincipalValue(e.target.value)}
-// 											required
-// 										/>
-// 									</div>
-// 									<Button
-// 										type="submit"
-// 										className="w-full"
-// 										disabled={!principalValue}
-// 										onClick={() =>
-// 											navigate(
-// 												`${PageRoutes.IDENTITY_SIGN_UP}/${principalValue}`,
-// 											)
-// 										}
-// 									>
-// 										Continue with Principal ID
-// 									</Button>
-// 								</div>
-// 							</div>
-// 						</CardContent>
-// 					</>
-// 				)}
-// 				<CardFooter className="w-full flex justify-center">
-// 					<div className="py-4 border-t border-gray-200">
-// 						<h3 className="text-lg font-semibold text-lima-700 mb-2">
-// 							Why Join Urban Farming Hub?
-// 						</h3>
-// 						<ul className="space-y-2">
-// 							<li className="flex items-center text-sm text-gray-600">
-// 								<Leaf className="mr-2 h-4 w-4 text-lima-500" />
-// 								Access comprehensive urban farming guides
-// 							</li>
-// 							<li className="flex items-center text-sm text-gray-600">
-// 								<Users className="mr-2 h-4 w-4 text-lima-500" />
-// 								Connect with a community of urban farmers
-// 							</li>
-// 							<li className="flex items-center text-sm text-gray-600">
-// 								<Sprout className="mr-2 h-4 w-4 text-lima-500" />
-// 								Track and share your urban farming progress
-// 							</li>
-// 						</ul>
-// 					</div>
-// 				</CardFooter>
-// 			</Card>
-// 		</div>
-// 	);
-// }
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SocialsAuth from "@/components/SocialsAuth";
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { Leaf, Users, Sprout, ArrowLeft } from "lucide-react";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import { identityFormSchema } from "@/lib/formSchema";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import SubmitButton from "@/components/submit-button";
+import { toast } from "react-hot-toast";
+import { APIRoutes } from "@/constants/ApiRoutes";
+import { LocalStorageKeys } from "@/constants/LocalStorageKeys";
 
 export default function IdentitySignUpPage() {
 	const navigate = useNavigate();
 	const { principal } = useParams();
-	const [principalValue, setPrincipalValue] = useState(principal || "");
-	const [isLoading, setIsLoading] = useState(false);
 
-	useEffect(() => {
-		if (principal) {
-			setPrincipalValue(principal);
-		}
-	}, [principal]);
+	const onSubmit = (values: z.infer<typeof identityFormSchema>) => {
+		try {
+			const response = toast.promise(
+				fetch(
+					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.REGISTER_WITH_IDENTITY}`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ ...values, principal }),
+					},
+				).then(async (res) => {
+					const data = await res.json();
+					if (res.ok) {
+						return { success: true, data };
+					} else {
+						throw new Error(data.message || "An error occurred");
+					}
+				}),
+				{
+					loading: "Signing in with your identity...",
+					success: "Signed in successfully",
+					error: (error) => error.message,
+				},
+			);
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setIsLoading(true);
-		// Simulating an API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		setIsLoading(false);
-		if (principal) {
-			// Handle sign up logic here
-			console.log("Signing up with principal:", principal);
-		} else {
-			navigate(`${PageRoutes.IDENTITY_SIGN_UP}/${principalValue}`);
+			response.then((data) => {
+				const { data: { token } } = data;
+				if (token) {
+					localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
+					navigate(PageRoutes.HOME);
+				}
+			});
+		} catch (error: any) {
+			console.error("Error during sign up:", error.message);
 		}
 	};
 
+	const form = useForm<z.infer<typeof identityFormSchema>>({
+		resolver: zodResolver(identityFormSchema),
+		defaultValues: {
+			name: "",
+			location: "",
+		},
+	});
+
 	return (
-		<div
-			className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat bg-lima-100"
-			// style={{ backgroundImage: "url('person-looking-at-plants.jpg')" }}
-		>
+		<div className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat bg-lima-100">
 			<div>
 				<Card className="w-full max-w-md relative shadow-lg backdrop-blur-md bg-white/90 p-6">
 					<div className="flex items-center gap-1 flex-row">
@@ -212,42 +99,49 @@ export default function IdentitySignUpPage() {
 						</div>
 					</div>
 					<CardContent className="space-y-6">
-						<form onSubmit={handleSubmit} className="space-y-4">
-							{principal && (
-								<>
-									<h2 className="text-md text-primary">
-										Complete your sign up
-									</h2>
-									<div className="space-y-3">
-										<div className="space-y-2">
-											<Label htmlFor="name">Name</Label>
-											<Input
-												id="name"
-												placeholder="Enter your full name"
-												required
-											/>
-										</div>
-										<div className="space-y-2">
-											<Label htmlFor="location">Location</Label>
-											<Input
-												id="location"
-												placeholder="Enter your city or region"
-												required
-											/>
-										</div>
-									</div>
-								</>
-							)}
-							{principal && (
-								<Button
-									type="submit"
-									className="w-full"
-									disabled={isLoading || (!principal && !principalValue)}
-								>
-									Sign Up
-								</Button>
-							)}
-						</form>
+						{principal && (
+							<>
+								<h2 className="text-md text-primary">Complete your sign up</h2>
+								<Form {...form}>
+									<form
+										onSubmit={form.handleSubmit(onSubmit)}
+										className="space-y-4"
+									>
+										<FormField
+											control={form.control}
+											name="name"
+											render={({ field }) => (
+												<FormItem className="space-y-2">
+													<FormLabel>Name</FormLabel>
+													<FormControl>
+														<Input {...field} />
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="location"
+											render={({ field }) => (
+												<FormItem className="space-y-2">
+													<FormLabel>Location</FormLabel>
+													<FormControl>
+														<Input {...field} />
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+
+										<SubmitButton className="w-full" formState={form.formState}>
+											Sign Up
+										</SubmitButton>
+									</form>
+								</Form>
+							</>
+						)}
 						{!principal && <SocialsAuth />}
 					</CardContent>
 					<CardFooter className="w-full flex justify-center">
