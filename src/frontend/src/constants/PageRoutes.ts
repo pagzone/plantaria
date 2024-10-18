@@ -4,5 +4,6 @@ export enum PageRoutes {
 	IDENTITY_SIGN_UP = "/signup/identity",
 	SIGN_UP = "/signup",
 	PROFILE = "/profile",
+	ORGANIZATION = "/organization",
 	HOME = "/home",
 }

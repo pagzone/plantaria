@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/protected-route";
 import PublicRoute from "./components/public-route";
 import PageNotFound from "./pages/PageNotFound";
+import OrganizationPage from "./pages/OrganizationPage";
 
 function App() {
 	return (
@@ -37,6 +38,7 @@ function App() {
 					{/* Protected Routes */}
 					<Route element={<ProtectedRoute />}>
 						<Route path={PageRoutes.PROFILE} element={<ProfilePage />} />
+						<Route path={PageRoutes.ORGANIZATION} element={<OrganizationPage />} />
 					</Route>
 
 				 	{/* Page not found */}

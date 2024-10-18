@@ -58,7 +58,6 @@ const Notification = () => {
                             </div>
                         </div>
                     ))}
-
                     <div
                         className="underline text-center pt-1.5 cursor-pointer text-sky-600"
                         onClick={handleSeeMore}

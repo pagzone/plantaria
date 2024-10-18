@@ -74,11 +74,13 @@ const Header = () => {
 							className="md:hidden"
 						/>
 						<PostDialog />
-						<IconTooltip
-							IconComponent={Building2}
-							tooltipText="Organization"
-							className="max-md:hidden"
-						/>
+						<Link to={PageRoutes.ORGANIZATION} className="flex item-center">
+							<IconTooltip
+								IconComponent={Building2}
+								tooltipText="Organization"
+								className="max-md:hidden"
+							/>
+						</Link>
 						<Notification/>
 						<UserSetting />
 						<div className="md:hidden flex items-center">
@@ -109,7 +111,7 @@ const Header = () => {
 									</Link>
 
 									<Link
-										to={PageRoutes.HOME}
+										to={PageRoutes.ORGANIZATION}
 										onClick={() => setIsMenuOpen(false)}
 										className="flex gap-x-2 items-center cursor-pointer hover:underline"
 									>
