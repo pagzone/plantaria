@@ -20,10 +20,10 @@ const Route = Router();
 */
 
 /* User Routes */
-Route.post("/user/login", UsersController.login);
-Route.post("/user/register", UsersController.register);
-Route.post("/user/ii/login", UsersController.loginWithIdentity);
-Route.post("/user/ii/register", UsersController.registerWithIdentity);
+Route.post("/auth/login", UsersController.login);
+Route.post("/auth/register", UsersController.register);
+Route.post("/auth/ii/login", UsersController.loginWithIdentity);
+Route.post("/auth/ii/register", UsersController.registerWithIdentity);
 
 /* Tutorials Routes */
 Route.get("/tutorials", TutorialsController.index);
