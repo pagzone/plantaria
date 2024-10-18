@@ -3,8 +3,10 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
+import { Tutorial } from "./tutorial";
 
 @Entity({
 	name: "users",
@@ -33,4 +35,7 @@ export class User extends BaseEntity {
 
 	@CreateDateColumn()
 	created_at: Date;
+
+	@OneToMany(() => Tutorial, (tutorial) => tutorial.user)
+	tutorials: Tutorial[];
 }
