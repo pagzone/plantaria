@@ -28,7 +28,7 @@ const Ranking = () => {
 						{rankings.map((ranking, index) => (
 							<div
 								key={index}
-								className={`grid grid-cols-2 items-center h-16 w-full rounded-lg border shadow ${index % 2 === 0 ? "bg-white" : "bg-slate-200"}`}
+								className={`grid grid-cols-2 items-center h-16 w-full rounded-lg border shadow ${index % 2 === 0 ? "bg-[#ECEDED]" : "bg-white"}`}
 							>
 								<div className="flex items-center gap-x-6 px-2">
 									<img

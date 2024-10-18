@@ -75,14 +75,15 @@ const PostDialog = () => {
 						</div>
 						<div className="flex gap-x-2 max-md:justify-end">
 							<Button>Post</Button>
-							<DialogClose>
-								<Button variant="outline" className="border-gray-400">
-									Cancel
-								</Button>
-							</DialogClose>
+							<Button variant="outline" className="border-gray-400">
+								<DialogClose asChild>
+									<span>Cancel</span>
+								</DialogClose>
+							</Button>
 						</div>
 					</div>
 				</DialogFooter>
+
 			</DialogContent>
 		</Dialog>
 	);

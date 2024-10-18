@@ -67,11 +67,12 @@ const Header = () => {
 							tooltipText="Search"
 							className="md:hidden"
 						/>
-						<PostDialog />
 						<IconTooltip
 							IconComponent={GalleryHorizontalEnd}
 							tooltipText="Stories"
+							className="md:hidden"
 						/>
+						<PostDialog />
 						<IconTooltip
 							IconComponent={Building2}
 							tooltipText="Organization"

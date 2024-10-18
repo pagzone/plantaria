@@ -4,6 +4,98 @@ import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
 import { useState } from "react";
 
+export const tutorials = [
+	{
+		id: 1,
+		tutorialImage:
+			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+		profileImage:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+		profileName: "Alice Brown",
+		title: "Intro to Urban Farming",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	},
+	{
+		id: 2,
+		tutorialImage:
+			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+		profileImage:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+		profileName: "Michael Johnson",
+		title: "Advanced Techniques in Urban Farming",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	},
+	{
+		id: 3,
+		tutorialImage:
+			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+		profileImage:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+		profileName: "Sarah Williams",
+		title: "Sustainable Urban Farming Practices",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	},
+	// {
+	// 	id: 4,
+	// 	tutorialImage:
+	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+	// 	profileImage:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+	// 	profileName: "David Lee",
+	// 	title: "Urban Farming for Beginners",
+	// 	description:
+	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	// },
+	// {
+	// 	id: 5,
+	// 	tutorialImage:
+	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+	// 	profileImage:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+	// 	profileName: "Emily Martinez",
+	// 	title: "The Future of Urban Farming",
+	// 	description:
+	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	// },
+	// {
+	// 	id: 6,
+	// 	tutorialImage:
+	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+	// 	profileImage:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+	// 	profileName: "Sarah Williams",
+	// 	title: "Sustainable Urban Farming Practices",
+	// 	description:
+	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	// },
+	// {
+	// 	id: 7,
+	// 	tutorialImage:
+	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+	// 	profileImage:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+	// 	profileName: "David Lee",
+	// 	title: "Urban Farming for Beginners",
+	// 	description:
+	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	// },
+	// {
+	// 	id: 8,
+	// 	tutorialImage:
+	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
+	// 	profileImage:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
+	// 	profileName: "Emily Martinez",
+	// 	title: "The Future of Urban Farming",
+	// 	description:
+	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
+	// },
+];
+
+
 const HomeContent = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 6;
@@ -16,97 +108,6 @@ const HomeContent = () => {
 		description:
 			"lLorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
 	};
-
-	const tutorials = [
-		{
-			id: 1,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Alice Brown",
-			title: "Intro to Urban Farming",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 2,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Michael Johnson",
-			title: "Advanced Techniques in Urban Farming",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 3,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Sarah Williams",
-			title: "Sustainable Urban Farming Practices",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 4,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "David Lee",
-			title: "Urban Farming for Beginners",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 5,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Emily Martinez",
-			title: "The Future of Urban Farming",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 6,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Sarah Williams",
-			title: "Sustainable Urban Farming Practices",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 7,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "David Lee",
-			title: "Urban Farming for Beginners",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-		{
-			id: 8,
-			tutorialImage:
-				"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-			profileImage:
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-			profileName: "Emily Martinez",
-			title: "The Future of Urban Farming",
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-		},
-	];
 
 	const currenTutorials = tutorials.slice(startIndex, endIndex);
 

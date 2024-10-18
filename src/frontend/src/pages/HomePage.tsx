@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Ranking from "@/layout/HomeLayout/Ranking";
+import Favorites from "@/layout/HomeLayout/Favorites";
 
 type Stories = {
 	storyImg: string;
@@ -114,7 +115,7 @@ const HomePage = () => {
 					) : activeTab === "Ranking" ? (
 						<Ranking />
 					) : activeTab === "Favorites" ? (
-						<p>Favorites</p>
+						<Favorites/>
 					) : null}
 				</section>
 			</div>

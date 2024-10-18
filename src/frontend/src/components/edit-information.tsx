@@ -17,10 +17,10 @@ const EditDialog = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className="bg-lime-700 text-white font-medium flex items-center gap-x-1.5 px-4 py-2 rounded-lg hover:bg-lime-600 transition-transform transform hover:scale-[1.05] w-24">
+				<div className="bg-lime-700 text-white font-medium flex items-center gap-x-1.5 px-4 py-2 rounded-lg hover:bg-lime-600 transition-transform transform hover:scale-[1.05] w-24">
 					<UserRoundPen size={20} />
 					<span className="text-sm md:text-base">Edit</span>
-				</Button>
+				</div>
 			</DialogTrigger>
 			<DialogContent className="w-full max-w-[90%] sm:max-w-md p-4 sm:p-6 rounded-lg">
 				<DialogHeader>
@@ -72,14 +72,14 @@ const EditDialog = () => {
 				</div>
 				<DialogFooter className="pt-4">
 					<div className="flex  flex-col md:flex-row  md:justify-between gap-2 ">
-						<Button >
+						<Button>
 							Save changes
 						</Button>
-						<DialogClose>
-							<Button variant="outline" className="w-full">
-								Cancel
-							</Button>
-						</DialogClose>
+						<Button variant="outline" className="w-full">
+							<DialogClose asChild>
+								<span>Cancel</span>
+							</DialogClose>
+						</Button>
 					</div>
 				</DialogFooter>
 			</DialogContent>
