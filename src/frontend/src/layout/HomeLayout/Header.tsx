@@ -1,6 +1,6 @@
 import CategoriesCB from "@/components/catergories-cb";
 import IconTooltip from "@/components/icon-tooltip";
-import PostDialog from "@/components/post-tutorial";
+import PostDialog from "@/components/post-content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UserSetting from "@/components/user-setting";

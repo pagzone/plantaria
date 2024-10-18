@@ -16,9 +16,9 @@ const FeaturedCard: FC<FeaturedProps> = ({ ...params }) => {
 					backgroundImage: `url('${params.image}')`,
 				}}
 			>
-				<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-20 rounded-xl" />
+				<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 rounded-xl" />
 
-				<span className="text-2xl md:text-3xl font-bold">
+				<span className="text-2xl md:text-3xl font-bold text-white z-10">
 					Featured Tutorial
 				</span>
 				<div className="flex flex-col z-10">

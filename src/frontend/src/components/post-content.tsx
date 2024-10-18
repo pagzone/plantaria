@@ -16,6 +16,7 @@ import { useState } from "react";
 import Editor from "./editor";
 
 const PostDialog = () => {
+	const [dialogName, setDialogName] = useState("Create Tutorial");
 	const [thumbnail, setThumbnail] = useState<string | null>("link.example");
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +47,22 @@ const PostDialog = () => {
 				</div>
 			</DialogTrigger>
 			<DialogContent className="h-auto md:h-[26rem] md:w-[40rem] w-[90vw] max-w-[50rem] flex flex-col p-4 md:p-6 rounded-lg">
-				<DialogHeader className="flex items-center h-fit">
-					<DialogTitle className="text-xl md:text-2xl font-bold">
-						Create Tutorial
-					</DialogTitle>
+				<DialogHeader>
+					<div className="flex justify-between h-fit w-full items-center">
+						<DialogTitle className="text-xl md:text-2xl font-bold">
+							{dialogName}
+						</DialogTitle>
+						<div className="flex gap-x-2">
+							<Button 
+								variant={`${dialogName === "Create Tutorial" ? "default" : "ghost" }`}
+								onClick={() => setDialogName("Create Tutorial")}
+							>Tutorial</Button>
+							<Button 
+								variant={`${dialogName === "Create Story" ? "default" : "ghost" }`}
+								onClick={() => setDialogName("Create Story")}	
+							>Story</Button>
+						</div>
+					</div>
 				</DialogHeader>
 				<div className="flex flex-col space-y-4 ">
 					<div className="flex flex-col gap-y-4">
@@ -99,7 +112,7 @@ const PostDialog = () => {
 										</a>
 										<X 
 										   onClick={() => setThumbnail(null)} 
-										   className="cursor-pointer text-red-500 size-16" 
+										   className="cursor-pointer text-red-500 size-4 " 
 										/>
 									</div>
 								)}
