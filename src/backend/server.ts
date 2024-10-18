@@ -17,7 +17,7 @@ export function CreateServer() {
 	// app.use(cors(corsOptions));
 	app.use(express.json({ limit: "1.5mb" }));
 	app.use(ExceptionHandler);
-	app.use(routes);
+	app.use("/api", routes);
 	app.use(express.static("/dist"));
 	return app.listen();
 }
