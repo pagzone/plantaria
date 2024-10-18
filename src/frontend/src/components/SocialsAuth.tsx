@@ -26,7 +26,7 @@ const SocialsAuth = () => {
 
 				const principal = identity.getPrincipal();
 
-				const response = toast.promise(
+				const response = await toast.promise(
 					fetch(
 						`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.LOGIN_WITH_IDENTITY}`,
 						{
@@ -49,28 +49,36 @@ const SocialsAuth = () => {
 					{
 						loading: "Logging in...",
 						success: "Logged in successfully",
-						error: (error) => error.message,
+						error: (error) => {
+							setLoading(false);
+							navigate(
+								`${PageRoutes.IDENTITY_SIGN_UP}/${encodeURIComponent(principal.toString())}`,
+							);
+							return error.message;
+						},
 					},
 				);
 
 				const {
-					data,
-				}: { data: { status: number; message?: string; token?: string } } =
-					await response;
+					data: { status, token },
+				}: { data: { status: number; message: string; token?: string } } =
+					response;
 
-				if (data.status === 1) {
-					const { token } = data;
+				console.log(status, token);
 
-					if (!token) {
-						setLoading(false);
-						return;
-					}
-
-					localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
-					navigate(PageRoutes.HOME);
+				if (status === 0) {
+					setLoading(false);
+					return;
 				}
 
-				if (data.status === 2) {
+				if (status === 1) {
+					if (token) {
+						localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
+						navigate(PageRoutes.HOME);
+					}
+				}
+
+				if (status === 2) {
 					navigate(
 						`${PageRoutes.IDENTITY_SIGN_UP}/${encodeURIComponent(principal.toString())}`,
 					);

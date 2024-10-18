@@ -28,9 +28,9 @@ export default function IdentitySignUpPage() {
 	const navigate = useNavigate();
 	const { principal } = useParams();
 
-	const onSubmit = (values: z.infer<typeof identityFormSchema>) => {
+	const onSubmit = async (values: z.infer<typeof identityFormSchema>) => {
 		try {
-			const response = toast.promise(
+			const response = await toast.promise(
 				fetch(
 					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.REGISTER_WITH_IDENTITY}`,
 					{
@@ -55,15 +55,14 @@ export default function IdentitySignUpPage() {
 				},
 			);
 
-			response.then((data) => {
-				const {
-					data: { token },
-				} = data;
-				if (token) {
-					localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
-					navigate(PageRoutes.HOME);
-				}
-			});
+			const {
+				data: { token },
+			}: { data: { token?: string } } = response;
+
+			if (token) {
+				localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
+				navigate(PageRoutes.HOME);
+			};
 		} catch (error: any) {
 			console.error("Error during sign up:", error.message);
 		}
