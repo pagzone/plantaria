@@ -1,5 +1,6 @@
 import CategoriesCB from "@/components/catergories-cb";
 import IconTooltip from "@/components/icon-tooltip";
+import Notification from "@/components/notification";
 import PostDialog from "@/components/post-content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,11 +79,7 @@ const Header = () => {
 							tooltipText="Organization"
 							className="max-md:hidden"
 						/>
-						<IconTooltip
-							IconComponent={Bell}
-							tooltipText="Notification"
-							className="max-md:hidden"
-						/>
+						<Notification/>
 						<UserSetting />
 						<div className="md:hidden flex items-center">
 							<button onClick={() => setIsMenuOpen(!isMenuOpen)}>

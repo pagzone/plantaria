@@ -17,7 +17,7 @@ import Editor from "./editor";
 
 const PostDialog = () => {
 	const [dialogName, setDialogName] = useState("Create Tutorial");
-	const [thumbnail, setThumbnail] = useState<string | null>("link.example");
+	const [thumbnail, setThumbnail] = useState<string | null>("");
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -112,7 +112,7 @@ const PostDialog = () => {
 										</a>
 										<X 
 										   onClick={() => setThumbnail(null)} 
-										   className="cursor-pointer text-red-500 size-4 " 
+										   className="cursor-pointer text-red-500 size-16" 
 										/>
 									</div>
 								)}
