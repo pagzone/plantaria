@@ -15,7 +15,10 @@ export namespace ApisController {
 		});
 	}
 
-	export async function insert_configuration(request: Request, response: Response) {
+	export async function insert_configuration(
+		request: Request,
+		response: Response,
+	) {
 		const { key, value } = request.body;
 		await Configuration.insert({ key, value });
 
@@ -34,7 +37,10 @@ export namespace ApisController {
 		});
 	}
 
-	export async function update_configuration(request: Request, response: Response) {
+	export async function update_configuration(
+		request: Request,
+		response: Response,
+	) {
 		const { key, value } = request.body;
 		const getConfiguration = await Configuration.findBy({ key });
 
@@ -52,7 +58,10 @@ export namespace ApisController {
 		});
 	}
 
-	export async function delete_configuration(request: Request, response: Response) {
+	export async function delete_configuration(
+		request: Request,
+		response: Response,
+	) {
 		const { key } = request.body;
 		const getConfiguration = await Configuration.findBy({ key });
 

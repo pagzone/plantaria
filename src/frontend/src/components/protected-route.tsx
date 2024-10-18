@@ -1,18 +1,18 @@
-import { isAuthenticated } from '@/lib/auth'
-import { Navigate, Outlet } from 'react-router-dom';
+import { isAuthenticated } from "@/lib/auth";
+import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const authenticated = isAuthenticated();
+	const authenticated = isAuthenticated();
 
-  if (!authenticated) {
-    // return (
-    //   <div>Unauthorized</div>
-    // )
+	if (!authenticated) {
+		// return (
+		//   <div>Unauthorized</div>
+		// )
 
-    return <Navigate to={"/login"} />
-  }
+		return <Navigate to={"/login"} />;
+	}
 
-  return <Outlet />
-}
+	return <Outlet />;
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

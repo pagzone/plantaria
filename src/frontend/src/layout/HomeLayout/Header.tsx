@@ -22,18 +22,18 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 	const authenticated = isAuthenticated();
 	const [isMenuOpen, setIsMenuOpen] = useState(true);
 
-  const logout = () => {
-    console.log("removing token");
-    removeToken();
-    
-    console.log("removed token");
-    navigate(PageRoutes.LANDING);
-    console.log("land");
-  }
+	const logout = () => {
+		console.log("removing token");
+		removeToken();
+
+		console.log("removed token");
+		navigate(PageRoutes.LANDING);
+		console.log("land");
+	};
 
 	return (
 		<header className="py-4 w-full grid grid-cols-3 items-center max-md:grid-cols-2">
@@ -140,7 +140,7 @@ const Header = () => {
 									<button
 										onClick={() => {
 											setIsMenuOpen(false);
-                      logout();
+											logout();
 										}}
 										className="flex gap-x-2 items-center cursor-pointer hover:underline"
 									>

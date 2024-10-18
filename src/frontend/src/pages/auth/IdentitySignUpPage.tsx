@@ -56,7 +56,9 @@ export default function IdentitySignUpPage() {
 			);
 
 			response.then((data) => {
-				const { data: { token } } = data;
+				const {
+					data: { token },
+				} = data;
 				if (token) {
 					localStorage.setItem(LocalStorageKeys.AUTH_TOKEN, token);
 					navigate(PageRoutes.HOME);

@@ -9,10 +9,13 @@ const Route = Router();
 |--------------------------------------------------------------------------
 */
 
-Route.post('/user/login', /* isAuth, */ UsersController.login);
-Route.post('/user/register', /* isAuth, */ UsersController.register);
-Route.post('/user/ii/login', /* isAuth, */ UsersController.loginWithIdentity);
-Route.post('/user/ii/register', /* isAuth, */ UsersController.registerWithIdentity);
+Route.post("/user/login", /* isAuth, */ UsersController.login);
+Route.post("/user/register", /* isAuth, */ UsersController.register);
+Route.post("/user/ii/login", /* isAuth, */ UsersController.loginWithIdentity);
+Route.post(
+	"/user/ii/register",
+	/* isAuth, */ UsersController.registerWithIdentity,
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +24,7 @@ Route.post('/user/ii/register', /* isAuth, */ UsersController.registerWithIdenti
 */
 
 Route.get("/greet", ApisController.greet);
-Route.get('/user/test', UsersController.test);
+Route.get("/user/test", UsersController.test);
 Route.get("/configurations", ApisController.configurations);
 Route.post("/configuration/insert", ApisController.insert_configuration);
 Route.post("/configuration/update", ApisController.update_configuration);

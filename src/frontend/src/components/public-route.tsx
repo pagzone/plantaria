@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const PublicRoute = () => {
 	const authenticated = isAuthenticated();
 
-  if (authenticated) {
+	if (authenticated) {
 		return <Navigate to={PageRoutes.HOME} />;
 	}
 
