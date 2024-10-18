@@ -12,12 +12,13 @@ import { Input } from "@/components/ui/input";
 import IconTooltip from "./icon-tooltip";
 import CategoriesCB from "./catergories-cb";
 import { Button } from "./ui/button";
-import { useState } from "react";
-import Editor from "./editor";
+import { useRef, useState } from "react";
+import Editor, { EditorRef } from "./editor";
 
 const PostDialog = () => {
 	const [dialogName, setDialogName] = useState("Create Tutorial");
 	const [thumbnail, setThumbnail] = useState<string | null>("link.example");
+	const editorRef = useRef<EditorRef | null>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -25,6 +26,13 @@ const PostDialog = () => {
 		if (file) {
 			setThumbnail(URL.createObjectURL(file));
 		}
+	};
+
+	const handleGetEditorData = () => {
+		if (!editorRef.current) return;
+
+		const editorContent = editorRef.current?.getEditorData();
+		console.log("Editor Content:", editorContent);
 	};
 
 	return (
@@ -80,7 +88,7 @@ const PostDialog = () => {
 							<CategoriesCB className="border border-gray-400 text-slate-600" />
 						</div>
 						<div className="md:h-56 h-60 overflow-auto">
-							<Editor />
+							<Editor ref={editorRef} />
 						</div>
 					</div>
 				</div>
@@ -124,7 +132,7 @@ const PostDialog = () => {
 						</div>
 
 						<div className="flex gap-x-2 max-md:justify-end">
-							<Button>Post</Button>
+							<Button onClick={handleGetEditorData}>Post</Button>
 							<DialogClose asChild>
 								<Button variant="outline" className="border-gray-400">
 									Cancel
