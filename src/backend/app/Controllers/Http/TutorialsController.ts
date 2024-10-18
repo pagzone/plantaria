@@ -1,4 +1,5 @@
 import { Tutorial } from "Database/entities/tutorial";
+import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
 
 export namespace TutorialsController {
@@ -13,7 +14,10 @@ export namespace TutorialsController {
 
       const tutorials = await Tutorial.findAndCount({
         take,
-        skip
+        skip,
+        relations: {
+          user: true
+        }
       });
 
       response.status(200);
@@ -29,6 +33,59 @@ export namespace TutorialsController {
       });
     }
   }
+
+  export async function create(request: Request, response: Response) {
+    try {
+      const { title, content, category, thumbnail, resources } = request.body;
+      const user = await User.findOneBy({ id: request.user });
+
+      if (!user) {
+        return response.status(401).json({
+          status: 0,
+          message: "Unauthorized",
+        });
+      }
+
+      const data = Tutorial.create({
+        title,
+        content,
+        category,
+        thumbnail,
+        resources,
+        user
+      })
+
+      await Tutorial.save(data);
+
+      return response.status(200).json({
+        status: 1,
+        message: "Tutorial created successfully",
+        data
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
+
+  // export async function update(request: Request, response: Response) {
+  //   try {
+  //     const { title, content, category, thumbnail, resources } = request.body;
+  //     const { id } = request.params;
+  //     const user = await User.findOneBy({ id: request.user });
+
+  //     if (!user) {
+  //       return response.status(401).json({
+  //         status: 0,
+  //         message: "Unauthorized",
+  //       });
+  //     }
+
+  //     const tutorial = await Tutorial.findOneBy({ id });
+  //   }
+  // }
 
   export async function test(request: Request, response: Response) {
     const tutorials = await Tutorial.find();

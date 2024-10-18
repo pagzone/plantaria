@@ -13,10 +13,14 @@ export const generateAuthToken = (user: Partial<User>) => {
 	return token;
 };
 
-export const decodeAuthToken = (token: string): { userId: number; email: string | null; principal_id: string | null } => {
-	const decodedToken = Buffer.from(token, "base64").toString("utf-8");
+export const decodeAuthToken = (token: string): { userId: number; email: string | null; principal_id: string | null } | null => {
+	try {
+		const decodedToken = Buffer.from(token, "base64").toString("utf-8");
 
-	const tokenPayload = JSON.parse(decodedToken);
+		const tokenPayload = JSON.parse(decodedToken);
 
-	return tokenPayload;
+		return tokenPayload;
+	} catch (error) {
+		return null;
+	}
 };

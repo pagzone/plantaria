@@ -11,7 +11,11 @@ const Route = Router();
 |--------------------------------------------------------------------------
 */
 
-
+/* Tutorials Routes */
+Route.post("/tutorial/create", AuthMiddleware.authorize, TutorialsController.create);
+//TODO: update and delete tutorial
+// Route.post("/tutorial/:id", AuthMiddleware.authorize, TutorialsController.update);
+// Route.post("/tutorial/:id/delete", AuthMiddleware.authorize, TutorialsController.delete);
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +31,8 @@ Route.post("/auth/ii/register", UsersController.registerWithIdentity);
 
 /* Tutorials Routes */
 Route.get("/tutorials", TutorialsController.index);
+//TODO: get tutorial by id
+// Route.get("/tutorial/:id", TutorialsController.findById);
 Route.get("/tutorials/test", TutorialsController.test);
 
 Route.get("/greet", ApisController.greet);
