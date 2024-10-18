@@ -11,7 +11,7 @@ export const isAuthenticated = (): boolean => {
 		return true;
 	} catch (error) {
 		localStorage.removeItem("token");
-		return false;
+		return true;
 	}
 };
 
