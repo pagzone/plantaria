@@ -1,7 +1,7 @@
 import { ApisController } from "App/Controllers/Http/ApisController";
 import { TutorialsController } from "App/Controllers/Http/TutorialsController";
 import { UsersController } from "App/Controllers/Http/UsersController";
-import { AuthMiddleware } from "App/Middlewares/Auth";
+import { AuthMiddleware } from "App/Middlewares/AuthMiddleware";
 import { Router } from "express";
 const Route = Router();
 
