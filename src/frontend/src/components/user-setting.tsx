@@ -25,7 +25,7 @@ const UserSetting = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<button className="rounded-full shadow flex items-center  w-16 border border-gray-400 max-md:hidden">
+				<button className="rounded-full shadow flex items-center w-16 border border-gray-400 max-md:hidden">
 					<Profile userProfile="https://github.com/shadcn.png" />
 					<ChevronDown className="text-lima-500" />
 				</button>

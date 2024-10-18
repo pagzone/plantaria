@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import IconTooltip from "./icon-tooltip";
-import Editor from "./editor";
 import CategoriesCB from "./catergories-cb";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import Editor from "./editor";
 
 const PostDialog = () => {
 	const [thumbnail, setThumbnail] = useState<string | null>("link.example");
@@ -45,13 +45,13 @@ const PostDialog = () => {
 					/>
 				</div>
 			</DialogTrigger>
-			<DialogContent className="h-auto md:h-[28rem] md:w-[40rem] w-[90vw] max-w-[50rem] flex flex-col gap-y-8 p-4 md:p-6 rounded-lg">
+			<DialogContent className="h-auto md:h-[26rem] md:w-[40rem] w-[90vw] max-w-[50rem] flex flex-col p-4 md:p-6 rounded-lg">
 				<DialogHeader className="flex items-center h-fit">
 					<DialogTitle className="text-xl md:text-2xl font-bold">
 						Create Tutorial
 					</DialogTitle>
 				</DialogHeader>
-				<div className="flex flex-col space-y-4">
+				<div className="flex flex-col space-y-4 ">
 					<div className="flex flex-col gap-y-4">
 						<div className="flex flex-col md:flex-row gap-2 md:gap-4">
 							<Input
@@ -62,10 +62,12 @@ const PostDialog = () => {
 							/>
 							<CategoriesCB className="border border-gray-400 text-slate-600" />
 						</div>
-						<Editor />
+						<div  className='md:h-56 h-60 overflow-auto'>
+							<Editor />
+						</div>
 					</div>
 				</div>
-				<DialogFooter className="mt-6 flex max-md:h-40">
+				<DialogFooter className="flex max-md:h-32 ">
 					<div className="flex max-md:flex-col justify-between w-full gap-2 ">
 						<div className="flex gap-2 max-md:flex-col md:items-center w-full">
 							<Button
@@ -88,14 +90,17 @@ const PostDialog = () => {
 								{thumbnail && (
 									<div className="flex gap-x-1 items-center h-6 w-28">
 										<a
-											className="text-xs text-sky-500 underline truncate"
+											className="text-sm text-sky-500 underline truncate"
 											href={thumbnail}
 											target="_blank"
 											rel="noopener noreferrer"
 										>
 											{thumbnail}
 										</a>
-										<X size={60} onClick={() => setThumbnail(null)} className="cursor-pointer text-red-500" />
+										<X 
+										   onClick={() => setThumbnail(null)} 
+										   className="cursor-pointer text-red-500 size-16" 
+										/>
 									</div>
 								)}
 							</div>
