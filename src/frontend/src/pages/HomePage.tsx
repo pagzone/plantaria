@@ -66,11 +66,11 @@ const HomePage = () => {
 	];
 
 	return (
-		<main className="relative h-screen flex flex-col gap-y-4 md:mx-[75px] max-md:px-4">
+		<main className="relative h-screen flex flex-col gap-y-4 lg:mx-[75px] max-lg:px-4">
 			<Header />
-			<div className="flex md:gap-x-6 max-md:flex-col justify-center max-md:gap-y-1">
-				<aside className="flex md:flex-col gap-y-2 md:w-1/4 w-full justify-center items-center">
-					<nav className="flex md:gap-x-8 w-full">
+			<div className="flex lg:gap-x-6 max-lg:flex-col justify-center max-md:gap-y-1">
+				<aside className="flex lg:flex-col gap-y-2 lg:w-1/4 w-full justify-center items-center">
+					<nav className="flex lg:gap-x-8 w-full">
 						<Tab
 							label="Home"
 							icon={Home}
@@ -91,7 +91,7 @@ const HomePage = () => {
 						/>
 					</nav>
 
-					<section className="hidden md:block p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
+					<section className="hidden lg:block p-4 h-full rounded-lg bg-[#ECEDED] shadow-md">
 						<h2 className="text-xl font-semibold mb-4">Stories</h2>
 						<ScrollArea className="h-[40rem] lg:h-[67rem]">
 							<div className="flex flex-col gap-y-4 py-1.5 px-2">
