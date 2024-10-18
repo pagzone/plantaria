@@ -1,4 +1,4 @@
-import { CirclePlus, Image, Plus, Video } from "lucide-react";
+import { CirclePlus, Image, Plus, Video, X } from "lucide-react";
 import {
 	Dialog,
 	DialogContent,
@@ -13,8 +13,19 @@ import IconTooltip from "./icon-tooltip";
 import Editor from "./editor";
 import CategoriesCB from "./catergories-cb";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
 const PostDialog = () => {
+	const [thumbnail, setThumbnail] = useState<string | null>("link.example");
+
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
+
+		if (file) {
+			setThumbnail(URL.createObjectURL(file)); 
+		}
+	};
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -54,25 +65,42 @@ const PostDialog = () => {
 						<Editor />
 					</div>
 				</div>
-				<DialogFooter className="mt-6 flex items-center max-md:h-44">
-					<div className="flex max-md:flex-col justify-between w-full gap-4">
-						<div className="flex gap-2 max-md:flex-col">
+				<DialogFooter className="mt-6 flex max-md:h-40">
+					<div className="flex max-md:flex-col justify-between w-full gap-2 ">
+						<div className="flex gap-2 max-md:flex-col md:items-center w-full">
 							<Button
 								variant="outline"
 								className="flex gap-x-1 md:gap-x-2 border-gray-400"
+								onClick={() => document.getElementById('url-upload')!.click()}
 							>
+								<input
+									id="url-upload"
+									type="file"
+									accept="image/*"
+									className="hidden"
+									onChange={handleFileChange}
+								/>
 								<Image className="text-lima-500" size={20} />
 								<span className="text-xs md:text-sm">Thumbnail</span>
 							</Button>
 
-							<Button
-								variant="outline"
-								className="flex gap-x-1 md:gap-x-2 border-gray-400"
-							>
-								<Video className="text-lima-500" size={20} />
-								<span className="text-xs md:text-sm">Resource</span>
-							</Button>
+							<div className="h-8 flex items-center ">
+								{thumbnail && (
+									<div className="flex gap-x-1 items-center h-6 w-28">
+										<a
+											className="text-xs text-sky-500 underline truncate"
+											href={thumbnail}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{thumbnail}
+										</a>
+										<X size={60} onClick={() => setThumbnail(null)} className="cursor-pointer text-red-500" />
+									</div>
+								)}
+							</div>
 						</div>
+
 						<div className="flex gap-x-2 max-md:justify-end">
 							<Button>Post</Button>
 							<Button variant="outline" className="border-gray-400">
