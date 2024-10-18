@@ -5,6 +5,7 @@
 	"type": "module",
 	"dependencies": {
 		"azle": "^0.21.1",
+		"cors": "^2.8.5",
 		"express": "^4.19.2",
 		"sql.js": "^1.10.3",
 		"typeorm": "^0.3.20",
