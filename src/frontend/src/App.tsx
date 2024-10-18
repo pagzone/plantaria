@@ -9,6 +9,7 @@ import IdentitySignUpPage from "./pages/auth/IdentitySignUpPage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/protected-route";
 import PublicRoute from "./components/public-route";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
 	return (
@@ -37,6 +38,10 @@ function App() {
 					<Route element={<ProtectedRoute />}>
 						<Route path={PageRoutes.PROFILE} element={<ProfilePage />} />
 					</Route>
+
+				 	{/* Page not found */}
+					<Route path="*" element={<PageNotFound/>} />
+
 				</Routes>
 			</Router>
 		</>

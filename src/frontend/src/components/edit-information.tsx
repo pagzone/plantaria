@@ -6,6 +6,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
+	DialogClose
 } from "@/components/ui/dialog";
 import { Label } from "@radix-ui/react-label";
 import { UserRoundPen } from "lucide-react";
@@ -70,9 +71,16 @@ const EditDialog = () => {
 					</div>
 				</div>
 				<DialogFooter className="pt-4">
-					<Button type="submit" className="w-full sm:w-auto">
-						Save changes
-					</Button>
+					<div className="flex  flex-col md:flex-row  md:justify-between gap-2 ">
+						<Button >
+							Save changes
+						</Button>
+						<DialogClose>
+							<Button variant="outline" className="w-full">
+								Cancel
+							</Button>
+						</DialogClose>
+					</div>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
