@@ -27,9 +27,6 @@ export class Tutorial extends BaseEntity {
   @Column({ type: "text", nullable: true })
   thumbnail: string;
 
-  @Column({ type: "text", nullable: true })
-  resources: string[];
-
   @CreateDateColumn()
   created_at: Date;
 

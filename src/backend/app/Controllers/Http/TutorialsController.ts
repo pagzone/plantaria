@@ -51,7 +51,6 @@ export namespace TutorialsController {
         content,
         category,
         thumbnail,
-        resources,
         user
       })
 
