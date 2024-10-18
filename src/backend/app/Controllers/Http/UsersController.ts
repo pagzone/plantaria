@@ -239,6 +239,7 @@ export namespace UsersController {
 	export async function test(request: Request, response: Response) {
 		const users = await User.find();
 
+		response.status(200);
 		return response.json({
 			status: 1,
 			message: "Test success!",

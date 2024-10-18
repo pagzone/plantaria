@@ -14,7 +14,6 @@ export class DatabaseStorage implements DatabaseStorageInterface {
 	private readonly STORAGE_KEY: string;
 	private readonly STORAGE_INDEX: number;
 	// TODO: Fix type
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	private storage: any;
 
 	constructor(options?: DatabaseStorageOptions) {

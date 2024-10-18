@@ -24,10 +24,10 @@ export class Tutorial extends BaseEntity {
   @Column({ type: "text"})
   content: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   thumbnail: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   resources: string[];
 
   @CreateDateColumn()
