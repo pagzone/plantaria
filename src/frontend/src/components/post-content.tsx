@@ -6,25 +6,33 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-	DialogClose
+	DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import IconTooltip from "./icon-tooltip";
 import CategoriesCB from "./catergories-cb";
 import { Button } from "./ui/button";
-import { useState } from "react";
-import Editor from "./editor";
+import { useRef, useState } from "react";
+import Editor, { EditorRef } from "./editor";
 
 const PostDialog = () => {
 	const [dialogName, setDialogName] = useState("Create Tutorial");
 	const [thumbnail, setThumbnail] = useState<string | null>("");
+	const editorRef = useRef<EditorRef | null>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 
 		if (file) {
-			setThumbnail(URL.createObjectURL(file)); 
+			setThumbnail(URL.createObjectURL(file));
 		}
+	};
+
+	const handleGetEditorData = () => {
+		if (!editorRef.current) return;
+
+		const editorContent = editorRef.current?.getEditorData();
+		console.log("Editor Content:", editorContent);
 	};
 
 	return (
@@ -53,14 +61,18 @@ const PostDialog = () => {
 							{dialogName}
 						</DialogTitle>
 						<div className="flex gap-x-2">
-							<Button 
-								variant={`${dialogName === "Create Tutorial" ? "default" : "ghost" }`}
+							<Button
+								variant={`${dialogName === "Create Tutorial" ? "default" : "ghost"}`}
 								onClick={() => setDialogName("Create Tutorial")}
-							>Tutorial</Button>
-							<Button 
-								variant={`${dialogName === "Create Story" ? "default" : "ghost" }`}
-								onClick={() => setDialogName("Create Story")}	
-							>Story</Button>
+							>
+								Tutorial
+							</Button>
+							<Button
+								variant={`${dialogName === "Create Story" ? "default" : "ghost"}`}
+								onClick={() => setDialogName("Create Story")}
+							>
+								Story
+							</Button>
 						</div>
 					</div>
 				</DialogHeader>
@@ -75,8 +87,8 @@ const PostDialog = () => {
 							/>
 							<CategoriesCB className="border border-gray-400 text-slate-600" />
 						</div>
-						<div  className='md:h-56 h-60 overflow-auto'>
-							<Editor />
+						<div className="md:h-56 h-60 overflow-auto">
+							<Editor ref={editorRef} />
 						</div>
 					</div>
 				</div>
@@ -86,7 +98,7 @@ const PostDialog = () => {
 							<Button
 								variant="outline"
 								className="flex gap-x-1 md:gap-x-2 border-gray-400"
-								onClick={() => document.getElementById('url-upload')!.click()}
+								onClick={() => document.getElementById("url-upload")!.click()}
 							>
 								<input
 									id="url-upload"
@@ -110,9 +122,9 @@ const PostDialog = () => {
 										>
 											{thumbnail}
 										</a>
-										<X 
-										   onClick={() => setThumbnail(null)} 
-										   className="cursor-pointer text-red-500 size-16" 
+										<X
+											onClick={() => setThumbnail(null)}
+											className="cursor-pointer text-red-500 size-4 "
 										/>
 									</div>
 								)}
@@ -120,16 +132,15 @@ const PostDialog = () => {
 						</div>
 
 						<div className="flex gap-x-2 max-md:justify-end">
-							<Button>Post</Button>
-							<Button variant="outline" className="border-gray-400">
-								<DialogClose asChild>
-									<span>Cancel</span>
-								</DialogClose>
-							</Button>
+							<Button onClick={handleGetEditorData}>Post</Button>
+							<DialogClose asChild>
+								<Button variant="outline" className="border-gray-400">
+									Cancel
+								</Button>
+							</DialogClose>
 						</div>
 					</div>
 				</DialogFooter>
-
 			</DialogContent>
 		</Dialog>
 	);
