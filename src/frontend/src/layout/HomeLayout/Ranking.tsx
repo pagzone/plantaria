@@ -1,4 +1,3 @@
-import { CategoriesCB } from "@/components/catergories-cb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Ranking = () => {

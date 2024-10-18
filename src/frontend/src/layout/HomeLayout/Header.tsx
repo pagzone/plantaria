@@ -1,4 +1,4 @@
-import { CategoriesCB } from "@/components/catergories-cb";
+import CategoriesCB from "@/components/catergories-cb";
 import IconTooltip from "@/components/icon-tooltip";
 import PostDialog from "@/components/post-tutorial";
 import { Button } from "@/components/ui/button";
@@ -47,7 +47,7 @@ const Header = () => {
 
 			<div className="relative flex gap-x-3 flex-1 max-md:hidden">
 				<div>
-					<CategoriesCB />
+					<CategoriesCB className="border border-black"/>
 				</div>
 
 				<Input

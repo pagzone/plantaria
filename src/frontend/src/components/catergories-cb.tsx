@@ -44,7 +44,11 @@ const categories = [
 	},
 ];
 
-export function CategoriesCB() {
+interface CategoriesCBProps {
+	className?: string;
+}
+
+const CategoriesCB: React.FC<CategoriesCBProps> = ({ className }) => {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState("");
 
@@ -55,7 +59,7 @@ export function CategoriesCB() {
 					variant="outline"
 					role="combobox"
 					aria-expanded={open}
-					className="border border-black"
+					className={className}
 				>
 					{value
 						? categories.find((framework) => framework.value === value)?.label
@@ -94,3 +98,5 @@ export function CategoriesCB() {
 		</Popover>
 	);
 }
+
+export default CategoriesCB;

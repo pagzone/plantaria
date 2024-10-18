@@ -1,4 +1,4 @@
-import { CategoriesCB } from "@/components/catergories-cb";
+import CategoriesCB from "@/components/catergories-cb";
 import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
