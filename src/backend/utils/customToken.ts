@@ -13,7 +13,7 @@ export const generateAuthToken = (user: Partial<User>) => {
 	return token;
 };
 
-export const decodeAuthToken = (token: string) => {
+export const decodeAuthToken = (token: string): { userId: number; email: string | null; principal_id: string | null } => {
 	const decodedToken = Buffer.from(token, "base64").toString("utf-8");
 
 	const tokenPayload = JSON.parse(decodedToken);

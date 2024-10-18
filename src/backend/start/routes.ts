@@ -1,6 +1,7 @@
 import { ApisController } from "App/Controllers/Http/ApisController";
 import { TutorialsController } from "App/Controllers/Http/TutorialsController";
 import { UsersController } from "App/Controllers/Http/UsersController";
+import { AuthMiddleware } from "App/Middlewares/Auth";
 import { Router } from "express";
 const Route = Router();
 
@@ -10,17 +11,19 @@ const Route = Router();
 |--------------------------------------------------------------------------
 */
 
-/* User Routes */
-Route.post("/user/login", /* isAuth, */ UsersController.login);
-Route.post("/user/register", /* isAuth, */ UsersController.register);
-Route.post("/user/ii/login", /* isAuth, */ UsersController.loginWithIdentity);
-Route.post("/user/ii/register", /* isAuth, */ UsersController.registerWithIdentity);
+
 
 /*
 |--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 */
+
+/* User Routes */
+Route.post("/user/login", UsersController.login);
+Route.post("/user/register", UsersController.register);
+Route.post("/user/ii/login", UsersController.loginWithIdentity);
+Route.post("/user/ii/register", UsersController.registerWithIdentity);
 
 /* Tutorials Routes */
 Route.get("/tutorials", TutorialsController.index);
