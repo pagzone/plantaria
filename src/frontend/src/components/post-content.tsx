@@ -85,7 +85,7 @@ const PostDialog = () => {
 								className="w-full border border-gray-400 rounded-lg"
 								required
 							/>
-							<CategoriesCB className="border border-gray-400 text-slate-600" />
+							<CategoriesCB className={`${dialogName === "Create Story" ? "hidden" : "border border-gray-400 text-slate-600" }`} />
 						</div>
 						<div className="md:h-56 h-60 overflow-auto">
 							<Editor ref={editorRef} />
