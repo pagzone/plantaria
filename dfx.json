@@ -11,6 +11,10 @@
                 [
                     "src/frontend/dist",
                     "dist"
+                ],
+                [
+                    ".env",
+                    ".env"
                 ]
             ],
             "build_assets": "npm run build",

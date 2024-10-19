@@ -29,6 +29,7 @@ class Editor extends Component<EditorProps, EditorState> {
   render() {
     return (
       <ReactQuill
+      className='bg-white rounded-lg'
         theme={this.state.theme}
         onChange={this.handleChange}
         value={this.state.editorHtml}

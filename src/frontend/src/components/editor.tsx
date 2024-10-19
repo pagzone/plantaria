@@ -5,6 +5,9 @@ import "quill/dist/quill.snow.css";
 
 export interface EditorRef {
 	getEditorData: () => string;
+	getEditorText: () => string;
+	setEditorData: (data: string) => void;
+	resetEditor: () => void;
 }
 
 // Using forwardRef to allow passing a ref from the parent component
@@ -17,19 +20,36 @@ const Editor = forwardRef<EditorRef>((props, ref) => {
 		Quill.register("modules/blotFormatter", BlotFormatter);
 	}
 
-	// Use useImperativeHandle to expose a method to the parent component
 	useImperativeHandle(ref, () => ({
 		getEditorData: () => {
 			if (quill) {
-				// Return the editor content as HTML
 				return quill.root.innerHTML;
 			}
 			return "";
 		},
+
+		getEditorText: () => {
+			if (quill) {
+				return quill.getText();
+			}
+			return "";
+		},
+
+		setEditorData: (data: string) => {
+			if (quill) {
+				quill.root.innerHTML = data;
+			}
+		},
+
+		resetEditor: () => {
+			if (quill) {
+				quill.setContents([]);
+			}
+		}
 	}));
 
 	return (
-		<div className="md:h-36 h-36 ">
+		<div>
 			<div ref={quillRef} />
 		</div>
 	);

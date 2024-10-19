@@ -1,7 +1,30 @@
 import { Configuration } from "Database/entities/configuration";
 import type { Response, Request } from "express";
+import { uploadToBackblaze } from "Helpers/b2";
 
 export namespace ApisController {
+	export const uploadImageUrl = async (request: Request, response: Response) => {
+		const chunks: Buffer[] = [];
+
+		request.on("data", (chunk: Buffer) => {
+			chunks.push(chunk);
+		});
+
+		request.on('end', async () => {
+			const buffer = Buffer.concat(chunks);
+			const filename = request.headers['x-filename'] as string;
+
+			await uploadToBackblaze(buffer, filename || 'image.png');
+
+			return response.status(200).json({ status: 1, message: 'File has been uploaded!' });
+		});
+
+		request.on('error', (error) => {
+			console.error("Error during file upload:", error);
+			return response.status(500).json({ status: 0, message: 'Upload failed!' });
+		});
+	};
+
 	export async function greet(request: Request, response: Response) {
 		response.json({ greeting: `Hello, ${request.query.name}` });
 	}
