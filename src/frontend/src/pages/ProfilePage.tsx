@@ -73,7 +73,6 @@ const ProfilePage: FC = () => {
 							<span className="text-base max-md:hidden">Save</span>
 						</button>
 					)}
-
 				</div>
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-56 rounded-xl p-6 bg-white">
