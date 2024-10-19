@@ -4,7 +4,7 @@ import ProjectCard from "@/components/project-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Footer from "@/layout/Footer"
 import Header from "@/layout/HomeLayout/Header"
-import { Pencil } from "lucide-react";
+import { Edit, Link, Mail, Pencil, Phone } from "lucide-react";
 import { useState } from "react";
 
 const projectCardsData = [
@@ -119,13 +119,13 @@ const OrganizationPage = () => {
                     </div>
                 </div>
 
-                <div className="h-[25rem] flex flex-col gap-y-2 border px-4 py-4 rounded-lg shadow bg-white relative">
+                <div className="h-[25rem] flex flex-col gap-y-2 border p-4 rounded-lg shadow bg-white relative">
                     <div className="flex items-center justify-between ">
                         <h1 className="text-2xl font-bold">Community Projects</h1>
                         <EventDialog isEditing={true} />
                     </div>
 
-                    <ScrollArea className="h-full overflow-y-auto border">
+                    <ScrollArea className="h-full overflow-y-auto ">
                         <div className="grid grid-col-1 md:grid-cols-4 gap-4 px-2.5 py-2">
                             {projectCardsData.length > 0 && projectCardsData.map((value, index) => (
                                 <ProjectCard
@@ -138,6 +138,32 @@ const OrganizationPage = () => {
                             ))}
                         </div>
                     </ScrollArea>
+                </div>
+
+                <div className="border h-40 rounded-lg shadow bg-white p-4 w-full flex justify-between items-center">
+                    <div>
+                        <h2 className="font-bold text-lg mb-3">Contact Us</h2>
+                        <div className="flex flex-col space-y-2">
+                            <div className="flex items-center space-x-2">
+                                <Mail className="w-5 h-5 text-gray-600" />
+                                <span className="text-sm text-gray-700">Pagzone@dev.gmail.com</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Link className="w-5 h-5 text-gray-600" />
+                                <span className="text-sm text-gray-700">Pagzone</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Phone className="w-5 h-5 text-gray-600" />
+                                <span className="text-sm text-gray-700">+935 785 0648</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button className="flex items-center space-x-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                            <Edit className="w-4 h-4" />
+                            <span>Edit</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <Footer />

@@ -30,7 +30,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ ...params }) => {
                     </CardDescription>
                 </div>
             </CardContent>
-
         </Card>
     )
 }
