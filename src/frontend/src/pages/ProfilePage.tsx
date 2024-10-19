@@ -63,15 +63,17 @@ const ProfilePage: FC = () => {
 							San Jose Del Monte, Bulacan
 						</span>
 					</div>
-					<button
-						onClick={() => setSaveProfile(true)}
-						className={`absolute right-3 top-3 font-medium md:px-4 md:py-2 py-1 px-2 flex items-center gap-x-1.5 rounded-lg transition-transform transform md:w-24 
-            ${!savedProfile ? "bg-lime-700 text-white hover:bg-lime-600 hover:scale-[1.05] cursor-pointer" : "border border-lime-700 text-lime-700 cursor-not-allowed"}`}
-						disabled={savedProfile}
-					>
-						<Save size={20} />
-						<span className="text-base max-md:hidden">Save</span>
-					</button>
+					{!savedProfile && (
+						<button
+							onClick={() => setSaveProfile(true)}
+							className={`absolute right-3 top-3 font-medium md:px-4 md:py-2 py-1 px-2 flex items-center gap-x-1.5 rounded-lg transition-transform transform md:w-24 
+      bg-lime-700 text-white hover:bg-lime-600 hover:scale-[1.05] cursor-pointer`}
+						>
+							<Save size={20} />
+							<span className="text-base max-md:hidden">Save</span>
+						</button>
+					)}
+
 				</div>
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-56 rounded-xl p-6 bg-white">

@@ -17,7 +17,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ ...params }) => {
                     alt="tutorial-image"
                 />
             </CardHeader>
-            <CardContent className="flex flex-col space-y-2 px-4 py-3 bg-gray-50 rounded-b-lg">
+            <CardContent className="flex flex-col space-y-2 px-4 py-3 rounded-b-lg">
                 <CardTitle className="font-semibold text-lg text-gray-800">
                     {params.profileName}
                 </CardTitle>
@@ -25,7 +25,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ ...params }) => {
                     <span className="font-semibold text-md text-gray-900 truncate">
                         {params.title}
                     </span>
-                    <CardDescription className="text-sm text-gray-600 overflow-hidden h-[4rem] leading-tight line-clamp-3">
+                    <CardDescription className="text-sm text-gray-600 overflow-hidden h-[3rem] leading-tight line-clamp-3">
                         {params.description}
                     </CardDescription>
                 </div>
