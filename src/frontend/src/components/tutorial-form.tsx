@@ -16,11 +16,14 @@ import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
 import SubmitButton from "./submit-button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TutorialForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
 	const editorRef = useRef<EditorRef | null>(null);
+
+	const queryClient = useQueryClient();
 
 	const form = useForm<z.infer<typeof tutorialFormSchema>>({
 		resolver: zodResolver(tutorialFormSchema),
@@ -31,6 +34,46 @@ const TutorialForm = () => {
 			thumbnail: "",
 		},
 	});
+
+	const mutation = useMutation(
+		async (values: z.infer<typeof tutorialFormSchema>) => {
+			const response = await fetch(
+				`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${getToken()}`,
+					},
+					body: JSON.stringify(values),
+				},
+			);
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "An error occurred");
+			}
+			return response.json();
+		},
+		{
+			onMutate: () => {
+				toast.loading("Posting tutorial...", { id: "post-tutorial" });
+			},
+			onSuccess: (data) => {
+				toast.dismiss("post-tutorial");
+				toast.success(data.message);
+				form.reset();
+				handleResetEditor();
+				setThumbnailURL(null);
+				if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
+			},
+			onError: (error) => {
+				toast.error((error as Error).message);
+			},
+			onSettled: () => {
+				queryClient.refetchQueries(["tutorials"]);
+			},
+		},
+	);
 
 	const handleFileChange = async (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -76,53 +119,12 @@ const TutorialForm = () => {
 				.then((data) => {
 					if (!data) return;
 
-					console.log(data);
-
 					form.setValue("thumbnail", data.data!.fileName);
-				})
-				.finally(() => {
-					form.handleSubmit(onSubmit)();
+					
+					mutation.mutate(form.getValues());
 				});
 		} else {
-			form.handleSubmit(onSubmit)();
-		}
-	};
-
-	const onSubmit = async (values: z.infer<typeof tutorialFormSchema>) => {
-		try {
-			const response = await toast.promise(
-				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${getToken()}`,
-					},
-					body: JSON.stringify({
-						...values,
-					}),
-				}).then(async (res) => {
-					const data = await res.json();
-					if (res.ok) {
-						return { success: true, data };
-					} else {
-						throw new Error(data.message || "An error occurred");
-					}
-				}),
-				{
-					loading: "Posting tutorial...",
-					success: "Posted tutorial successfully",
-					error: (error) => error.message,
-				},
-			);
-
-			const { data }: { data: { message: string } } = response;
-			toast.success(data.message);
-			form.reset();
-			handleResetEditor();
-			setThumbnailURL(null);
-			if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
-		} catch (error) {
-			toast.error((error as Error).message);
+			mutation.mutate(form.getValues());
 		}
 	};
 
@@ -225,7 +227,11 @@ const TutorialForm = () => {
 					</div>
 
 					<div className="flex gap-x-2 max-md:justify-end">
-						<SubmitButton formState={form.formState} type="submit" onClick={formSubmit}>
+						<SubmitButton
+							formState={form.formState}
+							type="submit"
+							onClick={formSubmit}
+						>
 							Post
 						</SubmitButton>
 						<DialogClose asChild>
