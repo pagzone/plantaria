@@ -184,6 +184,13 @@ export namespace TutorialsController {
         });
       }
 
+      if (data.user.id !== user.id) {
+        return response.status(401).json({
+          status: 0,
+          message: "You are not authorized to delete this tutorial",
+        });
+      }
+
       await Tutorial.remove(data);
 
       return response.status(200).json({

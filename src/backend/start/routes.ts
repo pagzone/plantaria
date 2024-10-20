@@ -21,7 +21,9 @@ Route.route("/tutorials/:id")
 
 /* Stories Routes */
 Route.post("/story/create", AuthMiddleware.authorize, StoriesController.create);
-//TODO: update and delete story
+Route.route("/story/:id")
+  .put(AuthMiddleware.authorize, StoriesController.update)
+  .delete(AuthMiddleware.authorize, StoriesController.destroy);
 
 /* Upload Routes */
 Route.post("/images/upload", AuthMiddleware.authorize, ApisController.uploadImageUrl);
@@ -60,6 +62,6 @@ Route.get("/tutorials/:id", TutorialsController.show);
 
 /* Stories Routes */
 Route.get("/stories", StoriesController.index);
-//TODO: get story by id
+Route.get("/stories/:id", StoriesController.show);
 
 export { Route as routes };
