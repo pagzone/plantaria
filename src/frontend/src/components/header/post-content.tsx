@@ -6,9 +6,9 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import IconTooltip from "./icon-tooltip";
+import IconTooltip from "../tooltip/icon-tooltip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TutorialForm from "./tutorial-form";
+import TutorialForm from "../home-page/HomeContent/tutorial-form";
 import { useState } from "react";
 import StoryForm from "./story-form";
 import { cn } from "@/lib/utils";

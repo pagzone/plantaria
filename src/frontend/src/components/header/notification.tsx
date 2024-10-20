@@ -5,7 +5,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Bell } from "lucide-react";
-import IconTooltip from "./icon-tooltip";
+import IconTooltip from "../tooltip/icon-tooltip";
 
 const Notification = () => {
     const notifs = [

@@ -9,9 +9,9 @@ import {
 	DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useRef, useState } from "react";
-import Editor, { EditorRef } from "./editor";
+import Editor, { EditorRef } from "../header/editor";
 
 
 interface EditEventProps {

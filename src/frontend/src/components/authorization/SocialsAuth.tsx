@@ -1,5 +1,5 @@
 import { AuthClient } from "@dfinity/auth-client";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { InternetComputer } from "@/assets/icons";
 import { APIRoutes } from "@/constants/ApiRoutes";
 import { useNavigate } from "react-router-dom";

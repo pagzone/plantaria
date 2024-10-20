@@ -1,17 +1,17 @@
-import StoriesCard from "@/components/stories-card";
-import Tab from "@/components/tab";
+import StoriesCard from "@/components/home-page/stories-card";
+import Tab from "@/components/home-page/tab";
+import StoriesCardSkeleton from "@/components/skeletons/storiesCard-skeleton";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { QueryKeys } from "@/constants/QueryKeys";
+import { IStory } from "@/interface/IStory";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/HomeLayout/Header";
-import { Home, Star, Trophy } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchStories } from "@/lib/api";
-import { IStory } from "@/interface/IStory";
-import StoriesCardSkeleton from "@/components/storiesCard-skeleton";
 import { getPlainTextFromHtml } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { Home, Star, Trophy } from "lucide-react";
+import { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 
 const HomePage = () => {
 	const [activeTab, setActiveTab] = useState("Home");

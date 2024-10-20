@@ -1,11 +1,11 @@
 import { Image, X } from "lucide-react";
-import CategoriesCB from "./categories-cb";
-import Editor, { EditorRef } from "./editor";
-import { Button } from "./ui/button";
-import { DialogClose, DialogFooter } from "./ui/dialog";
-import { Form, FormField, FormItem, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import CategoriesCB from "../../header/categories-cb";
+import Editor, { EditorRef } from "../../header/editor";
+import { Button } from "../../ui/button";
+import { DialogClose, DialogFooter } from "../../ui/dialog";
+import { Form, FormField, FormItem, FormMessage } from "../../ui/form";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { tutorialFormSchema } from "@/lib/formSchema";
@@ -15,7 +15,7 @@ import { uploadImage } from "@/lib/upload";
 import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
-import SubmitButton from "./submit-button";
+import SubmitButton from "../../submit-button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TutorialForm = () => {

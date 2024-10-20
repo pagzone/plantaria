@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 const SearchBar = () => {
   const [query, setQuery] = useState( "");

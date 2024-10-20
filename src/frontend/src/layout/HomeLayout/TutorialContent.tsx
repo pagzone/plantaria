@@ -1,4 +1,4 @@
-import CommentArea from "@/components/CommentArea";
+import CommentArea from "@/components/comment/CommentArea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { QueryKeys } from "@/constants/QueryKeys";

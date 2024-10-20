@@ -4,7 +4,7 @@ import {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "./ui/tooltip";
+} from "../ui/tooltip";
 
 interface IconTooltipProps {
 	IconComponent: LucideIcon;

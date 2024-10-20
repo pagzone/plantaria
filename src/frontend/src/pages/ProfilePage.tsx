@@ -1,11 +1,11 @@
-import Profile from "@/components/avatar";
-import TutorialCard from "@/components/tutorial-card";
+import Profile from "@/components/profile-page/avatar";
+import TutorialCard from "@/components/home-page/HomeContent/tutorial-card";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/HomeLayout/Header";
 import { Pencil, Save } from "lucide-react";
 import { FC, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import EditDialog from "@/components/edit-information";
+import EditDialog from "@/components/profile-page/edit-information";
 import { decodeAuthToken, getToken } from "@/lib/auth";
 
 const ProfilePage: FC = () => {

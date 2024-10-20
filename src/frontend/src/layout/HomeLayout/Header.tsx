@@ -1,11 +1,10 @@
-import CategoriesCB from "@/components/categories-cb";
-import IconTooltip from "@/components/icon-tooltip";
-import Notification from "@/components/notification";
-import PostDialog from "@/components/post-content";
-import SearchBar from "@/components/search";
+import CategoriesCB from "@/components/header/categories-cb";
+import IconTooltip from "@/components/tooltip/icon-tooltip";
+import Notification from "@/components/header/notification";
+import PostDialog from "@/components/header/post-content";
+import SearchBar from "@/components/header/search";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import UserSetting from "@/components/user-setting";
+import UserSetting from "@/components/profile-page/user-setting";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { isAuthenticated, removeToken } from "@/lib/auth";
 import {
