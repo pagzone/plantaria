@@ -2,6 +2,7 @@ import CategoriesCB from "@/components/categories-cb";
 import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
+import TutorialCardSkeleton from "@/components/tutorialCard-skeleton";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchTutorials } from "@/lib/api";
 import { getPlainTextFromHtml } from "@/lib/utils";
@@ -36,10 +37,6 @@ const HomeContent = () => {
 		},
 	);
 
-	if (isTutorialsLoading) {
-		return <div>Loading...</div>;
-	}
-
 	if (isTutorialsError && tutorialsError instanceof Error) {
 		return <div>Error: {tutorialsError.message}</div>;
 	}
@@ -48,9 +45,9 @@ const HomeContent = () => {
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
-			<Link 
-			   to={`/featured/${1}`} //featured id;
-			   className="h-60 md:h-72 ">
+			<Link
+				to={`/featured/${1}`} //featured id;
+				className="h-60 md:h-72 ">
 				<FeaturedCard
 					title={featured.title}
 					description={featured.description}
@@ -68,21 +65,23 @@ const HomeContent = () => {
 
 				<div className="flex flex-col gap-y-4 h-full">
 					<div className="flex flex-1 items-start flex-wrap gap-4">
-						{tutorials?.map(
-							(
-								value: any,
-							) => (
-								<Link key={value.id} to={`/tutorial/${value.id}`}>
+						{isTutorialsLoading
+							? Array(tutorials?.length) 
+								.fill(0)
+								.map((_, index) => <TutorialCardSkeleton key={index} />)
+							: tutorials?.map((tutorial) => (
+								<Link 
+								   key={tutorial.id} 
+								   to={`/tutorial/${tutorial.id}`}>
 									<TutorialCard
-										tutorialImage={value.thumbnail}
-										userAvatar={value.user.avatar_url}
-										userName={value.profileName}
-										title={value.title}
-										content={getPlainTextFromHtml(value.content)}
+										tutorialImage={tutorial.thumbnail}
+										userAvatar={tutorial.user.avatar_link}
+										userName={tutorial.user.name}
+										title={tutorial.title}
+										content={getPlainTextFromHtml(tutorial.content)}
 									/>
 								</Link>
-							),
-						)}
+							))}
 					</div>
 					<PageSelector
 						tutorials={tutorials!}
