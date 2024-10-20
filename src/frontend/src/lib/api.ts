@@ -120,7 +120,7 @@ export async function fetchStories(page?: number) {
   const stories: IResponse<[IStory[], number]> = await response.json();
 
   if (stories.data) {
-    const downloadAuth = await fetchDownloadAuth("tutorial");
+    const downloadAuth = await fetchDownloadAuth("story");
     stories.data[0].forEach(async (story: ITutorial) => {
       story.thumbnail = `${story.thumbnail}?Authorization=${downloadAuth?.data?.authorizationToken}`
     })

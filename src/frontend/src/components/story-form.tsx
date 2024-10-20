@@ -16,11 +16,15 @@ import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
 import SubmitButton from "./submit-button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/constants/QueryKeys";
 
 const StoryForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
 	const editorRef = useRef<EditorRef | null>(null);
+
+	const queryClient = useQueryClient();
 
 	const form = useForm<z.infer<typeof storyFormSchema>>({
 		resolver: zodResolver(storyFormSchema),
@@ -30,6 +34,46 @@ const StoryForm = () => {
 			thumbnail: "",
 		},
 	});
+
+	const mutation = useMutation(
+		async (values: z.infer<typeof storyFormSchema>) => {
+			const response = await fetch(
+				`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${getToken()}`,
+					},
+					body: JSON.stringify(values),
+				},
+			);
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "An error occurred");
+			}
+			return response.json();
+		},
+		{
+			onMutate: () => {
+				toast.loading("Posting story...", { id: "post-story" });
+			},
+			onSuccess: (data) => {
+				toast.dismiss("post-story");
+				toast.success(data.message);
+				form.reset();
+				handleResetEditor();
+				setThumbnailURL(null);
+				if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
+			},
+			onError: (error) => {
+				toast.error((error as Error).message);
+			},
+			onSettled: () => {
+				queryClient.refetchQueries([QueryKeys.STORIES]);
+			},
+		},
+	);
 
 	const handleFileChange = async (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -65,64 +109,28 @@ const StoryForm = () => {
 		}
 
 		if (thumbnail && thumbnailURL) {
-			const data = uploadImage(thumbnail, "story");
-			toast
-				.promise(data, {
-					loading: "Uploading thumbnail...",
-					success: "Uploaded thumbnail successfully",
-					error: (error) => error.message,
-				})
-				.then((data) => {
-					if (!data) return;
-
-					console.log(data);
-
-					form.setValue("thumbnail", data.data!.fileName);
-				})
-				.finally(() => {
-					form.handleSubmit(onSubmit)();
-				});
-		} else {
-			form.handleSubmit(onSubmit)();
-		}
-	};
-
-	const onSubmit = async (values: z.infer<typeof storyFormSchema>) => {
-		try {
-			const response = await toast.promise(
-				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${getToken()}`,
+			try {
+				const uploadData = await toast.promise(
+					uploadImage(thumbnail, "story"),
+					{
+						loading: "Uploading thumbnail...",
+						success: "Uploaded thumbnail successfully",
+						error: "Failed to upload thumbnail",
 					},
-					body: JSON.stringify({
-						...values,
-					}),
-				}).then(async (res) => {
-					const data = await res.json();
-					if (res.ok) {
-						return { success: true, data };
-					} else {
-						throw new Error(data.message || "An error occurred");
-					}
-				}),
-				{
-					loading: "Posting story...",
-					success: "Posted story successfully",
-					error: (error) => error.message,
-				},
-			);
+				);
 
-			const { data }: { data: { message: string } } = response;
-			toast.success(data.message);
-			form.reset();
-			handleResetEditor();
-			setThumbnailURL(null);
-			if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
-		} catch (error) {
-			toast.error((error as Error).message);
-		}
+				if (!uploadData) return;
+
+				form.setValue("thumbnail", uploadData.data!.fileName);
+			} catch (error) {
+				toast.error("Error uploading thumbnail");
+				return;
+			}
+		};
+
+		form.handleSubmit(async (values) => {
+			mutation.mutate(values);
+		})
 	};
 
 	return (

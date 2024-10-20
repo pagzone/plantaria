@@ -109,23 +109,28 @@ const TutorialForm = () => {
 		}
 
 		if (thumbnail && thumbnailURL) {
-			const data = uploadImage(thumbnail, "tutorial");
-			toast
-				.promise(data, {
-					loading: "Uploading thumbnail...",
-					success: "Uploaded thumbnail successfully",
-					error: (error) => error.message,
-				})
-				.then((data) => {
-					if (!data) return;
+			try {
+				const uploadData = await toast.promise(
+					uploadImage(thumbnail, "tutorial"),
+					{
+						loading: "Uploading thumbnail...",
+						success: "Thumbnail uploaded successfully",
+						error: "Failed to upload thumbnail",
+					},
+				);
 
-					form.setValue("thumbnail", data.data!.fileName);
-					
-					mutation.mutate(form.getValues());
-				});
-		} else {
-			mutation.mutate(form.getValues());
-		}
+				if (!uploadData) return;
+
+				form.setValue("thumbnail", uploadData.data!.fileName);
+			} catch (error) {
+				toast.error("Error uploading thumbnail");
+				return;
+			}
+		};
+
+		form.handleSubmit(async (values) => {
+			mutation.mutate(values);
+		})();
 	};
 
 	return (

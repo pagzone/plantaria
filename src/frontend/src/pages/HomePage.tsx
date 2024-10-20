@@ -11,6 +11,7 @@ import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchStories } from "@/lib/api";
 import { IStory } from "@/interface/IStory";
 import StoriesCardSkeleton from "@/components/storiesCard-skeleton";
+import { getPlainTextFromHtml } from "@/lib/utils";
 
 const HomePage = () => {
 	const [activeTab, setActiveTab] = useState("Home");
@@ -21,7 +22,7 @@ const HomePage = () => {
 		isError: isStoriesError,
 		error: storiesError,
 	} = useQuery(
-		[QueryKeys.TUTORIALS],
+		[QueryKeys.STORIES],
 		async () => {
 			const response = await fetchStories();
 
@@ -81,7 +82,7 @@ const HomePage = () => {
 													key={stories.id}
 													storyImg={stories.thumbnail}
 													projectName={stories.title}
-													description={stories.content}
+													description={getPlainTextFromHtml(stories.content)}
 												/>
 											</Link>
 										))}
