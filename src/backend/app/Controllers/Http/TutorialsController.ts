@@ -37,6 +37,10 @@ export namespace TutorialsController {
   export async function create(request: Request, response: Response) {
     try {
       const { title, content, category, thumbnail } = request.body;
+
+      // TODO: Add tutorial validation
+
+      
       const user = await User.findOneBy({ id: request.user });
 
       if (!user) {

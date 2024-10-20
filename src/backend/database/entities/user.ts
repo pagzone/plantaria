@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Tutorial } from "./tutorial";
 import { Story } from "./story";
+import { Favorite } from "./favorite";
 
 @Entity({
 	name: "users",
@@ -42,4 +43,7 @@ export class User extends BaseEntity {
 
 	@OneToMany(() => Story, (story) => story.user)
 	stories: Story[];
+
+	@OneToMany(() => Favorite, (favorite) => favorite.user)
+	favorites: Favorite[];
 }

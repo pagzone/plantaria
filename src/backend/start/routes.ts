@@ -1,4 +1,5 @@
 import { ApisController } from "App/Controllers/Http/ApisController";
+import { FavoritesController } from "App/Controllers/Http/FavoritesController";
 import { StoriesController } from "App/Controllers/Http/StoriesController";
 import { TutorialsController } from "App/Controllers/Http/TutorialsController";
 import { UsersController } from "App/Controllers/Http/UsersController";
@@ -25,12 +26,20 @@ Route.post("/story/create", AuthMiddleware.authorize, StoriesController.create);
 /* Upload Routes */
 Route.post("/images/upload", AuthMiddleware.authorize, ApisController.uploadImageUrl);
 
+/* Favorites Routes */
+Route.route("/tutorials/:id/favorites")
+  .post(AuthMiddleware.authorize, FavoritesController.favoriteTutorial)
+  .delete(AuthMiddleware.authorize, FavoritesController.unfavoriteTutorial);
+Route.route("/stories/:id/favorites")
+  .post(AuthMiddleware.authorize, FavoritesController.favoriteStory)
+  .delete(AuthMiddleware.authorize, FavoritesController.unfavoriteStory);
+Route.get("/users/:id/favorites", AuthMiddleware.authorize, FavoritesController.getUserFavorites);
+
 /*
 |--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 */
-
 
 Route.get("/greet", ApisController.greet);
 Route.get("/user/test", UsersController.test);
