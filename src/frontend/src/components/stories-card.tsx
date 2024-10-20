@@ -2,7 +2,6 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
@@ -18,15 +17,13 @@ const StoriesCard: React.FC<StoriesCardProps> = ({ ...params }) => {
 		<Card className="rounded-lg shadow-lg">
 			<CardHeader>
 				<img
-					className="bg-slate-400 rounded-t-lg object-cover"
-					height={500}
-					width={800}
+					className="rounded-t-lg object-cover h-56"
 					src={params.storyImg}
 					alt="story"
 				/>
 			</CardHeader>
 			<CardContent className="text-center p-2">
-				<CardTitle className="font-bold text-lg text-gray-800 mb-2">
+				<CardTitle className="font-bold text-lg text-gray-800 mb-2 truncate">
 					{params.projectName}
 				</CardTitle>
 				<CardDescription className="text-gray-600 text-ellipsis">
