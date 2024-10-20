@@ -2,6 +2,7 @@
 import { Story } from "Database/entities/story";
 import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
+import { getAuthorizedDownloadUrlByName, getDownloadUrlByName } from "Helpers/b2";
 
 export namespace StoriesController {
   export async function index(request: Request, response: Response) {
@@ -90,6 +91,8 @@ export namespace StoriesController {
         });
       }
 
+      story.thumbnail = await getAuthorizedDownloadUrlByName(story.thumbnail);
+
       return response.status(200).json({
         status: 1,
         data: story,
@@ -114,10 +117,12 @@ export namespace StoriesController {
         });
       }
 
+      const thumbnailUrl = await getDownloadUrlByName(thumbnail);
+
       const data = Story.create({
         title,
         content,
-        thumbnail,
+        thumbnail: thumbnailUrl,
         user
       })
 

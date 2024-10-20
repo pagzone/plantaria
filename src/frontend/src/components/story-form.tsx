@@ -15,6 +15,7 @@ import { uploadImage } from "@/lib/upload";
 import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
+import SubmitButton from "./submit-button";
 
 const StoryForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
@@ -64,7 +65,7 @@ const StoryForm = () => {
 		}
 
 		if (thumbnail && thumbnailURL) {
-			const data = uploadImage(thumbnail);
+			const data = uploadImage(thumbnail, "story");
 			toast
 				.promise(data, {
 					loading: "Uploading thumbnail...",
@@ -76,11 +77,14 @@ const StoryForm = () => {
 
 					console.log(data);
 
-					form.setValue("thumbnail", data.data!.fileId);
+					form.setValue("thumbnail", data.data!.fileName);
+				})
+				.finally(() => {
+					form.handleSubmit(onSubmit)();
 				});
+		} else {
+			form.handleSubmit(onSubmit)();
 		}
-
-		form.handleSubmit(onSubmit)();
 	};
 
 	const onSubmit = async (values: z.infer<typeof storyFormSchema>) => {
@@ -210,9 +214,13 @@ const StoryForm = () => {
 					</div>
 
 					<div className="flex gap-x-2 max-md:justify-end">
-						<Button type="submit" onClick={formSubmit}>
+						<SubmitButton
+							formState={form.formState}
+							type="submit"
+							onClick={formSubmit}
+						>
 							Post
-						</Button>
+						</SubmitButton>
 						<DialogClose asChild>
 							<Button variant="outline">Cancel</Button>
 						</DialogClose>

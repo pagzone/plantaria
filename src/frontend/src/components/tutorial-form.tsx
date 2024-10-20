@@ -15,6 +15,7 @@ import { uploadImage } from "@/lib/upload";
 import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
+import SubmitButton from "./submit-button";
 
 const TutorialForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
@@ -65,7 +66,7 @@ const TutorialForm = () => {
 		}
 
 		if (thumbnail && thumbnailURL) {
-			const data = uploadImage(thumbnail);
+			const data = uploadImage(thumbnail, "tutorial");
 			toast
 				.promise(data, {
 					loading: "Uploading thumbnail...",
@@ -77,29 +78,29 @@ const TutorialForm = () => {
 
 					console.log(data);
 
-					form.setValue("thumbnail", data.data!.fileId);
+					form.setValue("thumbnail", data.data!.fileName);
+				})
+				.finally(() => {
+					form.handleSubmit(onSubmit)();
 				});
+		} else {
+			form.handleSubmit(onSubmit)();
 		}
-
-		form.handleSubmit(onSubmit)();
 	};
 
 	const onSubmit = async (values: z.infer<typeof tutorialFormSchema>) => {
 		try {
 			const response = await toast.promise(
-				fetch(
-					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}`,
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${getToken()}`,
-						},
-						body: JSON.stringify({
-							...values,
-						}),
+				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${getToken()}`,
 					},
-				).then(async (res) => {
+					body: JSON.stringify({
+						...values,
+					}),
+				}).then(async (res) => {
 					const data = await res.json();
 					if (res.ok) {
 						return { success: true, data };
@@ -224,9 +225,9 @@ const TutorialForm = () => {
 					</div>
 
 					<div className="flex gap-x-2 max-md:justify-end">
-						<Button type="submit" onClick={formSubmit}>
+						<SubmitButton formState={form.formState} type="submit" onClick={formSubmit}>
 							Post
-						</Button>
+						</SubmitButton>
 						<DialogClose asChild>
 							<Button variant="outline">Cancel</Button>
 						</DialogClose>

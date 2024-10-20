@@ -1,6 +1,5 @@
-import { Configuration } from "Database/entities/configuration";
 import type { Response, Request } from "express";
-import { uploadToBackblaze } from "Helpers/b2";
+import { getDownloadAuthorization, uploadToBackblaze } from "Helpers/b2";
 
 export namespace ApisController {
 	export const uploadImageUrl = async (request: Request, response: Response) => {
@@ -25,81 +24,26 @@ export namespace ApisController {
 		});
 	};
 
-	export async function greet(request: Request, response: Response) {
-		response.json({ greeting: `Hello, ${request.query.name}` });
-	}
+	export const downloadAuthorization = async (request: Request, response: Response) => {
+		const { prefix } = request.body;
 
-	export async function configurations(request: Request, response: Response) {
-		const configuration = await Configuration.find();
-
-		response.json({
-			status: 1,
-			data: configuration,
-		});
-	}
-
-	export async function insert_configuration(
-		request: Request,
-		response: Response,
-	) {
-		const { key, value } = request.body;
-		await Configuration.insert({ key, value });
-
-		const checkIfExist = await Configuration.findBy({ key });
-
-		if (!checkIfExist) {
-			response.json({
+		if (!prefix) {
+			return response.status(400).json({
 				status: 0,
-				message: "Configuration already exists!",
+				message: "Missing prefix",
 			});
 		}
 
-		response.json({
-			status: 1,
-			message: "Configuration has been inserted!",
-		});
-	}
+		try {
+			const downloadAuthorization = await getDownloadAuthorization(prefix);
 
-	export async function update_configuration(
-		request: Request,
-		response: Response,
-	) {
-		const { key, value } = request.body;
-		const getConfiguration = await Configuration.findBy({ key });
-
-		if (!getConfiguration) {
-			response.json({
-				status: 0,
-				message: "Configuration not found!",
+			return response.status(200).json({
+				status: 1,
+				message: "Download authorization",
+				data: downloadAuthorization
 			});
+		} catch (error: any) {
+			return response.status(500).json({ status: 0, message: error.message });
 		}
-
-		await Configuration.update({ key }, { value });
-		response.json({
-			status: 1,
-			message: "Configuration has been updated!",
-		});
-	}
-
-	export async function delete_configuration(
-		request: Request,
-		response: Response,
-	) {
-		const { key } = request.body;
-		const getConfiguration = await Configuration.findBy({ key });
-
-		if (!getConfiguration) {
-			response.json({
-				status: 0,
-				message: "Configuration not found!",
-			});
-		}
-
-		await Configuration.delete({ key });
-
-		response.json({
-			status: 1,
-			message: "Configuration has been deleted!",
-		});
 	}
 }

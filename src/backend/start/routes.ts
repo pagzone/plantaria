@@ -20,7 +20,7 @@ Route.route("/tutorials/:id")
   .delete(AuthMiddleware.authorize, TutorialsController.destroy);
 
 /* Stories Routes */
-Route.post("/stories/create", AuthMiddleware.authorize, StoriesController.create);
+Route.post("/stories", AuthMiddleware.authorize, StoriesController.create);
 Route.route("/stories/:id")
   .put(AuthMiddleware.authorize, StoriesController.update)
   .delete(AuthMiddleware.authorize, StoriesController.destroy);
@@ -43,13 +43,6 @@ Route.get("/users/:id/favorites", AuthMiddleware.authorize, FavoritesController.
 |--------------------------------------------------------------------------
 */
 
-Route.get("/greet", ApisController.greet);
-Route.get("/user/test", UsersController.test);
-Route.get("/configurations", ApisController.configurations);
-Route.post("/configuration/insert", ApisController.insert_configuration);
-Route.post("/configuration/update", ApisController.update_configuration);
-Route.post("/configuration/delete", ApisController.delete_configuration);
-
 /* User Routes */
 Route.post("/auth/login", UsersController.login);
 Route.post("/auth/register", UsersController.register);
@@ -63,5 +56,8 @@ Route.get("/tutorials/:id", TutorialsController.show);
 /* Stories Routes */
 Route.get("/stories", StoriesController.index);
 Route.get("/stories/:id", StoriesController.show);
+
+/* Download Routes */
+Route.post("/auth/download", ApisController.downloadAuthorization);
 
 export { Route as routes };

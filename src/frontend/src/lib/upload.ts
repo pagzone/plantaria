@@ -2,7 +2,7 @@ import { APIRoutes } from "@/constants/ApiRoutes";
 import { getToken } from "./auth";
 import UploadFileResponse from "@/interface/UploadFileResponse";
 
-export const uploadImage = async (imageFile: File) => {
+export const uploadImage = async (imageFile: File, prefix?: string) => {
   if (!imageFile) return;
 
   const arrayBuffer = await imageFile.arrayBuffer();
@@ -12,7 +12,7 @@ export const uploadImage = async (imageFile: File) => {
     headers: {
       Authorization: `Bearer ${getToken()}`,
       'Content-Type': 'application/octet-stream',
-      'x-filename': imageFile.name
+      'x-filename': `${prefix}/${imageFile.name}`,
     },
     body: arrayBuffer,
   });

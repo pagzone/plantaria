@@ -1,6 +1,7 @@
 import { Tutorial } from "Database/entities/tutorial";
 import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
+import {  getDownloadUrlByName } from "Helpers/b2";
 
 export namespace TutorialsController {
   export async function index(request: Request, response: Response) {
@@ -119,11 +120,13 @@ export namespace TutorialsController {
         });
       }
 
+      const thumbnailUrl = await getDownloadUrlByName(thumbnail);
+
       const data = Tutorial.create({
         title,
         content,
         category,
-        thumbnail,
+        thumbnail: thumbnailUrl,
         user
       })
 

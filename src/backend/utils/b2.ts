@@ -14,7 +14,8 @@ async function authorizeB2() {
   });
 
   if (!response.ok) {
-    throw new Error(`Authorization failed: ${response.statusText}`);
+    const errorResponse = await response.text();
+    throw new Error(`Authorization failed: ${response.statusText}, Response: ${errorResponse}`);
   }
 
   const data: IB2AuthorizeResponse = await response.json();
@@ -78,7 +79,7 @@ async function uploadImage(
   }
 
   const data: IB2UploadFileResponse = await response.json();
-  
+
   return data;
 }
 
@@ -96,7 +97,75 @@ async function uploadToBackblaze(fileBuffer: Buffer, fileName: string) {
   }
 }
 
+async function getDownloadAuthorization(prefix?: string) {
+  try {
+    const { authToken, apiUrl, bucketId } = await authorizeB2();
+
+    const response = await fetch(`${apiUrl}/b2api/v3/b2_get_download_authorization`, {
+      method: 'POST',
+      headers: {
+        Authorization: authToken,
+
+      },
+      body: JSON.stringify({
+        bucketId,
+        fileNamePrefix: prefix,
+        validDurationInSeconds: 86400,
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get download authorization: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error getting download authorization:', error);
+  }
+}
+
+async function getDownloadUrlByName(fileName: string) {
+  const { downloadUrl, bucketName } = await authorizeB2();
+
+  return `${downloadUrl}/file/${bucketName}/${fileName}`;
+}
+
+async function getAuthorizedDownloadUrlByName(fileName: string, prefix?: string) {
+  const authorizedDownloadUrl = await getDownloadUrlByName(fileName);
+
+  return `${authorizedDownloadUrl}?Authorization=${await getDownloadAuthorization(prefix)}`;
+}
+
+async function downloadFromBackblazeById(fileId: string) {
+  try {
+    const { downloadUrl, authToken } = await authorizeB2();
+
+    const response = await fetch(`${downloadUrl}/b2api/v3/b2_download_file_by_id?fileId=${fileId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: authToken,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to download file: ${response.statusText}`);
+    }
+
+    const data = await response.arrayBuffer();
+
+    return data;
+  } catch (error) {
+    console.error('Error downloading from Backblaze:', error);
+  }
+}
+
 export {
   authorizeB2,
-  uploadToBackblaze
+  uploadToBackblaze,
+  downloadFromBackblazeById,
+  getDownloadUrlByName,
+  getAuthorizedDownloadUrlByName,
+  getDownloadAuthorization
 }

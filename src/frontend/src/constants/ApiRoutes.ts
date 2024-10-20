@@ -11,5 +11,7 @@ export enum APIRoutes {
 	/* STORY */
 	STORIES = "/icp/stories",
 
-	UPLOAD_IMAGE = "/icp/images/upload"
+	UPLOAD_IMAGE = "/icp/images/upload",
+
+	DOWNLOAD_AUTHORIZATION = "/icp/auth/download"
 }

@@ -4,24 +4,59 @@ import { getToken } from "./auth";
 import { z } from "zod";
 import { ITutorial } from "@/interface/ITutorial";
 import { IResponse } from "@/interface/IResponse";
+import { IDownloadAuth } from "@/interface/IDownloadAuth";
 
-export async function fetchTutorials(page?: number) {
-  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}${page ? `?p=${page}` : ''}`);
-  const data: IResponse<[ITutorial[], number]> = await response.json();
+export async function fetchDownloadAuth(prefix: string) {
+  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.DOWNLOAD_AUTHORIZATION}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      prefix: prefix
+    }),
+  });
+
+  const data: IResponse<IDownloadAuth> = await response.json();
+  
   if (response.ok) {
     return data;
   } else {
-    console.error('Get tutorials failed:', data);
+    console.error('Get download authorization failed:', data);
+  }
+}
+
+export async function fetchTutorials(page?: number) {
+  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}${page ? `?p=${page}` : ''}`);
+  const tutorials: IResponse<[ITutorial[], number]> = await response.json();
+
+  if (tutorials.data) {
+    const downloadAuth = await fetchDownloadAuth("tutorial");
+    tutorials.data[0].forEach(async (tutorial: ITutorial) => {
+      tutorial.thumbnail = `${tutorial.thumbnail}?Authorization=${downloadAuth?.data?.authorizationToken}`
+    })
+  }
+
+  if (response.ok) {
+    return tutorials;
+  } else {
+    console.error('Get tutorials failed:', tutorials);
   }
 }
 
 export async function fetchTutorial(id: string) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}/${id}`);
-  const data: IResponse<ITutorial> = await response.json();
+  const tutorial: IResponse<ITutorial> = await response.json();
+
+  if (tutorial.data) {
+    const downloadAuth = await fetchDownloadAuth("tutorial");
+    tutorial.data.thumbnail = `${tutorial.data.thumbnail}?Authorization=${downloadAuth?.data?.authorizationToken}`
+  }
+
   if (response.ok) {
-    return data;
+    return tutorial;
   } else {
-    console.error('Get tutorial failed:', data);
+    console.error('Get tutorial failed:', tutorial);
   }
 }
 
@@ -81,21 +116,35 @@ export async function deleteTutorial(id: string) {
 
 export async function fetchStories(page?: number) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}${page ? `?p=${page}` : ''}`);
-  const data = await response.json();
+  const stories = await response.json();
+
+  if (stories.data) {
+    const downloadAuth = await fetchDownloadAuth("tutorial");
+    stories.data[0].forEach(async (story: ITutorial) => {
+      story.thumbnail = `${story.thumbnail}?Authorization=${downloadAuth?.data?.authorizationToken}`
+    })
+  }
+
   if (response.ok) {
-    return data;
+    return stories;
   } else {
-    console.error('Get stories failed:', data);
+    console.error('Get stories failed:', stories);
   }
 }
 
 export async function fetchStory(id: string) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}/${id}`);
-  const data = await response.json();
+  const story = await response.json();
+
+  if (story.data) {
+    const downloadAuth = await fetchDownloadAuth("story");
+    story.data.thumbnail = `${story.data.thumbnail}?Authorization=${downloadAuth?.data?.authorizationToken}`
+  }
+
   if (response.ok) {
-    return data;
+    return story;
   } else {
-    console.error('Get story failed:', data);
+    console.error('Get story failed:', story);
   }
 }
 
