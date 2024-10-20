@@ -39,31 +39,6 @@ const HomeContent = () => {
 
 	// const tutorials = data!.data;
 
-	const placeholder = [
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
-			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
-		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
-	
-	]
-
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
 			<div className="h-60 md:h-72 ">
@@ -84,7 +59,7 @@ const HomeContent = () => {
 
 				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
 					<div className="flex flex-wrap gap-x-1 min-lg:gap-x-4 gap-y-2  ">
-						{placeholder.map((value: any) => (
+						{/* {tutorials.map((value: any) => (
 							<Link key={value.id} to={`/tutorial/${value.id}`}
 							>
 								<TutorialCard	
@@ -96,7 +71,7 @@ const HomeContent = () => {
 									content={value.content}
 								/>
 							</Link>
-						))}
+						))} */}
 					</div>
 					{/* <PageSelector
 						tutorials={tutorials}
