@@ -17,6 +17,20 @@ export namespace TutorialsController {
         skip,
         relations: {
           user: true
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          thumbnail: true,
+          created_at: true,
+          user: {
+            id: true,
+            name: true,
+            avatar_link: true,
+            location: true,
+            created_at: true
+          }
         }
       });
 

@@ -2,50 +2,16 @@ import CategoriesCB from "@/components/categories-cb";
 import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
+import { QueryKeys } from "@/constants/QueryKeys";
+import { fetchTutorials } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { parse } from "path";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
-export const tutorials = [
-	{
-		id: 1,
-		tutorialImage:
-			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-		profileImage:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-		profileName: "Alice Brown",
-		title: "Intro to Urban Farming",
-		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	},
-	{
-		id: 2,
-		tutorialImage:
-			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-		profileImage:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-		profileName: "Michael Johnson",
-		title: "Advanced Techniques in Urban Farming",
-		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	},
-	{
-		id: 3,
-		tutorialImage:
-			"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-		profileImage:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-		profileName: "Sarah Williams",
-		title: "Sustainable Urban Farming Practices",
-		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	},
-];
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 const HomeContent = () => {
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 6;
-	const startIndex = (currentPage - 1) * itemsPerPage;
-	const endIndex = startIndex + itemsPerPage;
+	const [searchParams, set] = useSearchParams();
+	const page = searchParams.get("page");
 
 	const featured = {
 		image: "plants-being-planted-greenhouse.png",
@@ -54,7 +20,24 @@ const HomeContent = () => {
 			"lLorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
 	};
 
-	const currenTutorials = tutorials.slice(startIndex, endIndex);
+	const {
+		data,
+		isLoading: isTutorialsLoading,
+		error: tutorialsError,
+		refetch,
+	} = useQuery([QueryKeys.TUTORIALS], async () => {
+		const data = fetchTutorials(parseInt(page || "1"));
+
+		return data;
+	});
+
+	if (isTutorialsLoading) {
+		return <div>Loading...</div>;
+	}
+
+	const tutorials = data!.data;
+
+	console.log(tutorials);
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
@@ -76,26 +59,24 @@ const HomeContent = () => {
 
 				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
 					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
-						{currenTutorials.map((value) => (
-							<Link
-								key={value.id} 
-							    to={`/tutorial/${value.id}`}>
+						{tutorials.map((value: any) => (
+							<Link key={value.id} to={`/tutorial/${value.id}`}>
 								<TutorialCard
 									key={value.id}
-									tutorialImage={value.tutorialImage}
-									profileImage={value.profileImage}
-									profileName={value.profileName}
+									tutorialImage={value.thumbnail}
+									userAvatar={value.user.avatar_url}
+									userName={value.profileName}
 									title={value.title}
-									description={value.description}
+									content={value.content}
 								/>
 							</Link>
 						))}
 					</div>
 					<PageSelector
 						tutorials={tutorials}
-						currentPage={currentPage}
-						setCurrentPage={setCurrentPage}
-						itemsPerPage={itemsPerPage}
+						currentPage={parseInt(page || "1")}
+						setCurrentPage={(page) => searchParams.set("page", page.toString())}
+						itemsPerPage={6}
 					/>
 				</div>
 			</div>

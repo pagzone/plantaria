@@ -2,10 +2,11 @@ import { APIRoutes } from "@/constants/ApiRoutes";
 import { tutorialFormSchema } from "./formSchema";
 import { getToken } from "./auth";
 import { z } from "zod";
+import { ITutorial } from "@/interface/ITutorial";
 
 export async function fetchTutorials(page?: number) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.GET_TUTORIALS}${page ? `?p=${page}` : ''}`);
-  const data = await response.json();
+  const data: { status: number; message: string; data?: [ITutorial[], number] } = await response.json();
   if (response.ok) {
     return data;
   } else {

@@ -207,10 +207,10 @@ const ProfilePage: FC = () => {
 								<TutorialCard
 									key={value.id}
 									tutorialImage={value.tutorialImage}
-									profileImage={value.profileImage}
-									profileName={value.profileName}
+									userAvatar={value.profileImage}
+									userName={value.profileName}
 									title={value.title}
-									description={value.description}
+									content={value.description}
 								/>
 							))}
 						</div>

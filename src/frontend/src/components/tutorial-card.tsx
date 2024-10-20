@@ -11,10 +11,10 @@ import { FC, useState } from "react";
 
 type TutorialCardProps = {
 	tutorialImage: string;
-	profileImage: string;
-	profileName: string;
+	userAvatar: string;
+	userName: string;
 	title: string;
-	description: string;
+	content: string;
 };
 
 const TutorialCard: FC<TutorialCardProps> = ({ ...params }) => {
@@ -22,9 +22,9 @@ const TutorialCard: FC<TutorialCardProps> = ({ ...params }) => {
 
 	return (
 		<Card className="h-96 cursor-pointer">
-			<CardHeader className="h-1/2">
+			<CardHeader>
 				<img
-					className="h-full bg-slate-800 rounded-t-lg object-cover"
+					className="bg-slate-800 rounded-t-lg object-scale-down"
 					src={params.tutorialImage}
 					alt="tutorial-image"
 				/>
@@ -33,17 +33,17 @@ const TutorialCard: FC<TutorialCardProps> = ({ ...params }) => {
 				<div className="flex items-center gap-x-2 py-2">
 					<img
 						className="size-10 rounded-full bg-slate-400 object-cover"
-						src={params.profileImage}
+						src={params.userAvatar}
 						alt="user-avatar"
 					/>
 					<CardTitle className="font-medium text-base">
-						{params.profileName}
+						{params.userName}
 					</CardTitle>
 				</div>
 				<div className="flex flex-col">
 					<span className="font-medium text-lg truncate">{params.title}</span>
 					<CardDescription className="break-words overflow-hidden h-[4rem] line-clamp-3">
-						{params.description}
+						{params.content}
 					</CardDescription>
 				</div>
 			</CardContent>
