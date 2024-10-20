@@ -1,75 +1,97 @@
-# ICP Development Environment with Azle and React
-
-This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
-It includes a frontend built with Vite and React, and a backend written in JS/TS (Azle).
-
-## Get started with one click:
-### Locally:
-
-Make sure you have you have the latest version of Docker (e.g. >25) and VS Code installed and running, then click the button below
-
-[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/icPHubPH/azle-react)
-
-### In your browser:
-
-In Gitpod 
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/icPHubPH/azle-react/)
-
-## 🚀 Develop
-
-When the editor opened, run the following commands to start a local ICP node and deploy the canister smart contract:
-
-```bash
-dfx start --clean # Start a local ICP node
-# In a new terminal window:
-dfx deploy # Deploy smart contract locally
-```
-
-The smart contract will be reachable under `http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943`.
-Call the smart contract using `curl` on the command line: 
-
-```bash
-# create configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/insert -H 'content-type: application/json' -d '{"key": "site_name", "value": "ICP HUB PH"}'
-# update configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/update -H 'content-type: application/json' -d '{"key": "site_name", "value": "ICP HUB Philippines"}'
-# delete configuration
-curl -X POST http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configuration/delete -H 'content-type: application/json' -d '{"key": "site_name"}'
-# get configurations endpoint
-curl http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/configurations
-
-```
-You can also use tools like Postman or HTTPie to interact with the smart contract.
-To redeploy the smart contract, run `dfx deploy` again.
-
-When ready, run `dfx deploy --ic` to deploy your application to the ICP mainnet.
-The command will print a different canister URL for mainnet, ending in `.raw.icp0.io`.
-You can make calls to the smart contract on mainnet just like to the local one!
-
-## 🛠️ Technology Stack
-
-- [Azle CDK](https://demergent-labs.github.io/azle/): the Canister Development Kit for JS/TS
-- [Vite](https://vitejs.dev/): high-performance tooling for front-end web development
-- [React](https://reactjs.org/): a component-based UI library
-- [TypeScript](https://www.typescriptlang.org/): JavaScript extended with syntax for types
-- [Sass](https://sass-lang.com/): an extended syntax for CSS stylesheets
-
-## 📚 Documentation
-
-- [Azle book](https://demergent-labs.github.io/azle/the_azle_book.html)
-- [Internet Computer docs](https://internetcomputer.org/docs/current/developer-docs/ic-overview)
-- [Internet Computer wiki](https://wiki.internetcomputer.org/)
-- [Internet Computer forum](https://forum.dfinity.org/)
-- [Vite developer docs](https://vitejs.dev/guide/)
-- [React quick start guide](https://react.dev/learn)
-- [`dfx.json` reference schema](https://internetcomputer.org/docs/current/references/dfx-json-reference/)
-- [Developer Experience Feedback Board](https://dx.internetcomputer.org/)
+![Plantaria](./docs/assets/banner.png)
 
 
-## 💡 Tips and Tricks
+## 🌿 Project Description 
 
-- When developing remotely, navigating to the canister's frontend in the browser will not work.
-Use `curl` on the command line instead, or develop locally.
+Plantaria is a web-based app designed to facilitate online learning for urban farming. It offers beginner-friendly tutorials on various farming techniques, providing users with step-by-step guidance to create their own urban farms.
 
-- If you get an error "Error: An error happened during communication with the replica: ... Connection refused", run `dfx start --clean` to start dfx.
+## 💡 Key Features 
+- #### Access detailed tutorials for setting up urban farms or create one to share it with the community.
+- #### Explore user success stories or share your own victories in urban farming.
+- #### Connect with partnered farming organizations for additional resources and learn about the latest farming community projects.
+
+Plantaria was developed for individuals struggling with food insecurity or anyone interested in cultivating a sustainable food source. By learning from the tutorials provided, users can start their own urban farms and contribute to solving hunger issues through self-sufficiency.
+
+## 🛠️ Technologies Used
+
+ ![React](./docs/assets/react-svgrepo-com.svg)
+ ![Vite](./docs/assets/vite-svgrepo-com.svg)
+ ![Tailwind](./docs/assets/tailwind-svgrepo-com.svg)
+ ![TypeScript](./docs/assets/typescript-icon-svgrepo-com.svg)
+ ![Azle](./docs/assets/azle.svg)
+
+
+## 💼 Team Members and Roles
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/xyugen.jpg"/>
+    <div>
+      <h2> &nbsp;Jorym Arias - Lead Developer / Full Stack Developer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/yugen.zwei"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/xyugen"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/alv.jpg"/>
+    <div>
+      <h2> &nbsp;Al-v Manda - Front-End Developer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/alv.manda.3"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Kaizouku14"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/darv.jpg"/>
+    <div>
+      <h2> &nbsp;Darvey Trinidad - UI/UX Designer / Technical Writer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/darvey.trinidad.9"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/darvey-trinidad"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/gian.jpg"/>
+    <div>
+      <h2> &nbsp;Gian Carlo Villar - UI/UX Designer / Technical Writer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/giancarlo.villar.35"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Dochiibells"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/jomel.jpg"/>
+    <div>
+      <h2> &nbsp;Jomel Mislos - UI/UX Designer / Lead Editor</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/joml.amv"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Dochiibells"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
