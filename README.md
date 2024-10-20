@@ -1,5 +1,4 @@
-# Hello I am Liz from Las Vegas
-
+![Plantaria](https://github.com/pagzone/plantaria/blob/f41f30a6913146fac37627b1f00ee18f104e4ade/plantaria-version2%201.png)
 This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
 It includes a frontend built with Vite and React, and a backend written in JS/TS (Azle).
 
