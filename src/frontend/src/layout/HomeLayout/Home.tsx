@@ -9,34 +9,42 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 
 const HomeContent = () => {
-	const [searchParams, set] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
 
 	const featured = {
 		image: "plants-being-planted-greenhouse.png",
-		title: "lorem Ipsum ",
+		title: "Lorem Ipsum",
 		description:
-			"lLorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
+			"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
 	};
 
 	const {
 		data,
 		isLoading: isTutorialsLoading,
+		isError: isTutorialsError,
 		error: tutorialsError,
 		refetch,
-	} = useQuery([QueryKeys.TUTORIALS], async () => {
-		const data = fetchTutorials(parseInt(page || "1"));
-
-		return data;
-	});
+	} = useQuery(
+		[QueryKeys.TUTORIALS, page || "1"],
+		async () => {
+			const response = await fetchTutorials(parseInt(page || "1"));
+			return response;
+		},
+		{
+			keepPreviousData: true,
+		},
+	);
 
 	if (isTutorialsLoading) {
 		return <div>Loading...</div>;
 	}
 
-	const tutorials = data!.data;
+	if (isTutorialsError && tutorialsError instanceof Error) {
+		return <div>Error: {tutorialsError.message}</div>;
+	}
 
-	console.log(tutorials);
+	const tutorials = data?.data![0];
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
@@ -58,23 +66,28 @@ const HomeContent = () => {
 
 				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
 					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
-						{tutorials![0].map((value: any) => (
-							<Link key={value.id} to={`/tutorial/${value.id}`}>
-								<TutorialCard
-									key={value.id}
-									tutorialImage={value.thumbnail}
-									userAvatar={value.user.avatar_url}
-									userName={value.profileName}
-									title={value.title}
-									content={getPlainTextFromHtml(value.content)}
-								/>
-							</Link>
-						))}
+						{tutorials?.map(
+							(
+								value: any, // Ensure this matches your API response
+							) => (
+								<Link key={value.id} to={`/tutorial/${value.id}`}>
+									<TutorialCard
+										tutorialImage={value.thumbnail}
+										userAvatar={value.user.avatar_url}
+										userName={value.profileName}
+										title={value.title}
+										content={getPlainTextFromHtml(value.content)}
+									/>
+								</Link>
+							),
+						)}
 					</div>
 					<PageSelector
-						tutorials={tutorials![0]}
+						tutorials={tutorials!}
 						currentPage={parseInt(page || "1")}
-						setCurrentPage={(page) => searchParams.set("page", page.toString())}
+						setCurrentPage={(page) =>
+							setSearchParams({ page: page.toString() })
+						}
 						itemsPerPage={6}
 					/>
 				</div>

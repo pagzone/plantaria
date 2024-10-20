@@ -19,12 +19,17 @@ const TutorialContent = () => {
 		return <Navigate to={PageRoutes.HOME} />;
 	}
 
-	const { data, isLoading, error, refetch } = useQuery(
-		[QueryKeys.TUTORIAL],
+	const { data, isLoading, isError, error } = useQuery(
+		[QueryKeys.TUTORIAL, id],
 		async () => {
-			const data = fetchTutorial(id!);
-
-			return data;
+			const response = await fetchTutorial(id!);
+			return response;
+		},
+		{
+			enabled: !!id,
+			refetchOnWindowFocus: false,
+			refetchOnMount: true,
+			refetchOnReconnect: true,
 		},
 	);
 
@@ -32,9 +37,11 @@ const TutorialContent = () => {
 		return <div>Loading...</div>;
 	}
 
-	const tutorial = data!.data;
+	if (isError && error instanceof Error) {
+		return <div>Error: {error.message}</div>;
+	}
 
-	console.log(tutorial);
+	const tutorial = data?.data;
 
 	return (
 		<div className="flex flex-col h-full gap-y-4 px-4 md:px-8 py-4">
@@ -57,7 +64,7 @@ const TutorialContent = () => {
 				<h1 className="text-2xl md:text-4xl font-bold">{tutorial?.title}</h1>
 
 				{/* Author and Date Section */}
-				<div className="flex items-center justify-between gap-2 ">
+				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center gap-x-2">
 						<img
 							className="bg-gray-400 size-10 md:w-12 md:h-12 rounded-full object-cover"
@@ -69,9 +76,9 @@ const TutorialContent = () => {
 						</span>
 					</div>
 
-					<div className="flex items-center gap-x-2 ">
+					<div className="flex items-center gap-x-2">
 						<div
-							className="flex items-center gap-x-1 text-sm cursor-pointer 2"
+							className="flex items-center gap-x-1 text-sm cursor-pointer"
 							onClick={() => setOnFavorite(!onFavorite)}
 						>
 							<Heart
@@ -86,13 +93,11 @@ const TutorialContent = () => {
 
 			{/* Scrollable Content */}
 			<ScrollArea>
-				<div className="min-h-96 mx-auto">
-					{parse(tutorial?.content || "")}
-				</div>
+				<div className="min-h-96 mx-auto">{parse(tutorial?.content || "")}</div>
 			</ScrollArea>
 
 			{/* Comments Area */}
-			<div className="h-96 p-4 ">
+			<div className="h-96 p-4">
 				<h2 className="text-2xl font-semibold mb-4">Comments</h2>
 				<CommentArea />
 			</div>
