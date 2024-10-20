@@ -1,4 +1,4 @@
-import CommentArea from "@/components/comments";
+import CommentArea from "@/components/CommentArea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { ArrowLeft, Heart } from "lucide-react";
@@ -57,11 +57,11 @@ const TutorialPage = () => {
           
         </div>
       </ScrollArea>
-
+          
       {/* Comments Area */}
       <div className="h-96 p-4 ">
         <h2 className="text-2xl font-semibold mb-4">Comments</h2>
-        <CommentArea/>
+         <CommentArea/>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ export const identityFormSchema = z.object({
 });
 
 export const commentFormSchema = z.object({
-	newComment : z
+	comment : z
 	  .string()
 	  .min(1, { message : "Comment must at least 3 characters"}),
 })

@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, forwardRef } from "react";
+import { useImperativeHandle, forwardRef } from "react";
 import { useQuill } from "react-quilljs";
 import BlotFormatter from "quill-blot-formatter";
 import "quill/dist/quill.snow.css";
