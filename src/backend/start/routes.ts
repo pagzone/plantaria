@@ -14,10 +14,10 @@ const Route = Router();
 */
 
 /* Tutorials Routes */
-Route.post("/tutorial/create", AuthMiddleware.authorize, TutorialsController.create);
-//TODO: update and delete tutorial
-// Route.post("/tutorial/:id/update", AuthMiddleware.authorize, TutorialsController.update);
-// Route.post("/tutorial/:id/delete", AuthMiddleware.authorize, TutorialsController.delete);
+Route.post("/tutorials", AuthMiddleware.authorize, TutorialsController.create);
+Route.route("/tutorials/:id")
+  .put(AuthMiddleware.authorize, TutorialsController.update)
+  .delete(AuthMiddleware.authorize, TutorialsController.destroy);
 
 /* Stories Routes */
 Route.post("/story/create", AuthMiddleware.authorize, StoriesController.create);
@@ -56,9 +56,7 @@ Route.post("/auth/ii/register", UsersController.registerWithIdentity);
 
 /* Tutorials Routes */
 Route.get("/tutorials", TutorialsController.index);
-//TODO: get tutorial by id
-// Route.get("/tutorial/:id", TutorialsController.findById);
-Route.get("/tutorials/test", TutorialsController.test);
+Route.get("/tutorials/:id", TutorialsController.show);
 
 /* Stories Routes */
 Route.get("/stories", StoriesController.index);

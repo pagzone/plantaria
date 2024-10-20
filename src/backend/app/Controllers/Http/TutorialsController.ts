@@ -34,6 +34,38 @@ export namespace TutorialsController {
     }
   }
 
+  export async function show(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      if (!id) {
+        return response.status(400).json({
+          status: 0,
+          message: "Missing tutorial id",
+        });
+      }
+
+      const tutorial = await Tutorial.findOneBy({ id: parseInt(id) });
+
+      if (!tutorial) {
+        return response.status(404).json({
+          status: 0,
+          message: "Tutorial not found",
+        });
+      }
+
+      return response.status(200).json({
+        status: 1,
+        data: tutorial,
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
+
   export async function create(request: Request, response: Response) {
     try {
       const { title, content, category, thumbnail } = request.body;
@@ -73,22 +105,98 @@ export namespace TutorialsController {
     }
   }
 
-  // export async function update(request: Request, response: Response) {
-  //   try {
-  //     const { title, content, category, thumbnail, resources } = request.body;
-  //     const { id } = request.params;
-  //     const user = await User.findOneBy({ id: request.user });
+  export async function update(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const { title, content, category, thumbnail } = request.body;
 
-  //     if (!user) {
-  //       return response.status(401).json({
-  //         status: 0,
-  //         message: "Unauthorized",
-  //       });
-  //     }
+      if (!id) {
+        return response.status(400).json({
+          status: 0,
+          message: "Missing tutorial id",
+        });
+      }
 
-  //     const tutorial = await Tutorial.findOneBy({ id });
-  //   }
-  // }
+      const user = await User.findOneBy({ id: request.user });
+
+      if (!user) {
+        return response.status(401).json({
+          status: 0,
+          message: "Unauthorized",
+        });
+      }
+
+      const data = await Tutorial.findOneBy({ id: parseInt(id) });
+
+      if (!data) {
+        return response.status(404).json({
+          status: 0,
+          message: "Tutorial not found",
+        });
+      }
+
+      data.title = title;
+      data.content = content;
+      data.category = category;
+      data.thumbnail = thumbnail;
+
+      await Tutorial.save(data);
+
+      return response.status(200).json({
+        status: 1,
+        message: "Tutorial updated successfully",
+        data
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
+
+  export async function destroy(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      if (!id) {
+        return response.status(400).json({
+          status: 0,
+          message: "Missing tutorial id",
+        });
+      }
+
+      const user = await User.findOneBy({ id: request.user });
+
+      if (!user) {
+        return response.status(401).json({
+          status: 0,
+          message: "Unauthorized",
+        });
+      }
+
+      const data = await Tutorial.findOneBy({ id: parseInt(id) });
+
+      if (!data) {
+        return response.status(404).json({
+          status: 0,
+          message: "Tutorial not found",
+        });
+      }
+
+      await Tutorial.remove(data);
+
+      return response.status(200).json({
+        status: 1,
+        message: "Tutorial deleted successfully",
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        status: 0,
+        message: error.message,
+      });
+    }
+  }
 
   export async function test(request: Request, response: Response) {
     const tutorials = await Tutorial.find();
