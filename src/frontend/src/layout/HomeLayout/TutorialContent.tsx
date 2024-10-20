@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useParams } from "react-router-dom";
 
-const TutorialPage = () => {
+const TutorialContent = () => {
 	const { id } = useParams();
 	const [onFavorite, setOnFavorite] = useState(false);
 
@@ -100,4 +100,4 @@ const TutorialPage = () => {
 	);
 };
 
-export default TutorialPage;
+export default TutorialContent;

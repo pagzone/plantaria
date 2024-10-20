@@ -2,7 +2,7 @@ import CategoriesCB from "@/components/categories-cb";
 import IconTooltip from "@/components/icon-tooltip";
 import Notification from "@/components/notification";
 import PostDialog from "@/components/post-content";
-import SearchBar from "@/components/search-bar";
+import SearchBar from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UserSetting from "@/components/user-setting";
@@ -53,10 +53,6 @@ const Header = () => {
 				</div>
 
 				<SearchBar/>
-				{/* <Input
-					className="border border-black rounded-full pl-4 pr-12 py-2 w-full max-md:hidden"
-					placeholder="Search..."
-				/> */}
 				<div className="absolute right-3.5 top-1/2 transform -translate-y-1/2 bg-lima-500 rounded-full p-1.5">
 					<Search color="#ffffff" strokeWidth={2} size={20} />
 				</div>

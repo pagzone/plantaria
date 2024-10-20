@@ -3,6 +3,7 @@ import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
 import { QueryKeys } from "@/constants/QueryKeys";
+import { ITutorial } from "@/interface/ITutorial";
 import { fetchTutorials } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { parse } from "path";
@@ -20,24 +21,22 @@ const HomeContent = () => {
 			"lLorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
 	};
 
-	const {
-		data,
-		isLoading: isTutorialsLoading,
-		error: tutorialsError,
-		refetch,
-	} = useQuery([QueryKeys.TUTORIALS], async () => {
-		const data = fetchTutorials(parseInt(page || "1"));
+	// const {
+	// 	data,
+	// 	isLoading: isTutorialsLoading,
+	// 	error: tutorialsError,
+	// 	refetch,
+	// } = useQuery([QueryKeys.TUTORIALS], async () => {
+	// 	const data = fetchTutorials(parseInt(page || "1"));
 
-		return data;
-	});
+	// 	return data;
+	// });
 
-	if (isTutorialsLoading) {
-		return <div>Loading...</div>;
-	}
+	// if (isTutorialsLoading) {
+	// 	return <div>Loading...</div>;
+	// }
 
-	const tutorials = data!.data;
-
-	console.log(tutorials);
+	// const tutorials = data!.data;
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
@@ -70,16 +69,15 @@ const HomeContent = () => {
 									content={value.content}
 								/>
 							</Link>
-						))}
-					</div>
-					<PageSelector
+						))} */}
+			</div>
+			{/* <PageSelector
 						tutorials={tutorials}
 						currentPage={parseInt(page || "1")}
 						setCurrentPage={(page) => searchParams.set("page", page.toString())}
 						itemsPerPage={6}
 					/>
 				</div> */}
-			</div>
 		</div>
 	);
 };
