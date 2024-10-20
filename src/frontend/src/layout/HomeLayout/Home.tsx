@@ -57,7 +57,7 @@ const HomeContent = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
+				{/* <div className="flex flex-col justify-between items-center gap-y-4 h-full">
 					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
 						{tutorials.map((value: any) => (
 							<Link key={value.id} to={`/tutorial/${value.id}`}>
@@ -78,7 +78,7 @@ const HomeContent = () => {
 						setCurrentPage={(page) => searchParams.set("page", page.toString())}
 						itemsPerPage={6}
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

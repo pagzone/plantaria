@@ -88,7 +88,7 @@ const TutorialForm = () => {
 		try {
 			const response = await toast.promise(
 				fetch(
-					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.CREATE_TUTORIAL}`,
+					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}`,
 					{
 						method: "POST",
 						headers: {

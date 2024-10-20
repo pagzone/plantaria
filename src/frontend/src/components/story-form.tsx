@@ -86,7 +86,7 @@ const StoryForm = () => {
 	const onSubmit = async (values: z.infer<typeof storyFormSchema>) => {
 		try {
 			const response = await toast.promise(
-				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.CREATE_STORY}`, {
+				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

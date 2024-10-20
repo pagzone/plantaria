@@ -18,6 +18,20 @@ export namespace StoriesController {
         skip,
         relations: {
           user: true
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          thumbnail: true,
+          created_at: true,
+          user: {
+            id: true,
+            name: true,
+            avatar_link: true,
+            location: true,
+            created_at: true
+          }
         }
       });
 
@@ -46,7 +60,28 @@ export namespace StoriesController {
         });
       }
 
-      const story = await Story.findOneBy({ id });
+      const story = await Story.findOne({
+        where: {
+          id
+        },
+        relations: {
+          user: true
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          thumbnail: true,
+          created_at: true,
+          user: {
+            id: true,
+            name: true,
+            avatar_link: true,
+            location: true,
+            created_at: true
+          }
+        }
+      });
 
       if (!story) {
         return response.status(404).json({

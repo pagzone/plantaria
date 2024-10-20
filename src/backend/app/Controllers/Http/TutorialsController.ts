@@ -20,6 +20,7 @@ export namespace TutorialsController {
         },
         select: {
           id: true,
+          category: true,
           title: true,
           content: true,
           thumbnail: true,
@@ -59,7 +60,29 @@ export namespace TutorialsController {
         });
       }
 
-      const tutorial = await Tutorial.findOneBy({ id });
+      const tutorial = await Tutorial.findOne({
+        where: {
+          id
+        },
+        relations: {
+          user: true
+        },
+        select: {
+          id: true,
+          category: true,
+          title: true,
+          content: true,
+          thumbnail: true,
+          created_at: true,
+          user: {
+            id: true,
+            name: true,
+            avatar_link: true,
+            location: true,
+            created_at: true
+          }
+        }
+      })
 
       if (!tutorial) {
         return response.status(404).json({
@@ -86,7 +109,7 @@ export namespace TutorialsController {
 
       // TODO: Add tutorial validation
 
-      
+
       const user = await User.findOneBy({ id: request.user });
 
       if (!user) {
