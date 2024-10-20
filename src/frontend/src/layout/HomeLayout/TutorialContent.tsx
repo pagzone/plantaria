@@ -79,7 +79,7 @@ const TutorialContent = () => {
 							<>
 								<img
 									className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-									src={tutorial?.user.avatar_link}
+									src={tutorial?.user.avatar_link ?? "./images/default_avatar.jpeg"}
 									alt="Avatar"
 								/>
 								<span className="text-lg font-medium hover:underline cursor-pointer">

@@ -31,7 +31,7 @@ const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userNa
 				<div className="flex items-center gap-2">
 					<img
 						className="size-10 bg-slate-400 rounded-full object-cover"
-						src={userAvatar}
+						src={userAvatar ? userAvatar : "./images/default_avatar.jpeg"}
 						alt={`Avatar`}
 					/>
 					<CardTitle className="font-medium text-base">{userName}</CardTitle>

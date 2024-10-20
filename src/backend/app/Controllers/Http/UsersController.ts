@@ -31,6 +31,7 @@ export namespace UsersController {
 			email,
 			password_hash: passwordHash,
 			name,
+			avatar_link: `${process.env.APP_URL}/images/default_avatar.jpeg`,
 			location,
 			principal_id: principal,
 		};
