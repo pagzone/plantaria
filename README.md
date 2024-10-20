@@ -1,4 +1,4 @@
-# ICP Development Environment with Azle and React
+# Hello I am Liz from Las Vegas
 
 This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
 It includes a frontend built with Vite and React, and a backend written in JS/TS (Azle).
