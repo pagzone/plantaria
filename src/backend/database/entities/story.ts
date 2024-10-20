@@ -16,9 +16,6 @@ export class Story extends BaseEntity {
   id: number;
 
   @Column({ type: "text" })
-  category: string;
-
-  @Column({ type: "text" })
   title: string;
 
   @Column({ type: "text" })

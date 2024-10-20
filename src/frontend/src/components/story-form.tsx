@@ -8,7 +8,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { tutorialFormSchema } from "@/lib/formSchema";
+import { storyFormSchema } from "@/lib/formSchema";
 import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { uploadImage } from "@/lib/upload";
@@ -16,15 +16,14 @@ import toast from "react-hot-toast";
 import { getToken } from "@/lib/auth";
 import { APIRoutes } from "@/constants/ApiRoutes";
 
-const TutorialForm = () => {
+const StoryForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
 	const editorRef = useRef<EditorRef | null>(null);
 
-	const form = useForm<z.infer<typeof tutorialFormSchema>>({
-		resolver: zodResolver(tutorialFormSchema),
+	const form = useForm<z.infer<typeof storyFormSchema>>({
+		resolver: zodResolver(storyFormSchema),
 		defaultValues: {
-			category: "",
 			title: "",
 			content: "",
 			thumbnail: "",
@@ -84,22 +83,19 @@ const TutorialForm = () => {
 		form.handleSubmit(onSubmit)();
 	};
 
-	const onSubmit = async (values: z.infer<typeof tutorialFormSchema>) => {
+	const onSubmit = async (values: z.infer<typeof storyFormSchema>) => {
 		try {
 			const response = await toast.promise(
-				fetch(
-					`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.CREATE_TUTORIAL}`,
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${getToken()}`,
-						},
-						body: JSON.stringify({
-							...values,
-						}),
+				fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.CREATE_STORY}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${getToken()}`,
 					},
-				).then(async (res) => {
+					body: JSON.stringify({
+						...values,
+					}),
+				}).then(async (res) => {
 					const data = await res.json();
 					if (res.ok) {
 						return { success: true, data };
@@ -108,8 +104,8 @@ const TutorialForm = () => {
 					}
 				}),
 				{
-					loading: "Posting tutorial...",
-					success: "Posted tutorial successfully",
+					loading: "Posting story...",
+					success: "Posted story successfully",
 					error: (error) => error.message,
 				},
 			);
@@ -136,22 +132,12 @@ const TutorialForm = () => {
 							render={({ field }) => (
 								<FormItem className="flex flex-col">
 									<Label>Title</Label>
-									<Input {...field} placeholder="Enter Title" required />
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="category"
-							render={({ field }) => (
-								<FormItem className="flex flex-col">
-									<Label>Category</Label>
-									<CategoriesCB
-										onChange={(value) => form.setValue("category", value)}
+									<Input
+										{...field}
+										placeholder="Enter Title"
+										className="w-full"
+										required
 									/>
-									<Input {...field} type="hidden" className="hidden" required />
 									<FormMessage />
 								</FormItem>
 							)}
@@ -160,21 +146,21 @@ const TutorialForm = () => {
 
 					<div className="flex-1 flex flex-col overflow-auto">
 						<Editor ref={editorRef} />
-						<FormField
-							control={form.control}
-							name="content"
-							render={({ field }) => (
-								<FormItem>
-									<input {...field} type="hidden" className="hidden" required />
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
 					</div>
+					<FormField
+						control={form.control}
+						name="content"
+						render={({ field }) => (
+							<FormItem>
+								<input {...field} type="hidden" className="hidden" required />
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 				</div>
 			</div>
 
-			<DialogFooter className="flex max-md:h-32">
+			<DialogFooter>
 				<div className="flex max-md:flex-col justify-between w-full gap-2">
 					<div className="flex gap-2 max-md:flex-col md:items-center w-full">
 						<FormField
@@ -237,4 +223,4 @@ const TutorialForm = () => {
 	);
 };
 
-export default TutorialForm;
+export default StoryForm;

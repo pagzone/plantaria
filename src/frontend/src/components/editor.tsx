@@ -45,11 +45,11 @@ const Editor = forwardRef<EditorRef>((props, ref) => {
 			if (quill) {
 				quill.setContents([]);
 			}
-		}
+		},
 	}));
 
 	return (
-		<div className="flex-1">
+		<div>
 			<div ref={quillRef} />
 		</div>
 	);

@@ -9,8 +9,13 @@ import {
 import IconTooltip from "./icon-tooltip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TutorialForm from "./tutorial-form";
+import { useState } from "react";
+import StoryForm from "./story-form";
+import { cn } from "@/lib/utils";
 
 const PostDialog = () => {
+	const [tab, setTab] = useState<string>("tutorial");
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -31,11 +36,15 @@ const PostDialog = () => {
 				</div>
 			</DialogTrigger>
 			<DialogContent className="h-auto max-h-screen overflow-auto md:min-h-[26rem] md:w-[40rem] w-[90vw] max-w-[50rem] flex flex-col p-4 md:p-6 rounded-lg">
-				<Tabs defaultValue="tutorial" className="flex-1 flex flex-col">
+				<Tabs
+					defaultValue="tutorial"
+					onValueChange={(value) => setTab(value)}
+					className="flex-1 flex flex-col"
+				>
 					<DialogHeader>
 						<div className="flex justify-between h-fit w-full items-center">
 							<DialogTitle className="text-xl md:text-2xl font-bold">
-								Tutorial
+								Create {tab === "tutorial" ? "Tutorial" : "Story"}
 							</DialogTitle>
 							<TabsList className="flex gap-x-2">
 								<TabsTrigger value="tutorial">Tutorial</TabsTrigger>
@@ -44,11 +53,21 @@ const PostDialog = () => {
 						</div>
 					</DialogHeader>
 
-					<TabsContent className="flex flex-col flex-1 gap-2" value="tutorial">
+					<TabsContent
+						className={cn("flex flex-col flex-1 gap-2", {
+							hidden: tab !== "tutorial",
+						})}
+						value="tutorial"
+					>
 						<TutorialForm />
 					</TabsContent>
-					<TabsContent className="flex flex-col flex-1 gap-2" value="story">
-						<TutorialForm />
+					<TabsContent
+						className={cn("flex flex-col flex-1 gap-2", {
+							hidden: tab !== "story",
+						})}
+						value="story"
+					>
+						<StoryForm />
 					</TabsContent>
 				</Tabs>
 			</DialogContent>

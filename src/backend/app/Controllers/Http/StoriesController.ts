@@ -37,7 +37,7 @@ export namespace StoriesController {
 
   export async function create(request: Request, response: Response) {
     try {
-      const { title, content, category, thumbnail } = request.body;
+      const { title, content, thumbnail } = request.body;
       const user = await User.findOneBy({ id: request.user });
 
       if (!user) {
@@ -50,7 +50,6 @@ export namespace StoriesController {
       const data = Story.create({
         title,
         content,
-        category,
         thumbnail,
         user
       })
