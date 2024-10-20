@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const TutorialCardSkeleton: FC = () => {
   return (
-    <div className="h-auto w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
+    <div className="h-96 w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
       <div className="h-52 w-full rounded-t-lg">
         <Skeleton className="h-full w-full rounded-t-lg" />
       </div>

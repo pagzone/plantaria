@@ -18,7 +18,7 @@ const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userNa
 	};
 
 	return (
-		<Card className="h-auto w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
+		<Card className="h-96 w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
 			<CardHeader className="h-52">
 				<img
 					className="h-full w-full object-cover rounded-t-lg"
@@ -30,16 +30,16 @@ const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userNa
 			<CardContent className="flex flex-col gap-y-4 p-4">
 				<div className="flex items-center gap-2">
 					<img
-						className="w-10 h-10 rounded-full object-cover"
+						className="size-10 bg-slate-400 rounded-full object-cover"
 						src={userAvatar}
-						alt={`Avatar of ${userName}`}
+						alt={`Avatar`}
 					/>
 					<CardTitle className="font-medium text-base">{userName}</CardTitle>
 				</div>
 
 				<div className="flex flex-col">
 					<span className="font-medium text-lg truncate">{title}</span>
-					<CardDescription className="line-clamp-3 text-gray-600">
+					<CardDescription className="line-clamp-2 text-gray-600 truncate">
 						{content}
 					</CardDescription>
 				</div>

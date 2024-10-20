@@ -84,7 +84,7 @@ const HomeContent = () => {
 							))}
 					</div>
 					<PageSelector
-						tutorials={tutorials!}
+						tutorials={tutorials || []}
 						currentPage={parseInt(page || "1")}
 						setCurrentPage={(page) =>
 							setSearchParams({ page: page.toString() })

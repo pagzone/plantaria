@@ -67,7 +67,7 @@ const TutorialContent = () => {
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center gap-x-2">
 						<img
-							className="bg-gray-400 size-10 md:w-12 md:h-12 rounded-full object-cover"
+							className="bg-slate-400 size-10 md:w-12 md:h-12 rounded-full object-cover"
 							src={tutorial?.user.avatar_link}
 							alt="Avatar"
 						/>
