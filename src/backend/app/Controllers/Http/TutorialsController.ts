@@ -175,10 +175,12 @@ export namespace TutorialsController {
         });
       }
 
+      const thumbnailUrl = await getDownloadUrlByName(thumbnail);
+
       data.title = title;
       data.content = content;
       data.category = category;
-      data.thumbnail = thumbnail;
+      data.thumbnail = thumbnailUrl;
 
       await Tutorial.save(data);
 

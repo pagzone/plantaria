@@ -91,8 +91,6 @@ export namespace StoriesController {
         });
       }
 
-      story.thumbnail = await getAuthorizedDownloadUrlByName(story.thumbnail);
-
       return response.status(200).json({
         status: 1,
         data: story,
@@ -161,10 +159,13 @@ export namespace StoriesController {
           message: "Story not found",
         });
       }
+      
+      const thumbnailUrl = await getDownloadUrlByName(thumbnail);
 
       story.title = title;
       story.content = content;
-      story.thumbnail = thumbnail;
+      story.thumbnail = thumbnailUrl;
+
 
       await Story.save(story);
 
