@@ -12,4 +12,6 @@ export enum APIRoutes {
 	UPDATE_TUTORIAL = "/icp/tutorial/:id/update",
 	DELETE_TUTORIAL = "/icp/tutorial/:id/delete",
 	// GET_TUTORIALS_BY_CATEGORY = "/icp/tutorials/category/:category",
+
+	UPLOAD_IMAGE = "/icp/images/upload"
 }

@@ -46,9 +46,10 @@ const categories = [
 
 interface CategoriesCBProps {
 	className?: string;
+	onChange?: (value: string) => void;
 }
 
-const CategoriesCB: React.FC<CategoriesCBProps> = ({ className }) => {
+const CategoriesCB: React.FC<CategoriesCBProps> = ({ className, onChange }) => {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState("");
 
@@ -79,6 +80,7 @@ const CategoriesCB: React.FC<CategoriesCBProps> = ({ className }) => {
 									value={framework.value}
 									onSelect={(currentValue) => {
 										setValue(currentValue === value ? "" : currentValue);
+										onChange && onChange(currentValue);
 										setOpen(false);
 									}}
 								>

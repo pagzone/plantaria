@@ -17,11 +17,22 @@ Route.post("/tutorial/create", AuthMiddleware.authorize, TutorialsController.cre
 // Route.post("/tutorial/:id/update", AuthMiddleware.authorize, TutorialsController.update);
 // Route.post("/tutorial/:id/delete", AuthMiddleware.authorize, TutorialsController.delete);
 
+/* Upload Routes */
+Route.post("/images/upload", AuthMiddleware.authorize, ApisController.uploadImageUrl);
+
 /*
 |--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 */
+
+
+Route.get("/greet", ApisController.greet);
+Route.get("/user/test", UsersController.test);
+Route.get("/configurations", ApisController.configurations);
+Route.post("/configuration/insert", ApisController.insert_configuration);
+Route.post("/configuration/update", ApisController.update_configuration);
+Route.post("/configuration/delete", ApisController.delete_configuration);
 
 /* User Routes */
 Route.post("/auth/login", UsersController.login);
@@ -34,12 +45,5 @@ Route.get("/tutorials", TutorialsController.index);
 //TODO: get tutorial by id
 // Route.get("/tutorial/:id", TutorialsController.findById);
 Route.get("/tutorials/test", TutorialsController.test);
-
-Route.get("/greet", ApisController.greet);
-Route.get("/user/test", UsersController.test);
-Route.get("/configurations", ApisController.configurations);
-Route.post("/configuration/insert", ApisController.insert_configuration);
-Route.post("/configuration/update", ApisController.update_configuration);
-Route.post("/configuration/delete", ApisController.delete_configuration);
 
 export { Route as routes };

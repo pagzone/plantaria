@@ -54,9 +54,20 @@ export const replyFormSchema = z.object({
 	.min(1, { message : "Reply must at least 3 characters"}),
 })
 
+export const postFormSchema = z.object({
+	category: z.string().min(1, { message: "Category is required" }),
+	title: z.string().min(1, { message: "Title is required" }).max(64, {
+		message: "Title is too long",
+	}),
+	content: z.string().min(1, { message: "Content is required" }),
+	thumbnail: z.string().min(1, { message: "Thumbnail is required" }),
+})
+
 export type LoginFormSchema = typeof loginFormSchema;
 export type SignUpFormSchema = typeof signUpFormSchema;
 export type IdentityFormSchema = typeof identityFormSchema;
 export type CommentFormSchema = typeof commentFormSchema;
 export type ReplyFormSchema = typeof replyFormSchema;
 
+
+export type PostFormSchema = typeof postFormSchema;
