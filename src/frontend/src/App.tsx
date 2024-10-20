@@ -14,8 +14,8 @@ import OrganizationPage from "./pages/OrganizationPage";
 import Favorites from "./layout/HomeLayout/Favorites";
 import HomeContent from "./layout/HomeLayout/Home";
 import Ranking from "./layout/HomeLayout/Ranking";
-import TutorialPage from "./layout/HomeLayout/TutorialPage";
-import StoriesPage from "./layout/HomeLayout/StoriesPage";
+import TutorialContent from "./layout/HomeLayout/TutorialContent";
+import StoriesContent from "./layout/HomeLayout/StoriesContent";
 import SearchResult from "./layout/HomeLayout/SearchResult";
 
 function App() {
@@ -33,12 +33,12 @@ function App() {
 					</Route>
 
 					<Route element={<HomePage />}>
-						<Route path="/tutorial/:id" element={<TutorialPage />} /> 
-						<Route path="/stories/:id" element={<StoriesPage />} />
+						<Route path="/tutorial/:id" element={<TutorialContent />} /> 
+						<Route path="/stories/:id" element={<StoriesContent />} />
 						<Route path="/search" element={<SearchResult />} />  
+						<Route path="/favorites/:id" element={<TutorialContent/>} /> 
 						{/* 
 							<Route path="/featured/:id" element={<TutorialPage/>} /> 
-							<Route path="/favorites/:id" element={<TutorialPage/>} /> 
 						*/}
 					</Route>
 
