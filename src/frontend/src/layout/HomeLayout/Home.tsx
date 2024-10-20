@@ -64,11 +64,11 @@ const HomeContent = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
-					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
+				<div className="flex flex-col gap-y-4 h-full">
+					<div className="flex flex-1 items-start flex-wrap gap-4">
 						{tutorials?.map(
 							(
-								value: any, // Ensure this matches your API response
+								value: any,
 							) => (
 								<Link key={value.id} to={`/tutorial/${value.id}`}>
 									<TutorialCard
