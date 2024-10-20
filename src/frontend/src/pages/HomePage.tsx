@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchStories } from "@/lib/api";
 import { IStory } from "@/interface/IStory";
+import StoriesCardSkeleton from "@/components/storiesCard-skeleton";
 
 const HomePage = () => {
 	const [activeTab, setActiveTab] = useState("Home");
@@ -73,7 +74,7 @@ const HomePage = () => {
 								{isStoriesLoading
 									? Array(stories?.length)
 											.fill(0)
-											.map((_, index) => <div key={index}>{index}</div>)
+											.map((_, index) => <StoriesCardSkeleton key={index}/>)
 									: stories?.map((stories) => (
 											<Link key={stories.id} to={`/stories/${stories.id}`}>
 												<StoriesCard
