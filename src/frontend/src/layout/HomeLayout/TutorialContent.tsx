@@ -9,6 +9,7 @@ import { ArrowLeft, Heart } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton"; 
 
 const TutorialContent = () => {
 	const { id } = useParams();
@@ -33,10 +34,6 @@ const TutorialContent = () => {
 		},
 	);
 
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-
 	if (isError && error instanceof Error) {
 		return <div>Error: {error.message}</div>;
 	}
@@ -53,29 +50,46 @@ const TutorialContent = () => {
 			</Link>
 
 			<div className="flex flex-col gap-y-4">
-				<div
-					className="rounded-xl h-60 md:h-72 p-6 bg-cover bg-no-repeat flex flex-col justify-between cursor-pointer"
-					style={{
-						backgroundPosition: "60%",
-						backgroundImage: `url('${tutorial?.thumbnail}')`,
-					}}
-				/>
+				{isLoading ? (
+					<Skeleton className="rounded-xl h-60 md:h-72 p-6" />
+				) : (
+					<div
+						className="rounded-xl h-60 md:h-72 p-6 bg-cover bg-no-repeat flex flex-col justify-between cursor-pointer"
+						style={{
+							backgroundPosition: "60%",
+							backgroundImage: `url('${tutorial?.thumbnail}')`,
+						}}
+					/>
+				)}
 
-				<h1 className="text-2xl md:text-4xl font-bold">{tutorial?.title}</h1>
+				{isLoading ? (
+					<Skeleton className="h-8 md:h-10 w-3/4 rounded-md" />
+				) : (
+					<h1 className="text-2xl md:text-4xl font-bold">{tutorial?.title}</h1>
+				)}
 
-				{/* Author and Date Section */}
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center gap-x-2">
-						<img
-							className="bg-slate-400 size-10 md:w-12 md:h-12 rounded-full object-cover"
-							src={tutorial?.user.avatar_link}
-							alt="Avatar"
-						/>
-						<span className="text-lg font-medium hover:underline cursor-pointer">
-							{tutorial?.user.name}
-						</span>
+						{isLoading ? (
+							<>
+								<Skeleton className="w-10 h-10 md:w-12 md:h-12 rounded-full" />
+								<Skeleton className="h-6 w-32 rounded-md" />
+							</>
+						) : (
+							<>
+								<img
+									className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
+									src={tutorial?.user.avatar_link}
+									alt="Avatar"
+								/>
+								<span className="text-lg font-medium hover:underline cursor-pointer">
+									{tutorial?.user.name}
+								</span>
+							</>
+						)}
 					</div>
 
+					{/* Favorite Button */}
 					<div className="flex items-center gap-x-2">
 						<div
 							className="flex items-center gap-x-1 text-sm cursor-pointer"
@@ -91,15 +105,33 @@ const TutorialContent = () => {
 				</div>
 			</div>
 
-			{/* Scrollable Content */}
 			<ScrollArea>
-				<div className="min-h-96 mx-auto">{parse(tutorial?.content || "")}</div>
+				<div className="min-h-96 mx-auto">
+					{isLoading ? (
+						<>
+							<Skeleton className="h-6 w-full mb-2" />
+							<Skeleton className="h-6 w-11/12 mb-2" />
+							<Skeleton className="h-6 w-10/12 mb-2" />
+							<Skeleton className="h-6 w-9/12 mb-2" />
+						</>
+					) : (
+						parse(tutorial?.content || "")
+					)}
+				</div>
 			</ScrollArea>
 
-			{/* Comments Area */}
 			<div className="h-96 p-4">
 				<h2 className="text-2xl font-semibold mb-4">Comments</h2>
-				<CommentArea />
+				{isLoading ? (
+					<>
+						<Skeleton className="h-6 w-full mb-2" />
+						<Skeleton className="h-6 w-11/12 mb-2" />
+						<Skeleton className="h-6 w-10/12 mb-2" />
+						<Skeleton className="h-6 w-9/12 mb-2" />
+					</>
+				) : (
+					<CommentArea />
+				)}
 			</div>
 		</div>
 	);
