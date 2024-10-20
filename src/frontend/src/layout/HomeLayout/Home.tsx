@@ -48,13 +48,15 @@ const HomeContent = () => {
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
-			<div className="h-60 md:h-72 ">
+			<Link 
+			   to={`/featured/${1}`} //featured id;
+			   className="h-60 md:h-72 ">
 				<FeaturedCard
 					title={featured.title}
 					description={featured.description}
 					image={featured.image}
 				/>
-			</div>
+			</Link>
 
 			<div className="flex flex-col h-full gap-y-4">
 				<div className="flex justify-between items-center">

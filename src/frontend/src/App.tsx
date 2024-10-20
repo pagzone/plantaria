@@ -37,9 +37,7 @@ function App() {
 						<Route path="/stories/:id" element={<StoriesContent />} />
 						<Route path="/search" element={<SearchResult />} />  
 						<Route path="/favorites/:id" element={<TutorialContent/>} /> 
-						{/* 
-							<Route path="/featured/:id" element={<TutorialPage/>} /> 
-						*/}
+						<Route path="/featured/:id" element={<TutorialContent/>} /> 
 					</Route>
 
 					{/* Public Routes */}

@@ -8,7 +8,7 @@ type FeaturedProps = {
 
 const FeaturedCard: FC<FeaturedProps> = ({ ...params }) => {
 	return (
-		<div className="relative h-full z-10">
+		<div className="relative h-full z-10 cursor-pointer">
 			<article
 				className={`inset-0 rounded-xl h-60 md:h-72 p-6 bg-cover bg-no-repeat flex flex-col justify-between cursor-pointer`}
 				style={{

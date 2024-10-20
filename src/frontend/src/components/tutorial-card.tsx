@@ -18,7 +18,7 @@ const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userNa
 	};
 
 	return (
-		<Card className="h-96 w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
+		<Card className="h-auto w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
 			<CardHeader className="h-52">
 				<img
 					className="h-full w-full object-cover rounded-t-lg"
