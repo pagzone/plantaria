@@ -5,6 +5,7 @@ import { z } from "zod";
 import { ITutorial } from "@/interface/ITutorial";
 import { IResponse } from "@/interface/IResponse";
 import { IDownloadAuth } from "@/interface/IDownloadAuth";
+import { IStory } from "@/interface/IStory";
 
 export async function fetchDownloadAuth(prefix: string) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.DOWNLOAD_AUTHORIZATION}`, {
@@ -116,7 +117,7 @@ export async function deleteTutorial(id: string) {
 
 export async function fetchStories(page?: number) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}${page ? `?p=${page}` : ''}`);
-  const stories = await response.json();
+  const stories: IResponse<[IStory[], number]> = await response.json();
 
   if (stories.data) {
     const downloadAuth = await fetchDownloadAuth("tutorial");
@@ -134,7 +135,7 @@ export async function fetchStories(page?: number) {
 
 export async function fetchStory(id: string) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.STORIES}/${id}`);
-  const story = await response.json();
+  const story: IResponse<IStory> = await response.json();
 
   if (story.data) {
     const downloadAuth = await fetchDownloadAuth("story");

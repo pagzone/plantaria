@@ -95,6 +95,7 @@ const CommentArea = () => {
             setComments(updatedComments);
             replyForm.reset();
             setReplyToCommentId(null);
+            setViewReplies(true);
         }
     };
 
