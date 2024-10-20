@@ -8,17 +8,17 @@ export enum APIRoutes {
 	/* TUTORIAL */
 	GET_TUTORIALS = "/icp/tutorials",
 	GET_TUTORIAL = "/icp/tutorials/:id",
-	CREATE_TUTORIAL = "/icp/tutorial/create",
-	UPDATE_TUTORIAL = "/icp/tutorial/:id/update",
-	DELETE_TUTORIAL = "/icp/tutorial/:id/delete",
+	CREATE_TUTORIAL = "/icp/tutorials",
+	UPDATE_TUTORIAL = "/icp/tutorials/:id",
+	DELETE_TUTORIAL = "/icp/tutorials/:id",
 	// GET_TUTORIALS_BY_CATEGORY = "/icp/tutorials/category/:category",
 
 	/* STORY */
 	GET_STORIES = "/icp/stories",
 	GET_STORY = "/icp/stories/:id",
-	CREATE_STORY = "/icp/story/create",
-	UPDATE_STORY = "/icp/story/:id/update",
-	DELETE_STORY = "/icp/story/:id/delete",
+	CREATE_STORY = "/icp/stories",
+	UPDATE_STORY = "/icp/stories/:id",
+	DELETE_STORY = "/icp/stories/:id",
 
 	UPLOAD_IMAGE = "/icp/images/upload"
 }

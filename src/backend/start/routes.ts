@@ -20,8 +20,8 @@ Route.route("/tutorials/:id")
   .delete(AuthMiddleware.authorize, TutorialsController.destroy);
 
 /* Stories Routes */
-Route.post("/story/create", AuthMiddleware.authorize, StoriesController.create);
-Route.route("/story/:id")
+Route.post("/stories/create", AuthMiddleware.authorize, StoriesController.create);
+Route.route("/stories/:id")
   .put(AuthMiddleware.authorize, StoriesController.update)
   .delete(AuthMiddleware.authorize, StoriesController.destroy);
 
