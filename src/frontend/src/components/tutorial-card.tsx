@@ -1,13 +1,6 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Heart } from "lucide-react";
 import { FC, useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Heart } from "lucide-react";
 
 type TutorialCardProps = {
 	tutorialImage: string;
@@ -17,46 +10,53 @@ type TutorialCardProps = {
 	content: string;
 };
 
-const TutorialCard: FC<TutorialCardProps> = ({ ...params }) => {
+const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userName, title, content }) => {
 	const [onFavorite, setOnFavorite] = useState(false);
 
+	const handleFavoriteClick = () => {
+		setOnFavorite(!onFavorite);
+	};
+
 	return (
-		<Card className="h-96 cursor-pointer">
-			<CardHeader>
+		<Card className="h-96 w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
+			<CardHeader className="h-52">
 				<img
-					className="bg-slate-800 rounded-t-lg object-scale-down"
-					src={params.tutorialImage}
-					alt="tutorial-image"
+					className="h-full w-full object-cover rounded-t-lg"
+					src={tutorialImage}
+					alt={`Tutorial image for ${title}`}
 				/>
 			</CardHeader>
-			<CardContent className="flex flex-col ">
-				<div className="flex items-center gap-x-2 py-2">
+
+			<CardContent className="flex flex-col gap-y-4 p-4">
+				<div className="flex items-center gap-2">
 					<img
-						className="size-10 rounded-full bg-slate-400 object-cover"
-						src={params.userAvatar}
-						alt="user-avatar"
+						className="w-10 h-10 rounded-full object-cover"
+						src={userAvatar}
+						alt={`Avatar of ${userName}`}
 					/>
-					<CardTitle className="font-medium text-base">
-						{params.userName}
-					</CardTitle>
+					<CardTitle className="font-medium text-base">{userName}</CardTitle>
 				</div>
+
 				<div className="flex flex-col">
-					<span className="font-medium text-lg truncate">{params.title}</span>
-					<CardDescription className="break-words overflow-hidden h-[4rem] line-clamp-3">
-						{params.content}
+					<span className="font-medium text-lg truncate">{title}</span>
+					<CardDescription className="line-clamp-3 text-gray-600">
+						{content}
 					</CardDescription>
 				</div>
-			</CardContent>
-			<CardFooter>
-				<div className="flex items-center gap-x-1 text-sm ">
+
+				<div
+					className="flex items-center gap-1 text-sm cursor-pointer"
+					onClick={handleFavoriteClick}
+					aria-label={onFavorite ? "Remove from favorites" : "Add to favorites"}
+					role="button"
+				>
 					<Heart
-						className={`${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
-						onClick={() => setOnFavorite(!onFavorite)}
+						className={`transition-colors duration-300 ${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
 						size={20}
 					/>
-					<span>Add to favorites</span>
+					<span>{onFavorite ? "Favorited" : "Add to favorites"}</span>
 				</div>
-			</CardFooter>
+			</CardContent>
 		</Card>
 	);
 };

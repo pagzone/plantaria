@@ -3,11 +3,13 @@ import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
 import { QueryKeys } from "@/constants/QueryKeys";
+import { ITutorial } from "@/interface/ITutorial";
 import { fetchTutorials } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { parse } from "path";
 import { useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+
 
 const HomeContent = () => {
 	const [searchParams, set] = useSearchParams();
@@ -20,24 +22,47 @@ const HomeContent = () => {
 			"lLorem ipsum dolor sit, amet consectetur adipisicing elit. Iure repellendus modi deleniti dolores? Explicabo quisquam nihil tempore dolor vel facere odit voluptates. Deserunt modi atque reprehenderit non ratione. Corporis, molestiae",
 	};
 
-	const {
-		data,
-		isLoading: isTutorialsLoading,
-		error: tutorialsError,
-		refetch,
-	} = useQuery([QueryKeys.TUTORIALS], async () => {
-		const data = fetchTutorials(parseInt(page || "1"));
+	// const {
+	// 	data,
+	// 	isLoading: isTutorialsLoading,
+	// 	error: tutorialsError,
+	// 	refetch,
+	// } = useQuery([QueryKeys.TUTORIALS], async () => {
+	// 	const data = fetchTutorials(parseInt(page || "1"));
 
-		return data;
-	});
+	// 	return data;
+	// });
 
-	if (isTutorialsLoading) {
-		return <div>Loading...</div>;
-	}
+	// if (isTutorialsLoading) {
+	// 	return <div>Loading...</div>;
+	// }
 
-	const tutorials = data!.data;
+	// const tutorials = data!.data;
 
-	console.log(tutorials);
+	const placeholder = [
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+		{ id : "123" , title : "NIGGAAAAAA" , thumbnail : "https://placehold.co/300", user :{
+			avatarImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s"
+		}, createdAt: "", profileName : "kaizokuu", content : "fasdfdsfsdfsdfdsffdsfasfsadf"},
+	
+	]
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
@@ -58,10 +83,11 @@ const HomeContent = () => {
 				</div>
 
 				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
-					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
-						{tutorials.map((value: any) => (
-							<Link key={value.id} to={`/tutorial/${value.id}`}>
-								<TutorialCard
+					<div className="flex flex-wrap gap-x-1 min-lg:gap-x-4 gap-y-2  ">
+						{placeholder.map((value: any) => (
+							<Link key={value.id} to={`/tutorial/${value.id}`}
+							>
+								<TutorialCard	
 									key={value.id}
 									tutorialImage={value.thumbnail}
 									userAvatar={value.user.avatar_url}
@@ -72,12 +98,12 @@ const HomeContent = () => {
 							</Link>
 						))}
 					</div>
-					<PageSelector
+					{/* <PageSelector
 						tutorials={tutorials}
 						currentPage={parseInt(page || "1")}
 						setCurrentPage={(page) => searchParams.set("page", page.toString())}
 						itemsPerPage={6}
-					/>
+					/> */}
 				</div>
 			</div>
 		</div>
