@@ -1,4 +1,4 @@
-![Plantaria](https://github.com/pagzone/plantaria/blob/e0793bebc2c816b9f4818ad15254cc6a8f86b2a3/Website%20Logo.png)
+
 This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
 It includes a frontend built with Vite and React, and a backend written in JS/TS (Azle).
 
