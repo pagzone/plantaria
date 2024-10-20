@@ -26,7 +26,7 @@ export namespace FavoritesController {
       const data = Favorite.create({
         user,
         targetType: 'tutorial',
-        targetId: parseInt(id)
+        targetId: id
       })
 
       await Favorite.save(data);
@@ -63,7 +63,7 @@ export namespace FavoritesController {
         });
       }
 
-      const data = await Favorite.findBy({ user, targetType: 'tutorial', targetId: parseInt(id) });
+      const data = await Favorite.findBy({ user, targetType: 'tutorial', targetId: id });
 
       if (!data) {
         return response.status(404).json({
@@ -109,7 +109,7 @@ export namespace FavoritesController {
       const data = Favorite.create({
         user,
         targetType: 'story',
-        targetId: parseInt(id)
+        targetId: id
       })
 
       await Favorite.save(data);
@@ -147,7 +147,7 @@ export namespace FavoritesController {
         });
       }
 
-      const data = await Favorite.findBy({ user, targetType: 'story', targetId: parseInt(id) });
+      const data = await Favorite.findBy({ user, targetType: 'story', targetId: id });
 
       if (!data) {
         return response.status(404).json({
@@ -181,7 +181,7 @@ export namespace FavoritesController {
         });
       }
 
-      const user = await User.findOneBy({ id: parseInt(id) });
+      const user = await User.findOneBy({ id });
 
       if (!user) {
         return response.status(401).json({

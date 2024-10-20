@@ -13,7 +13,7 @@ import { User } from "./user";
 })
 export class Tutorial extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column({ type: "text" })
   category: string;

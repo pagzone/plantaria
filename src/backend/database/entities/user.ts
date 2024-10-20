@@ -15,7 +15,7 @@ import { Favorite } from "./favorite";
 })
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn("uuid")
-	id: number;
+	id: string;
 
 	@Column({ type: "text", nullable: true })
 	email: string;

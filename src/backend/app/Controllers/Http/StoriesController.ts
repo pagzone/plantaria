@@ -46,7 +46,7 @@ export namespace StoriesController {
         });
       }
 
-      const story = await Story.findOneBy({ id: parseInt(id) });
+      const story = await Story.findOneBy({ id });
 
       if (!story) {
         return response.status(404).json({
@@ -113,7 +113,7 @@ export namespace StoriesController {
         });
       }
 
-      const story = await Story.findOneBy({ id: parseInt(id) });
+      const story = await Story.findOneBy({ id });
 
       if (!story) {
         return response.status(404).json({
@@ -161,7 +161,7 @@ export namespace StoriesController {
         });
       }
 
-      const story = await Story.findOneBy({ id: parseInt(id) });
+      const story = await Story.findOneBy({ id });
 
       if (!story) {
         return response.status(404).json({

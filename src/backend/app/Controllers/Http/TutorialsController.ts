@@ -59,7 +59,7 @@ export namespace TutorialsController {
         });
       }
 
-      const tutorial = await Tutorial.findOneBy({ id: parseInt(id) });
+      const tutorial = await Tutorial.findOneBy({ id });
 
       if (!tutorial) {
         return response.status(404).json({
@@ -140,7 +140,7 @@ export namespace TutorialsController {
         });
       }
 
-      const data = await Tutorial.findOneBy({ id: parseInt(id) });
+      const data = await Tutorial.findOneBy({ id });
 
       if (!data) {
         return response.status(404).json({
@@ -189,7 +189,7 @@ export namespace TutorialsController {
         });
       }
 
-      const data = await Tutorial.findOneBy({ id: parseInt(id) });
+      const data = await Tutorial.findOneBy({ id });
 
       if (!data) {
         return response.status(404).json({

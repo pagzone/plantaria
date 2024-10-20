@@ -6,7 +6,7 @@ declare global {
       /*
        * Authorized user ID
        */
-      user?: number;
+      user?: string;
     }
   }
 }
