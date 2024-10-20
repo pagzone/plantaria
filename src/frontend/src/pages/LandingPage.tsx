@@ -8,6 +8,8 @@ import NumberTicker from "@/components/ui/number-ticker";
 import Marquee from "@/components/ui/marquee";
 
 const LandingPage = () => {
+
+	
 	return (
 		<div className="flex flex-col gap-y-8 max-md:gap-y-4">
 			<Header />

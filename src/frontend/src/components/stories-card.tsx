@@ -33,16 +33,6 @@ const StoriesCard: React.FC<StoriesCardProps> = ({ ...params }) => {
 					{params.description}
 				</CardDescription>
 			</CardContent>
-			<CardFooter className="p-4 border-t flex justify-center">
-				<a
-					href="/"
-					aria-label="more"
-					className="inline-flex items-center text-lima-600 hover:text-lima-500 transition-colors duration-200"
-				>
-					<span className="underline">More</span>
-					<span className="ml-1">&rarr;</span>
-				</a>
-			</CardFooter>
 		</Card>
 	);
 };

@@ -11,6 +11,11 @@ import ProtectedRoute from "./components/protected-route";
 import PublicRoute from "./components/public-route";
 import PageNotFound from "./pages/PageNotFound";
 import OrganizationPage from "./pages/OrganizationPage";
+import Favorites from "./layout/HomeLayout/Favorites";
+import HomeContent from "./layout/HomeLayout/Home";
+import Ranking from "./layout/HomeLayout/Ranking";
+import TutorialPage from "./layout/HomeLayout/TutorialPage";
+import StoriesPage from "./layout/HomeLayout/StoriesPage";
 
 function App() {
 	return (
@@ -18,8 +23,24 @@ function App() {
 			<Toaster />
 			<Router>
 				<Routes>
-					<Route path={PageRoutes.LANDING} element={<LandingPage />} />
-					<Route path={PageRoutes.HOME} element={<HomePage />} />
+					<Route path={PageRoutes.LANDING} element={<LandingPage />} />	
+
+					<Route path="/home" element={<HomePage />}>
+						<Route index element={<HomeContent />} /> 
+						<Route path="ranking" element={<Ranking />} /> 
+						<Route path="favorites" element={<Favorites/>} />
+					</Route>
+
+					<Route element={<HomePage />}>
+						<Route path="/tutorial/:id" element={<TutorialPage />} /> 
+						<Route path="/stories/:id" element={<StoriesPage />} /> 
+
+						{/* 
+							<Route path="/featured/:id" element={<TutorialPage/>} /> 
+							<Route path="/favorites/:id" element={<TutorialPage/>} /> 
+							<Route path="/search" element={<Ranking />} />  
+						*/}
+					</Route>
 
 					{/* Public Routes */}
 					<Route element={<PublicRoute />}>
@@ -41,8 +62,8 @@ function App() {
 						<Route path={PageRoutes.ORGANIZATION} element={<OrganizationPage />} />
 					</Route>
 
-				 	{/* Page not found */}
-					<Route path="*" element={<PageNotFound/>} />
+					{/* Page not found */}
+					<Route path="*" element={<PageNotFound />} />
 
 				</Routes>
 			</Router>

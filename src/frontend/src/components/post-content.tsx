@@ -124,7 +124,7 @@ const PostDialog = () => {
 										</a>
 										<X
 											onClick={() => setThumbnail(null)}
-											className="cursor-pointer text-red-500 size-16"
+											className="cursor-pointer text-red-500 size-16	"
 										/>
 									</div>
 								)}

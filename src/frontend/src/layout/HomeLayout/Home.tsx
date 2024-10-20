@@ -3,6 +3,7 @@ import FeaturedCard from "@/components/featured-card";
 import PageSelector from "@/components/pagination";
 import TutorialCard from "@/components/tutorial-card";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const tutorials = [
 	{
@@ -38,63 +39,7 @@ export const tutorials = [
 		description:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
 	},
-	// {
-	// 	id: 4,
-	// 	tutorialImage:
-	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-	// 	profileImage:
-	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-	// 	profileName: "David Lee",
-	// 	title: "Urban Farming for Beginners",
-	// 	description:
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	// },
-	// {
-	// 	id: 5,
-	// 	tutorialImage:
-	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-	// 	profileImage:
-	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-	// 	profileName: "Emily Martinez",
-	// 	title: "The Future of Urban Farming",
-	// 	description:
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	// },
-	// {
-	// 	id: 6,
-	// 	tutorialImage:
-	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-	// 	profileImage:
-	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-	// 	profileName: "Sarah Williams",
-	// 	title: "Sustainable Urban Farming Practices",
-	// 	description:
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	// },
-	// {
-	// 	id: 7,
-	// 	tutorialImage:
-	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-	// 	profileImage:
-	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-	// 	profileName: "David Lee",
-	// 	title: "Urban Farming for Beginners",
-	// 	description:
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	// },
-	// {
-	// 	id: 8,
-	// 	tutorialImage:
-	// 		"https://oneacrefund.org/sites/default/files/styles/banner_large_desktop/public/2024-04/TZN_0819.jpg?h=2e5cdddf&itok=ExHuaX_n",
-	// 	profileImage:
-	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRybsd7cw9VxpeBObuBE90Al3a1OB0kgPhyHg&s",
-	// 	profileName: "Emily Martinez",
-	// 	title: "The Future of Urban Farming",
-	// 	description:
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Laboriosam ut eos labore sit in sint.",
-	// },
 ];
-
 
 const HomeContent = () => {
 	const [currentPage, setCurrentPage] = useState(1);
@@ -132,14 +77,18 @@ const HomeContent = () => {
 				<div className="flex flex-col justify-between items-center gap-y-4 h-full">
 					<div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1">
 						{currenTutorials.map((value) => (
-							<TutorialCard
-								key={value.id}
-								tutorialImage={value.tutorialImage}
-								profileImage={value.profileImage}
-								profileName={value.profileName}
-								title={value.title}
-								description={value.description}
-							/>
+							<Link
+								key={value.id} 
+							    to={`/tutorial/${value.id}`}>
+								<TutorialCard
+									key={value.id}
+									tutorialImage={value.tutorialImage}
+									profileImage={value.profileImage}
+									profileName={value.profileName}
+									title={value.title}
+									description={value.description}
+								/>
+							</Link>
 						))}
 					</div>
 					<PageSelector
