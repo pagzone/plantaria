@@ -11,7 +11,7 @@ export namespace StoriesController {
     const page: number = p ? parseInt(p as string) : 1;
 
     try {
-      const take = 9;
+      const take = 6;
       const skip = (page - 1) * take;
 
       const stories = await Story.findAndCount({

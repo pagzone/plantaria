@@ -6,12 +6,14 @@ import TutorialCardSkeleton from "@/components/skeletons/tutorialCard-skeleton";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchTutorials } from "@/lib/api";
 import { getPlainTextFromHtml } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 
 const HomeContent = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page");
+
+	const queryClient = useQueryClient();
 
 	const featured = {
 		image: "plants-being-planted-greenhouse.png",
@@ -25,7 +27,7 @@ const HomeContent = () => {
 		isLoading: isTutorialsLoading,
 		isError: isTutorialsError,
 		error: tutorialsError,
-		refetch,
+		refetch: refetchTutorials,
 	} = useQuery(
 		[QueryKeys.TUTORIALS, page || "1"],
 		async () => {
@@ -41,13 +43,15 @@ const HomeContent = () => {
 		return <div>Error: {tutorialsError.message}</div>;
 	}
 
-	const tutorials = data?.data![0];
+	const tutorials = data?.data?.[0] || [];
+	const count = data?.data?.[1] || 0;
 
 	return (
 		<div className="flex flex-col gap-y-6 h-full">
 			<Link
 				to={`/featured/${1}`} //featured id;
-				className="h-60 md:h-72 ">
+				className="h-60 md:h-72 "
+			>
 				<FeaturedCard
 					title={featured.title}
 					description={featured.description}
@@ -66,29 +70,29 @@ const HomeContent = () => {
 				<div className="flex flex-col gap-y-4 h-full">
 					<div className="flex flex-1 items-start flex-wrap gap-4">
 						{isTutorialsLoading
-							? Array(tutorials?.length) 
-								.fill(0)
-								.map((_, index) => <TutorialCardSkeleton key={index} />)
+							? Array(6)
+									.fill(0)
+									.map((_, index) => <TutorialCardSkeleton key={index} />)
 							: tutorials?.map((tutorial) => (
-								<Link 
-								   key={tutorial.id} 
-								   to={`/tutorial/${tutorial.id}`}>
-									<TutorialCard
-										tutorialImage={tutorial.thumbnail}
-										userAvatar={tutorial.user.avatar_link}
-										userName={tutorial.user.name}
-										title={tutorial.title}
-										content={getPlainTextFromHtml(tutorial.content)}
-									/>
-								</Link>
-							))}
+									<Link key={tutorial.id} to={`/tutorial/${tutorial.id}`}>
+										<TutorialCard
+											tutorialImage={tutorial.thumbnail}
+											userAvatar={tutorial.user.avatar_link}
+											userName={tutorial.user.name}
+											title={tutorial.title}
+											content={getPlainTextFromHtml(tutorial.content)}
+										/>
+									</Link>
+								))}
 					</div>
 					<PageSelector
-						tutorials={tutorials || []}
+						totalItems={count}
 						currentPage={parseInt(page || "1")}
-						setCurrentPage={(page) =>
-							setSearchParams({ page: page.toString() })
-						}
+						setCurrentPage={(page) => {
+							queryClient.invalidateQueries([QueryKeys.TUTORIALS, page.toString()]);
+							setSearchParams({ page: page.toString() });
+							refetchTutorials();
+						}}
 						itemsPerPage={6}
 					/>
 				</div>

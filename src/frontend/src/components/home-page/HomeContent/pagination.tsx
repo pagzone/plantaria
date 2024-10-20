@@ -10,19 +10,20 @@ import {
 import { FC } from "react";
 
 interface PageSelectorProps {
-	tutorials: Array<any>;
+	totalItems: number; // Use total from API response
 	currentPage: number;
 	setCurrentPage: (page: number) => void;
 	itemsPerPage: number;
 }
 
 const PageSelector: FC<PageSelectorProps> = ({
-	tutorials,
+	totalItems,
 	currentPage,
 	setCurrentPage,
 	itemsPerPage,
 }) => {
-	const totalPages = Math.ceil(tutorials.length / itemsPerPage);
+	// Calculate total pages based on totalItems from the API
+	const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 	const handlePageChange = (page: number) => {
 		if (page >= 1 && page <= totalPages) {
@@ -30,7 +31,7 @@ const PageSelector: FC<PageSelectorProps> = ({
 		}
 	};
 
-	const maxPageLinks = 5;
+	const maxPageLinks = 5; // Maximum number of pagination links to display
 	const startPage = Math.max(1, currentPage - Math.floor(maxPageLinks / 2));
 	const endPage = Math.min(totalPages, startPage + maxPageLinks - 1);
 
@@ -45,6 +46,7 @@ const PageSelector: FC<PageSelectorProps> = ({
 					/>
 				</PaginationItem>
 
+				{/* Render pagination links */}
 				{Array.from({ length: endPage - startPage + 1 }, (_, index) => {
 					const page = startPage + index;
 					return (
