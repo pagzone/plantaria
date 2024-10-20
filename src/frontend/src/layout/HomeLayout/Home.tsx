@@ -1,8 +1,8 @@
-import CategoriesCB from "@/components/categories-cb";
-import FeaturedCard from "@/components/featured-card";
-import PageSelector from "@/components/pagination";
-import TutorialCard from "@/components/tutorial-card";
-import TutorialCardSkeleton from "@/components/tutorialCard-skeleton";
+import CategoriesCB from "@/components/header/categories-cb";
+import FeaturedCard from "@/components/home-page/HomeContent/featured-card";
+import PageSelector from "@/components/home-page/HomeContent/pagination";
+import TutorialCard from "@/components/home-page/HomeContent/tutorial-card";
+import TutorialCardSkeleton from "@/components/skeletons/tutorialCard-skeleton";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchTutorials } from "@/lib/api";
 import { getPlainTextFromHtml } from "@/lib/utils";

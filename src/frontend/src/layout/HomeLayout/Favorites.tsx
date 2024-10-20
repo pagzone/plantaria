@@ -1,7 +1,7 @@
-import TutorialCard from "@/components/tutorial-card"
+import TutorialCard from "@/components/home-page/HomeContent/tutorial-card"
 // import { tutorials } from "./Home"
 import { useState } from "react";
-import PageSelector from "@/components/pagination";
+import PageSelector from "@/components/home-page/HomeContent/pagination";
 
 const Favorites = () => {
     // const [currentPage, setCurrentPage] = useState(1);
@@ -17,14 +17,16 @@ const Favorites = () => {
             <div className="flex flex-col items-center gap-y-4 h-full ">
                 <div className="grid grid-cols-3 max-md:grid-cols-1 gap-6 flex-1 ">
                     {currenTutorials.map((value) => (
-                        <TutorialCard
-                            key={value.id}
-                            tutorialImage={value.tutorialImage}
-                            profileImage={value.profileImage}
-                            profileName={value.profileName}
-                            title={value.title}
-                            description={value.description}
-                        />
+                       <Link key={value.id} to={`/favorites/${value.id}`}
+                            <TutorialCard
+                                key={value.id}
+                                tutorialImage={value.tutorialImage}
+                                profileImage={value.profileImage}
+                                profileName={value.profileName}
+                                title={value.title}
+                                description={value.description}
+                            />
+                        </Link>
                     ))}
                 </div>
                 <PageSelector

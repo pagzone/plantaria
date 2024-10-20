@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { commentFormSchema, CommentFormSchema, ReplyFormSchema, replyFormSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface Reply {
     id: number;
@@ -247,7 +247,6 @@ const CommentArea = () => {
                                 )}
                             </div>
                         )}
-
 
                         {/* Display Replies */}
                         {viewReplies && comment.replies.length > 0 && (

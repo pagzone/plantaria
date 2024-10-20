@@ -1,6 +1,6 @@
-import Profile from "@/components/avatar";
-import EventDialog from "@/components/event-dialog";
-import ProjectCard from "@/components/project-card";
+import Profile from "@/components/profile-page/avatar";
+import EventDialog from "@/components/organization-page/event-dialog";
+import ProjectCard from "@/components/organization-page/project-card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Footer from "@/layout/Footer";

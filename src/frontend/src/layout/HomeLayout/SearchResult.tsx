@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const ResultsPage = () => {
     const [searchParams] = useSearchParams();
@@ -19,11 +19,13 @@ const ResultsPage = () => {
                 <div className="flex flex-col border p-2 gap-y-4 rounded-xl shadow">
                     <h2 className="text-xl font-semibold">Tutorials</h2>
                     {tutorials.map((tutorial, index) => (
-                        <div className={`shadow p-4 rounded-xl cursor-pointer
+                        <Link 
+                          to={`/tutorial/${1}`} // tutorial.id
+                          className={`shadow p-4 rounded-xl cursor-pointer
                           ${index % 2 === 0 ? "bg-slate-100" : "bg-white"}
                         `}>
                             {/* {tutorial.title} */}
-                        </div>
+                        </Link>
                     ))}
                 </div>
             )}

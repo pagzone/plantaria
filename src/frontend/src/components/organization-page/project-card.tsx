@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "./ui/card"
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "../ui/card"
 
 interface ProjectCardProps {
     projectImage: string;

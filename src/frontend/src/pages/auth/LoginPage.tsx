@@ -14,7 +14,7 @@ import { PasswordInput } from "@/components/password-input";
 import { Link, useNavigate } from "react-router-dom";
 import { loginFormSchema } from "@/lib/formSchema";
 import { z } from "zod";
-import SocialsAuth from "@/components/SocialsAuth";
+import SocialsAuth from "@/components/authorization/SocialsAuth";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "react-hot-toast";

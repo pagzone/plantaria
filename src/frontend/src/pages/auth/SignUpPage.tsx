@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/password-input";
 import { Link, useNavigate } from "react-router-dom";
-import SocialsAuth from "@/components/SocialsAuth";
+import SocialsAuth from "@/components/authorization/SocialsAuth";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 import { PageRoutes } from "@/constants/PageRoutes";

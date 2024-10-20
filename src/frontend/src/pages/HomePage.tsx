@@ -1,5 +1,5 @@
-import StoriesCard from "@/components/stories-card";
-import Tab from "@/components/tab";
+import StoriesCard from "@/components/home-page/stories-card";
+import Tab from "@/components/home-page/tab";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/HomeLayout/Header";
 import { Home, Star, Trophy } from "lucide-react";
@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchStories } from "@/lib/api";
 import { IStory } from "@/interface/IStory";
-import StoriesCardSkeleton from "@/components/storiesCard-skeleton";
+import StoriesCardSkeleton from "@/components/skeletons/storiesCard-skeleton";
 
 const HomePage = () => {
 	const [activeTab, setActiveTab] = useState("Home");
