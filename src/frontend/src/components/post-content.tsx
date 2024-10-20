@@ -155,25 +155,6 @@ const PostDialog = () => {
 				</div>
 			</DialogTrigger>
 
-<<<<<<< HEAD
-							<div className="h-8 flex items-center ">
-								{thumbnail && (
-									<div className="flex gap-x-1 items-center h-6 w-28">
-										<a
-											className="text-sm text-sky-500 underline truncate"
-											href={thumbnail}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											{thumbnail}
-										</a>
-										<X
-											onClick={() => setThumbnail(null)}
-											className="cursor-pointer text-red-500 size-16	"
-										/>
-									</div>
-								)}
-=======
 			<Form {...form}>
 				<DialogContent className="h-auto max-h-screen overflow-auto md:min-h-[26rem] md:w-[40rem] w-[90vw] max-w-[50rem] flex flex-col p-4 md:p-6 rounded-lg">
 					<DialogHeader>
@@ -194,7 +175,6 @@ const PostDialog = () => {
 								>
 									Story
 								</Button>
->>>>>>> bb0de191d6fa1d58f0a9baa3dc5151ae379dfb1c
 							</div>
 						</div>
 					</DialogHeader>
