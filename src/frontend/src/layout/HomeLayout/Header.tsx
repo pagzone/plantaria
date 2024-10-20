@@ -1,4 +1,4 @@
-import CategoriesCB from "@/components/catergories-cb";
+import CategoriesCB from "@/components/categories-cb";
 import IconTooltip from "@/components/icon-tooltip";
 import Notification from "@/components/notification";
 import PostDialog from "@/components/post-content";

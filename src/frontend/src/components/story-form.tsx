@@ -1,5 +1,5 @@
 import { Image, X } from "lucide-react";
-import CategoriesCB from "./catergories-cb";
+import CategoriesCB from "./categories-cb";
 import Editor, { EditorRef } from "./editor";
 import { Button } from "./ui/button";
 import { DialogClose, DialogFooter } from "./ui/dialog";
