@@ -14,34 +14,84 @@ Plantaria was developed for individuals struggling with food insecurity or anyon
 
 ## 🛠️ Technologies Used
 
- <div style="display: flex; align-items: center;">
-    <img src="./docs/assets/react-svgrepo-com.svg" alt="React" style="width: 35px; height: 34px; margin-right: 8px;">
-    <a href="https://react.dev/" 
-    style="font-size:25px" >React</a>
- </div>
-
- <div style="display: flex; align-items: center;">
-    <img src="./docs/assets/vite-svgrepo-com.svg" alt="React" style="width: 35px; height: 35px; margin-right: 8px;">
-    <a href="https://vite.dev/" 
-    style="font-size:25px" >Vite</a>
- </div>
-
- <div style="display: flex; align-items: center;">
-    <img src="./docs/assets/azle.svg" alt="React" style="width: 35px; height: 35px; margin-right: 8px;">
-    <a href="https://demergent-labs.github.io/azle/?fbclid=IwY2xjawGB1mBleHRuA2FlbQIxMAABHUeV66l-dM9D3a0iOY0LaPFBLAghNDxDVTuqYsxY3DG2xawq1GcY_RGNLg_aem_dTFOW-orQoP6PlXc5VILKw" 
-    style="font-size:25px" >Azle</a>
- </div>
+ ![React](./docs/assets/react-svgrepo-com.svg)
+ ![Vite](./docs/assets/vite-svgrepo-com.svg)
+ ![Tailwind](./docs/assets/tailwind-svgrepo-com.svg)
+ ![TypeScript](./docs/assets/typescript-icon-svgrepo-com.svg)
+ ![Azle](./docs/assets/azle.svg)
 
 
 ## 💼 Team Members and Roles
 
-**Jorym Arias** - Lead Developer
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/xyugen.jpg"/>
+    <div>
+      <h2> &nbsp;Jorym Arias - Lead Developer / Full Stack Developer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/yugen.zwei"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/xyugen"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
 
-**Al-v Manda** - Developer
+<br/>
 
-**Darvey Triniad** - UI/UX Designer,Technical Writer
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/alv.jpg"/>
+    <div>
+      <h2> &nbsp;Al-v Manda - Front-End Developer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/alv.manda.3"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Kaizouku14"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
 
-**Gian Carlo Villar** - UI/UX Designer, Technical Writer
+<br/>
 
-**Jomel Mislos** - UI/UX Designer, Technical Writer
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/darv.jpg"/>
+    <div>
+      <h2> &nbsp;Darvey Trinidad - UI/UX Designer / Technical Writer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/darvey.trinidad.9"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/darvey-trinidad"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
 
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/gian.jpg"/>
+    <div>
+      <h2> &nbsp;Gian Carlo Villar - UI/UX Designer / Technical Writer</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/giancarlo.villar.35"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Dochiibells"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div style="border: 1px solid #333; padding: 10px; width: 40em;">
+  <div style="display: flex; align-items: center;">
+    <img height="60" src="./docs/pfp/jomel.jpg"/>
+    <div>
+      <h2> &nbsp;Jomel Mislos - UI/UX Designer / Lead Editor</h2>
+      <div style="display: flex; align-items: center; padding-left: 10px;">
+        <a href="https://www.facebook.com/joml.amv"><img src="./docs/assets/fbbutton.svg" width="auto" height="auto" alt="facebook logo"/></a>
+        <a href="https://github.com/Dochiibells"><img src="./docs/assets/githubbutton.svg" width="auto" height="auto" alt="github logo"/></a>
+      </div>
+    </div>
+  </div>
+</div>
