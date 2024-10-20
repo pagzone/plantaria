@@ -13,7 +13,7 @@ import { Story } from "./story";
 	name: "users",
 })
 export class User extends BaseEntity {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("uuid")
 	id: number;
 
 	@Column({ type: "text", nullable: true })

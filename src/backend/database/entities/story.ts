@@ -9,10 +9,10 @@ import {
 import { User } from "./user";
 
 @Entity({
-  name: "story"
+  name: "stories"
 })
 export class Story extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column({ type: "text" })
