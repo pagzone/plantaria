@@ -2,10 +2,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Ranking = () => {
 	const rankings = [
-		{ name: "1. Gian the cotton farmer", score: 10000 },
-		{ name: "2. Marie the rice farmer", score: 9500 },
-		{ name: "3. Carlos the corn farmer", score: 9000 },
-		{ name: "4. Anna the wheat farmer", score: 8500 },
+		{ userid: 1, rank: 1, name: "Gian the cotton farmer", score: 10000 },
+		{ userid: 2, rank: 2, name: "Marie the rice farmer", score: 9500 },
+		{ userid: 3, rank: 3, name: "Carlos the corn farmer", score: 9000 },
+		{ userid: 4, rank: 4, name: "Anna the wheat farmer", score: 8500 },
 	];
 
 	return (
@@ -25,9 +25,9 @@ const Ranking = () => {
 
 				<ScrollArea>
 					<div className="flex flex-col gap-y-2 h-[67rem]">
-						{rankings.map((ranking, index) => (
+						{rankings.map((ranking,index) => (
 							<div
-								key={index}
+								key={ranking.userid}
 								className={`grid grid-cols-2 items-center h-16 w-full rounded-lg border shadow ${index % 2 === 0 ? "bg-[#ECEDED]" : "bg-white"}`}
 							>
 								<div className="flex items-center gap-x-6 px-2">
@@ -45,7 +45,7 @@ const Ranking = () => {
 										alt="ranking"
 									/>
 									<span className="text-base font-medium line-clamp-1">
-										{ranking.name}
+										{ranking.rank}.{" "}{ranking.name}
 									</span>
 								</div>
 								<span className="text-base text-center font-medium">
