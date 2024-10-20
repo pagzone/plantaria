@@ -1,8 +1,9 @@
-import { Tutorial } from "Database/entities/tutorial";
+
+import { Story } from "Database/entities/story";
 import { User } from "Database/entities/user";
 import type { Response, Request } from "express";
 
-export namespace TutorialsController {
+export namespace StoriesController {
   export async function index(request: Request, response: Response) {
     const { p } = request.query;
 
@@ -12,7 +13,7 @@ export namespace TutorialsController {
       const take = 9;
       const skip = (page - 1) * take;
 
-      const tutorials = await Tutorial.findAndCount({
+      const stories = await Story.findAndCount({
         take,
         skip,
         relations: {
@@ -23,7 +24,7 @@ export namespace TutorialsController {
       response.status(200);
       return response.json({
         status: 1,
-        data: tutorials,
+        data: stories,
       });
     } catch (error: any) {
       response.status(500);
@@ -46,7 +47,7 @@ export namespace TutorialsController {
         });
       }
 
-      const data = Tutorial.create({
+      const data = Story.create({
         title,
         content,
         category,
@@ -54,11 +55,11 @@ export namespace TutorialsController {
         user
       })
 
-      await Tutorial.save(data);
+      await Story.save(data);
 
       return response.status(200).json({
         status: 1,
-        message: "Tutorial created successfully",
+        message: "Story created successfully",
         data
       });
     } catch (error: any) {
@@ -82,18 +83,18 @@ export namespace TutorialsController {
   //       });
   //     }
 
-  //     const tutorial = await Tutorial.findOneBy({ id });
+  //     const story = await Story.findOneBy({ id });
   //   }
   // }
 
   export async function test(request: Request, response: Response) {
-    const tutorials = await Tutorial.find();
+    const stories = await Story.find();
 
     response.status(200);
     return response.json({
       status: 1,
       message: "Test success!",
-      data: tutorials,
+      data: stories,
     });
   }
 }

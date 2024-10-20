@@ -42,8 +42,16 @@ export const identityFormSchema = z.object({
 	location: z.string().min(1, { message: "Location is required" }),
 });
 
-export const postFormSchema = z.object({
+export const tutorialFormSchema = z.object({
 	category: z.string().min(1, { message: "Category is required" }),
+	title: z.string().min(1, { message: "Title is required" }).max(64, {
+		message: "Title is too long",
+	}),
+	content: z.string().min(1, { message: "Content is required" }),
+	thumbnail: z.string().min(1, { message: "Thumbnail is required" }),
+})
+
+export const storyFormSchema = z.object({
 	title: z.string().min(1, { message: "Title is required" }).max(64, {
 		message: "Title is too long",
 	}),
@@ -54,4 +62,5 @@ export const postFormSchema = z.object({
 export type LoginFormSchema = typeof loginFormSchema;
 export type SignUpFormSchema = typeof signUpFormSchema;
 export type IdentityFormSchema = typeof identityFormSchema;
-export type PostFormSchema = typeof postFormSchema;
+export type TutorialFormSchema = typeof tutorialFormSchema;
+export type StoryFormSchema = typeof storyFormSchema;

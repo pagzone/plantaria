@@ -1,4 +1,5 @@
 import { ApisController } from "App/Controllers/Http/ApisController";
+import { StoriesController } from "App/Controllers/Http/StoriesController";
 import { TutorialsController } from "App/Controllers/Http/TutorialsController";
 import { UsersController } from "App/Controllers/Http/UsersController";
 import { AuthMiddleware } from "App/Middlewares/AuthMiddleware";
@@ -16,6 +17,10 @@ Route.post("/tutorial/create", AuthMiddleware.authorize, TutorialsController.cre
 //TODO: update and delete tutorial
 // Route.post("/tutorial/:id/update", AuthMiddleware.authorize, TutorialsController.update);
 // Route.post("/tutorial/:id/delete", AuthMiddleware.authorize, TutorialsController.delete);
+
+/* Stories Routes */
+Route.post("/story/create", AuthMiddleware.authorize, StoriesController.create);
+//TODO: update and delete story
 
 /* Upload Routes */
 Route.post("/images/upload", AuthMiddleware.authorize, ApisController.uploadImageUrl);
@@ -45,5 +50,9 @@ Route.get("/tutorials", TutorialsController.index);
 //TODO: get tutorial by id
 // Route.get("/tutorial/:id", TutorialsController.findById);
 Route.get("/tutorials/test", TutorialsController.test);
+
+/* Stories Routes */
+Route.get("/stories", StoriesController.index);
+//TODO: get story by id
 
 export { Route as routes };
