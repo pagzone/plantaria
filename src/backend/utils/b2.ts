@@ -1,11 +1,10 @@
 import crypto from 'crypto';
+import { IB2AuthorizeResponse } from 'Interfaces/IB2AuthorizeResponse';
+import { IB2UploadFileResponse } from 'Interfaces/IB2UploadFileResponse';
 
 async function authorizeB2() {
   const authString = `${process.env.B2_KEY_ID}:${process.env.B2_KEY}`;
   const encodedAuth = Buffer.from(authString).toString('base64');
-
-  console.log(authString);
-  console.log(encodedAuth);
 
   const response = await fetch('https://api.backblazeb2.com/b2api/v3/b2_authorize_account', {
     method: 'GET',
@@ -18,19 +17,20 @@ async function authorizeB2() {
     throw new Error(`Authorization failed: ${response.statusText}`);
   }
 
-  const data = await response.json();
+  const data: IB2AuthorizeResponse = await response.json();
 
   return {
     authToken: data.authorizationToken,
-    apiUrl: data.apiUrl,
-    downloadUrl: data.downloadUrl,
+    apiUrl: data.apiInfo.storageApi.apiUrl,
+    downloadUrl: data.apiInfo.storageApi.downloadUrl,
     accountId: data.accountId,
-    bucketId: data.allowed.bucketId,
+    bucketId: data.apiInfo.storageApi.bucketId,
+    bucketName: data.apiInfo.storageApi.bucketName,
   };
 }
 
 async function getUploadUrl(authToken: string, apiUrl: string, bucketId: string) {
-  const response = await fetch(`${apiUrl}/b2api/v2/b2_get_upload_url?bucketId=${bucketId}`, {
+  const response = await fetch(`${apiUrl}/b2api/v3/b2_get_upload_url?bucketId=${bucketId}`, {
     method: 'GET',
     headers: {
       Authorization: authToken,
@@ -77,7 +77,8 @@ async function uploadImage(
     throw new Error(`Failed to upload image: ${response.statusText}`);
   }
 
-  const data = await response.json();
+  const data: IB2UploadFileResponse = await response.json();
+  
   return data;
 }
 

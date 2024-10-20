@@ -14,9 +14,9 @@ export namespace ApisController {
 			const buffer = Buffer.concat(chunks);
 			const filename = request.headers['x-filename'] as string;
 
-			await uploadToBackblaze(buffer, filename || 'image.png');
+			const uploadResponse = await uploadToBackblaze(buffer, filename || 'image.png');
 
-			return response.status(200).json({ status: 1, message: 'File has been uploaded!' });
+			return response.status(200).json({ status: 1, message: 'File has been uploaded!', data: uploadResponse });
 		});
 
 		request.on('error', (error) => {

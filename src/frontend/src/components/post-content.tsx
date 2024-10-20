@@ -74,12 +74,24 @@ const PostDialog = () => {
 			form.setValue("content", editorContent);
 		}
 
-		if (thumbnail) {
-			uploadImage(thumbnail);
-			// form.setValue("thumbnail", thumbnailURL);
-		}
+		if (thumbnail && thumbnailURL) {
+			const data = uploadImage(thumbnail);
+			toast
+				.promise(data, {
+					loading: "Uploading thumbnail...",
+					success: "Uploaded thumbnail successfully",
+					error: (error) => error.message,
+				})
+				.then((data) => {
+					if (!data) return;
 
-		form.handleSubmit(onSubmit)();
+					console.log(data);
+
+					form.setValue("thumbnail", data.data!.fileId);
+
+					form.handleSubmit(onSubmit)();
+				});
+		}
 	};
 
 	const onSubmit = async (values: z.infer<typeof postFormSchema>) => {
@@ -117,8 +129,7 @@ const PostDialog = () => {
 			form.reset();
 			handleResetEditor();
 			setThumbnailURL(null);
-			if (thumbnailURL)
-				URL.revokeObjectURL(thumbnailURL);
+			if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
 		} catch (error) {
 			toast.error((error as Error).message);
 		}
@@ -168,8 +179,8 @@ const PostDialog = () => {
 						</div>
 					</DialogHeader>
 
-					<div className="flex flex-col space-y-4">
-						<div className="flex flex-col gap-y-4">
+					<div className="flex-1 flex flex-col space-y-4">
+						<div className="flex-1 flex flex-col gap-y-4">
 							<div className="flex flex-col md:flex-row gap-2 md:gap-4">
 								<FormField
 									control={form.control}
@@ -204,7 +215,7 @@ const PostDialog = () => {
 								/>
 							</div>
 
-							<div className="md:h-full h-full overflow-auto">
+							<div className="flex-1 flex overflow-auto">
 								<Editor ref={editorRef} />
 								<FormField
 									control={form.control}
@@ -232,7 +243,7 @@ const PostDialog = () => {
 									control={form.control}
 									name="thumbnail"
 									render={({ field }) => (
-										<FormItem>
+										<FormItem className="flex flex-row items-center gap-2">
 											<Button
 												type="button"
 												variant="outline"

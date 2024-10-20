@@ -1,5 +1,6 @@
 import { APIRoutes } from "@/constants/ApiRoutes";
 import { getToken } from "./auth";
+import UploadFileResponse from "@/interface/UploadFileResponse";
 
 export const uploadImage = async (imageFile: File) => {
   if (!imageFile) return;
@@ -16,10 +17,9 @@ export const uploadImage = async (imageFile: File) => {
     body: arrayBuffer,
   });
 
-  const data = await response.json();
+  const data: { status: number, message: string, data?: UploadFileResponse } = await response.json();
   if (response.ok) {
-    // setThumbnailURL(data.url);
-    console.log(data);
+    return data;
   } else {
     console.error('Upload failed:', data);
   }

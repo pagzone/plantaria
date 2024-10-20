@@ -14,6 +14,7 @@
 			"Config/*": ["./config/*"],
 			"Contracts/*": ["./contracts/*"],
 			"Database/*": ["./database/*"],
+			"Interfaces/*": ["./interface/*"],
 			"Helpers/*": ["./utils/*"]
 		}
 	}

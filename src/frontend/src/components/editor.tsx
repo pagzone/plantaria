@@ -49,7 +49,7 @@ const Editor = forwardRef<EditorRef>((props, ref) => {
 	}));
 
 	return (
-		<div>
+		<div className="flex-1">
 			<div ref={quillRef} />
 		</div>
 	);
