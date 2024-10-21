@@ -32,7 +32,7 @@ interface Comment {
 // Simulating the current logged-in user
 const currentUser = "JohnDoe";
 
-const CommentArea = () => {
+const CommentSection = () => {
     const [comments, setComments] = useState<Comment[]>([]);
     const [replyToCommentId, setReplyToCommentId] = useState<number | null>(null);
     const [editCommentId, setEditCommentId] = useState<number | null>(null);
@@ -341,4 +341,4 @@ const CommentArea = () => {
     );
 };
 
-export default CommentArea;
+export default CommentSection;

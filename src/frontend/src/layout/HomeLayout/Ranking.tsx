@@ -1,3 +1,5 @@
+import CurrentUserRanking from "@/components/home-page/Ranking/current-user-rank";
+import RankingItem from "@/components/home-page/Ranking/ranking-items";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Ranking = () => {
@@ -24,36 +26,23 @@ const Ranking = () => {
 				</div>
 
 				<ScrollArea>
-					<div className="flex flex-col gap-y-2 h-[67rem]">
-						{rankings.map((ranking,index) => (
-							<div
-								key={ranking.userid}
-								className={`grid grid-cols-2 items-center h-16 w-full rounded-lg border shadow ${index % 2 === 0 ? "bg-[#ECEDED]" : "bg-white"}`}
-							>
-								<div className="flex items-center gap-x-6 px-2">
-									<img
-										className="h-8 w-8 object-scale-down object-center"
-										src={
-											index === 0
-												? "gold-medal.png"
-												: index === 1
-													? "silver-medal.png"
-													: index === 2
-														? "bronzer-medal.png"
-														: "plant.png"
-										}
-										alt="ranking"
-									/>
-									<span className="text-base font-medium line-clamp-1">
-										{ranking.rank}.{" "}{ranking.name}
-									</span>
-								</div>
-								<span className="text-base text-center font-medium">
-									{ranking.score}
-								</span>
-							</div>
+					<div className="relative flex flex-col gap-y-2 h-[67rem] px-1.5 ">
+						{rankings.map((ranking, index) => (
+							<RankingItem 
+							      rank={ranking.rank} 
+								  name={ranking.name} 
+								  score={ranking.score} 
+								  index={index} />
 						))}
-					</div>
+
+					{/* current user  */}
+					  <CurrentUserRanking 
+					        rank={500} 
+							name={"kaiouzku"} 
+							score={0}					  
+					  />
+				  
+				  </div>
 				</ScrollArea>
 			</div>
 		</div>
