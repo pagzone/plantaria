@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user";
 import { Tutorial } from "./tutorial";
 
@@ -14,4 +14,7 @@ export class Favorite extends BaseEntity {
 
   @ManyToOne(() => Tutorial, (tutorial) => tutorial.favorites)
   tutorial: Tutorial;
+
+  @CreateDateColumn()
+  created_at: Date;
 }

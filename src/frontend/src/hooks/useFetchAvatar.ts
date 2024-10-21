@@ -11,7 +11,8 @@ export const useFetchAvatar = (userId: string, avatarLink?: string) => {
     },
     {
       enabled: !!avatarLink,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      refetchOnMount: true,
     },
   );
 }

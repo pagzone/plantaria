@@ -4,6 +4,45 @@ import { User } from "Database/entities/user";
 import type { Request, Response } from "express";
 
 export namespace FavoritesController {
+  export async function index(request: Request, response: Response) {
+    try {
+      const favorites = await Favorite.find({
+        relations: {
+          tutorial: true,
+          user: true,
+        },
+        select: {
+          id: true,
+          tutorial: {
+            id: true,
+            title: true,
+            content: true,
+            thumbnail: true,
+            created_at: true,
+          },
+          user: {
+            id: true,
+            name: true,
+            avatar_link: true,
+            location: true,
+            created_at: true
+          },
+          created_at: true,
+        }
+      });
+
+      return response.status(200).json({
+        status: 1,
+        data: favorites
+      })
+    } catch (error) {
+      return response.status(500).json({
+        status: 0,
+        message: `Something went wrong: ${error}`,
+      })
+    }
+  }
+
   export async function favoriteTutorial(request: Request, response: Response) {
     try {
       const { id } = request.params;
@@ -33,8 +72,21 @@ export namespace FavoritesController {
         });
       }
 
+      const favorite = await Favorite.createQueryBuilder("favorite")
+        .where("favorite.userId = :userId", { userId: user.id })
+        .andWhere("favorite.tutorialId = :tutorialId", { tutorialId: tutorial.id })
+        .getOne();
+
+      if (favorite) {
+        return response.status(409).json({
+          status: 0,
+          message: "Tutorial already favorited",
+        });
+      }
+
       const data = Favorite.create({
         user,
+        tutorial
       })
 
       await Favorite.save(data);
@@ -80,26 +132,33 @@ export namespace FavoritesController {
         });
       }
 
-      const data = await Favorite.findBy({ user, tutorial });
+      const favorite = await Favorite.createQueryBuilder("favorite")
+        .where("favorite.userId = :userId", { userId: user.id })
+        .andWhere("favorite.tutorialId = :tutorialId", { tutorialId: tutorial.id })
+        .getOne();
 
-      if (!data) {
+      if (!favorite) {
         return response.status(404).json({
           status: 0,
           message: "Favorite not found",
         });
       }
 
-      await Favorite.remove(data);
+      await Favorite.createQueryBuilder()
+        .delete()
+        .from(Favorite)
+        .where("id = :id", { id: favorite.id })
+        .execute();
 
       return response.status(200).json({
         status: 1,
         message: "Tutorial unfavorited successfully",
-      })
+      });
     } catch (error) {
       return response.status(500).json({
         status: 0,
         message: `Something went wrong: ${error}`,
-      })
+      });
     }
   }
 
@@ -132,12 +191,16 @@ export namespace FavoritesController {
         });
       }
 
-      const data = await Favorite.findBy({ user, tutorial });
+      const favorite = await Favorite.createQueryBuilder("favorite")
+        .where("favorite.userId = :userId", { userId: user.id })
+        .andWhere("favorite.tutorialId = :tutorialId", { tutorialId: tutorial.id })
+        .getOne();
 
-      if (!data) {
+      if (!favorite) {
         return response.status(404).json({
           status: 0,
           message: "Favorite not found",
+          data: false
         });
       }
 

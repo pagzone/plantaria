@@ -62,6 +62,7 @@ Route.get("/stories/:id", StoriesController.show);
 Route.post("/auth/download", ApisController.downloadAuthorization);
 
 /* Favorites Routes */
+Route.get("/favorites", FavoritesController.index);
 Route.get("/users/:id/favorites", FavoritesController.getUserFavorites);
 
 export { Route as routes };

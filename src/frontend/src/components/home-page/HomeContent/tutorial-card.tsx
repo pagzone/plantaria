@@ -28,11 +28,11 @@ const TutorialCard: FC<TutorialCardProps> = ({
 	title,
 	content,
 }) => {
-	const [onFavorite, setOnFavorite] = useState(false);
+	// const [onFavorite, setOnFavorite] = useState(false);
 
-	const handleFavoriteClick = () => {
-		setOnFavorite(!onFavorite);
-	};
+	// const handleFavoriteClick = () => {
+	// 	setOnFavorite(!onFavorite);
+	// };
 
 	const { data: avatarUrl } = useFetchAvatar(
 		tutorialId,
@@ -67,7 +67,7 @@ const TutorialCard: FC<TutorialCardProps> = ({
 					</CardDescription>
 				</div>
 
-				<div
+				{/* <div
 					className="flex items-center gap-1 text-sm cursor-pointer"
 					onClick={handleFavoriteClick}
 					aria-label={onFavorite ? "Remove from favorites" : "Add to favorites"}
@@ -78,7 +78,7 @@ const TutorialCard: FC<TutorialCardProps> = ({
 						size={20}
 					/>
 					<span>{onFavorite ? "Favorited" : "Add to favorites"}</span>
-				</div>
+				</div> */}
 			</CardContent>
 		</Card>
 	);

@@ -1,14 +1,8 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageRoutes } from "@/constants/PageRoutes";
-import { QueryKeys } from "@/constants/QueryKeys";
-import {
-	fetchTutorial,
-	isFavoriteTutorial,
-	unfavoriteTutorial,
-} from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
+import { favoriteTutorial, fetchTutorial, unfavoriteTutorial } from "@/lib/api";
 import parse from "html-react-parser";
-import { ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft, Heart, LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useParams } from "react-router-dom";
@@ -18,10 +12,12 @@ import { useFavoriteStatus } from "@/hooks/useFavoriteStatus";
 import { useFetchAvatar } from "@/hooks/useFetchAvatar";
 import Profile from "@/components/profile-page/avatar";
 import CommentSection from "@/components/comment/comment-section";
+import { set } from "zod";
 
 const TutorialContent = () => {
 	const { id } = useParams();
 	const [onFavorite, setOnFavorite] = useState(false);
+	const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
 
 	if (!id) {
 		toast.error("Tutorial not found");
@@ -49,17 +45,22 @@ const TutorialContent = () => {
 
 	useEffect(() => {
 		if (isFavoriteSuccess) {
-			setOnFavorite(isFavorite);
+			if (isFavorite.data) {
+				setOnFavorite(isFavorite.data);
+			}
 		}
-	}, [isFavoriteSuccess, isFavorite]);
+	}, [isFavorite, isFavoriteSuccess]);
 
 	const toggleFavorite = useCallback(async () => {
+		setIsFavoriteClicked(true);
 		setOnFavorite((prev) => !prev);
 		if (onFavorite) {
 			await unfavoriteTutorial(id);
 		} else {
-			await fetchTutorial(id);
+			await favoriteTutorial(id);
 		}
+
+		setIsFavoriteClicked(false);
 	}, [onFavorite, id]);
 
 	// Error handling for fetching tutorial
@@ -69,10 +70,7 @@ const TutorialContent = () => {
 
 	return (
 		<div className="flex flex-col h-full gap-y-4 px-4 md:px-8 py-4">
-			<Link 
-			    className="flex items-center gap-x-1" 
-			    to={PageRoutes.HOME}
-			>
+			<Link className="flex items-center gap-x-1" to={PageRoutes.HOME}>
 				<ArrowLeft size={25} />
 				<span className="text-lg md:text-xl font-bold hover:underline">
 					Home
@@ -128,16 +126,20 @@ const TutorialContent = () => {
 						<button
 							className="flex items-center gap-x-1 text-sm cursor-pointer"
 							onClick={toggleFavorite}
-							disabled={isFavoriteLoading}
+							disabled={isFavoriteLoading || isFavoriteClicked}
 						>
 							{isFavoriteLoading ? (
 								<Skeleton className="w-4 h-4" />
 							) : (
 								<>
-									<Heart
-										className={`${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
-										size={20}
-									/>
+									{isFavoriteClicked ? (
+										<LoaderCircle className="animate-spin size-4" />
+									) : (
+										<Heart
+											className={`${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
+											size={20}
+										/>
+									)}
 									<span className="max-md:hidden">Add to favorites</span>
 								</>
 							)}
