@@ -17,7 +17,7 @@ const SearchBar = () => {
   return (
     <form onSubmit={handleSearch}>
         <Input
-					className="border border-black rounded-full pl-4 pr-12 py-2 w-full max-md:hidden"
+					className="border border-black rounded-full pl-4 pr-12 py-2 w-full"
 					placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}

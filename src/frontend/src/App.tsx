@@ -17,6 +17,7 @@ import Ranking from "./layout/HomeLayout/Ranking";
 import TutorialContent from "./layout/HomeLayout/TutorialContent";
 import StoriesContent from "./layout/HomeLayout/StoriesContent";
 import SearchResult from "./layout/HomeLayout/SearchResult";
+import Stories from "./layout/HomeLayout/Stories";
 
 function App() {
 	return (
@@ -38,6 +39,7 @@ function App() {
 						<Route path="/search" element={<SearchResult />} />  
 						<Route path="/favorites/:id" element={<TutorialContent/>} /> 
 						<Route path="/featured/:id" element={<TutorialContent/>} /> 
+						<Route path="/stories"  element={<Stories/>} />
 					</Route>
 
 					{/* Public Routes */}

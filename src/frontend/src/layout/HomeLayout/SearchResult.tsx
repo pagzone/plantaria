@@ -58,7 +58,7 @@ const ResultsPage = () => {
 
             {tutorials.length === 0 && users.length === 0 && organizations.length === 0 && (
                 <div className="h-24 flex items-center justify-center">
-                  <p className="text-gray-500">No results found for: "{query}"</p>
+                  <p className="text-gray-500">No results found.</p>
                 </div>
             )}
         </div>

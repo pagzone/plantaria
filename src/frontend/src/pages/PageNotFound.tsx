@@ -21,7 +21,7 @@ const PageNotFound = () => {
               />
         </div>
         <div className="flex gap-x-2">
-             <Link to={PageRoutes.LANDING}>
+             <Link to={PageRoutes.HOME}>
                <Button>
                 Home             
                </Button>
