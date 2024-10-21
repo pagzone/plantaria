@@ -1,58 +1,50 @@
-import { useImperativeHandle, forwardRef } from "react";
-import { useQuill } from "react-quilljs";
-import BlotFormatter from "quill-blot-formatter";
-import "quill/dist/quill.snow.css";
+import { useState } from "react";
+import ReactQuill from "react-quill";
 
-export interface EditorRef {
-	getEditorData: () => string;
-	getEditorText: () => string;
-	setEditorData: (data: string) => void;
-	resetEditor: () => void;
+import "react-quill/dist/quill.snow.css";
+
+const Editor = () => {
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [{ align: ["right", "center", "justify"] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+        ],
+    };
+
+    const formats = [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "link",
+        "color",
+        "image",
+        "background",
+        "align",
+    ];
+
+    const [code, setCode] = useState("");
+    const handleProcedureContentChange = (content: any) => {
+        setCode(content);
+    };
+    return (
+        <ReactQuill
+            className="md:h-44 h-36"
+            placeholder="Describe your event..."
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={code}
+            onChange={handleProcedureContentChange}
+        />
+    );
 }
 
-// Using forwardRef to allow passing a ref from the parent component
-const Editor = forwardRef<EditorRef>((props, ref) => {
-	const { quill, quillRef, Quill } = useQuill({
-		modules: { blotFormatter: {} },
-	});
-
-	if (Quill && !quill) {
-		Quill.register("modules/blotFormatter", BlotFormatter);
-	}
-
-	useImperativeHandle(ref, () => ({
-		getEditorData: () => {
-			if (quill) {
-				return quill.root.innerHTML;
-			}
-			return "";
-		},
-
-		getEditorText: () => {
-			if (quill) {
-				return quill.getText();
-			}
-			return "";
-		},
-
-		setEditorData: (data: string) => {
-			if (quill) {
-				quill.root.innerHTML = data;
-			}
-		},
-
-		resetEditor: () => {
-			if (quill) {
-				quill.setContents([]);
-			}
-		},
-	}));
-
-	return (
-		<div>
-			<div ref={quillRef} />
-		</div>
-	);
-});
-
-export default Editor;
+export default Editor

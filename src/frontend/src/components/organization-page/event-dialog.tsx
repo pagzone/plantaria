@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { useRef, useState } from "react";
-import Editor, { EditorRef } from "../header/editor";
+import Editor  from "../header/editor";
 
 
 interface EditEventProps {
@@ -20,7 +20,7 @@ interface EditEventProps {
 
 const EditEvent: React.FC<EditEventProps> = ({ isEditing = false }) => {
 	const [thumbnail, setThumbnail] = useState<string | null>("");
-	const editorRef = useRef<EditorRef | null>(null);
+	// const editorRef = useRef<EditorRef | null>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -29,11 +29,11 @@ const EditEvent: React.FC<EditEventProps> = ({ isEditing = false }) => {
 		}
 	};
 
-	const handleGetEditorData = () => {
-		if (!editorRef.current) return;
-		const editorContent = editorRef.current?.getEditorData();
-		console.log("Editor Content:", editorContent);
-	};
+	// const handleGetEditorData = () => {
+	// 	if (!editorRef.current) return;
+	// 	const editorContent = editorRef.current?.getEditorData();
+	// 	console.log("Editor Content:", editorContent);
+	// };
 
 	return (
 		<Dialog>
@@ -58,7 +58,7 @@ const EditEvent: React.FC<EditEventProps> = ({ isEditing = false }) => {
 							required
 						/>
 						<div className="md:h-56 h-60 overflow-auto">
-							<Editor ref={editorRef} />
+							<Editor />
 						</div>
 					</div>
 				</div>
@@ -104,7 +104,7 @@ const EditEvent: React.FC<EditEventProps> = ({ isEditing = false }) => {
 						)}
 
 						<div className={`flex gap-x-2 max-md:justify-end ${!isEditing ? 'justify-end w-full' : ''}`}>
-							<Button onClick={handleGetEditorData}>
+							<Button >   {/* onClick={handleGetEditorData}  */}
 								{!isEditing ? "Save Changes" : "Create Event"}
 							</Button>
 							<DialogClose asChild>

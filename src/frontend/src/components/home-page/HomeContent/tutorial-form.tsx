@@ -1,6 +1,6 @@
 import { Image, X } from "lucide-react";
 import CategoriesCB from "../../header/categories-cb";
-import Editor, { EditorRef } from "../../header/editor";
+import Editor from "../../header/editor";
 import { Button } from "../../ui/button";
 import { DialogClose, DialogFooter } from "../../ui/dialog";
 import { Form, FormField, FormItem, FormMessage } from "../../ui/form";
@@ -21,7 +21,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const TutorialForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
-	const editorRef = useRef<EditorRef | null>(null);
+	// const editorRef = useRef<EditorRef | null>(null);
 
 	const queryClient = useQueryClient();
 
@@ -62,7 +62,7 @@ const TutorialForm = () => {
 				toast.dismiss("post-tutorial");
 				toast.success(data.message);
 				form.reset();
-				handleResetEditor();
+				// handleResetEditor();
 				setThumbnailURL(null);
 				if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
 			},
@@ -85,28 +85,28 @@ const TutorialForm = () => {
 		}
 	};
 
-	const handleGetEditorData = () => {
-		if (!editorRef.current) return;
-		return editorRef.current.getEditorData();
-	};
+	// const handleGetEditorData = () => {
+	// 	if (!editorRef.current) return;
+	// 	return editorRef.current.getEditorData();
+	// };
 
-	const handleGetEditorText = () => {
-		if (!editorRef.current) return;
-		return editorRef.current.getEditorText();
-	};
+	// const handleGetEditorText = () => {
+	// 	if (!editorRef.current) return;
+	// 	return editorRef.current.getEditorText();
+	// };
 
-	const handleResetEditor = () => {
-		if (!editorRef.current) return;
-		editorRef.current.resetEditor();
-	};
+	// const handleResetEditor = () => {
+	// 	if (!editorRef.current) return;
+	// 	editorRef.current.resetEditor();
+	// };
 
 	const formSubmit = async () => {
-		const editorContent = handleGetEditorData();
-		const editorText = handleGetEditorText();
+		// const editorContent = handleGetEditorData();
+		// const editorText = handleGetEditorText();
 
-		if (editorText?.trim() !== "" && editorContent) {
-			form.setValue("content", editorContent);
-		}
+		// if (editorText?.trim() !== "" && editorContent) {
+		// 	form.setValue("content", editorContent);
+		// }
 
 		if (thumbnail && thumbnailURL) {
 			try {
@@ -167,8 +167,8 @@ const TutorialForm = () => {
 					</div>
 
 					<div className="flex-1 flex flex-col overflow-auto">
-						<Editor ref={editorRef} />
-						<FormField
+						<Editor  /> 
+ 						<FormField
 							control={form.control}
 							name="content"
 							render={({ field }) => (
