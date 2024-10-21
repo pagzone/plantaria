@@ -2,6 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { fetchStory } from "@/lib/api";
+import { getUserAvatar } from "@/lib/avatar";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useQuery } from "@tanstack/react-query";
 import parse from "html-react-parser";
@@ -73,11 +74,7 @@ const StoriesContent = () => {
 						<>
 							<img
 								className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-								src={
-									story?.user.avatar_link
-										? story?.user.avatar_link
-										: "./images/default_avatar.jpeg"
-								}
+								src={getUserAvatar(story?.user.avatar_link)}
 								alt="avatar-image"
 							/>
 							<span className="text-sm font-medium hover:underline cursor-pointer hover:text-teal-400">

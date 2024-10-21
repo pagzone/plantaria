@@ -31,7 +31,7 @@ export namespace UsersController {
 			email,
 			password_hash: passwordHash,
 			name,
-			avatar_link: `${process.env.APP_URL}/images/default_avatar.jpeg`,
+			avatar_link: `./images/default_avatar.jpeg`,
 			location,
 			principal_id: principal,
 		};
@@ -237,14 +237,30 @@ export namespace UsersController {
 		}
 	};
 
-	export async function test(request: Request, response: Response) {
-		const users = await User.find();
+	export async function currentUser(request: Request, response: Response) {
+		try {
+			const userId = request.user;
 
-		response.status(200);
-		return response.json({
-			status: 1,
-			message: "Test success!",
-			data: users,
-		});
+			const user = await User.findOne({ where: { id: userId } });
+
+			if (!user) {
+				return response.status(401).json({
+					status: 0,
+					message: "Unauthorized",
+				});
+			}
+
+			return response.json({
+				status: 1,
+				message: "Success",
+				data: user,
+			});
+		} catch (error: any) {
+			console.log("error", error);
+			response.status(500).json({
+				status: 0,
+				message: error.message,
+			});
+		}
 	}
 }

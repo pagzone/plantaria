@@ -39,7 +39,7 @@ function App() {
 						<Route path="/search" element={<SearchResult />} />  
 						<Route path="/favorites/:id" element={<TutorialContent/>} /> 
 						<Route path="/featured/:id" element={<TutorialContent/>} /> 
-						<Route path="/stories"  element={<Stories/>} />
+						<Route path="/stories" element={<Stories/>} />
 					</Route>
 
 					{/* Public Routes */}

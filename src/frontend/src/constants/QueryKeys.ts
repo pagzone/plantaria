@@ -4,4 +4,6 @@ export enum QueryKeys {
   TUTORIAL = "tutorial",
   STORY = "story",
   PAGE = "page",
+  USER = "user",
+  CURRENT_USER = "current-user",
 }

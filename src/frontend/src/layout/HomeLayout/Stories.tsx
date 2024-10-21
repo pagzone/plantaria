@@ -1,16 +1,15 @@
-import StoriesCard from "@/components/home-page/stories-card"
+import StoriesCard from "@/components/home-page/stories-card";
 import StoriesCardSkeleton from "@/components/skeletons/storiesCard-skeleton";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { IStory } from "@/interface/IStory";
 import { fetchStories } from "@/lib/api";
 import { getPlainTextFromHtml } from "@/lib/utils";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 
 const Stories = () => {
-
   const {
 		data,
 		isLoading: isStoriesLoading,

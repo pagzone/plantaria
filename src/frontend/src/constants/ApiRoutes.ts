@@ -13,5 +13,8 @@ export enum APIRoutes {
 
 	UPLOAD_IMAGE = "/icp/images/upload",
 
-	DOWNLOAD_AUTHORIZATION = "/icp/auth/download"
+	DOWNLOAD_AUTHORIZATION = "/icp/auth/download",
+
+	/* USER */
+	CURRENT_USER = "/icp/users/current",
 }

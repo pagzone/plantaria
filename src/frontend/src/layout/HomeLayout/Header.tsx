@@ -6,7 +6,7 @@
 	import { Button } from "@/components/ui/button";
 	import UserSetting from "@/components/profile-page/user-setting";
 	import { PageRoutes } from "@/constants/PageRoutes";
-	import { isAuthenticated, removeToken } from "@/lib/auth";
+	import { getCurrentUser, isAuthenticated, removeToken } from "@/lib/auth";
 	import {
 		Bell,
 		Building2,
@@ -36,8 +36,6 @@
 			navigate(PageRoutes.LANDING);
 			console.log("land");
 		};
-
-		
 
 		return (
 			<header className="py-4 w-full grid grid-cols-3 items-center max-md:grid-cols-2">

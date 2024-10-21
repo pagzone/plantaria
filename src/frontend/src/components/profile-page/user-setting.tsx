@@ -11,7 +11,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./avatar";
 import { PageRoutes } from "@/constants/PageRoutes";
-import { removeToken } from "@/lib/auth";
+import { getCurrentUser, removeToken } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "@/constants/QueryKeys";
+import { getUserAvatar } from "@/lib/avatar";
 
 const UserSetting = () => {
 	const navigate = useNavigate();
@@ -22,11 +25,13 @@ const UserSetting = () => {
 		navigate(PageRoutes.LANDING);
 	};
 
+	const { data: user } = useQuery([QueryKeys.CURRENT_USER], getCurrentUser);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<button className="rounded-full shadow flex items-center w-16 border border-gray-400 max-md:hidden">
-					<Profile userProfile="https://github.com/shadcn.png" />
+					<Profile userAvatar={getUserAvatar(user?.data?.avatar_link)} />
 					<ChevronDown className="text-lima-500" />
 				</button>
 			</DropdownMenuTrigger>

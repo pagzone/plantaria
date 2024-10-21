@@ -3,14 +3,17 @@ import TutorialCard from "@/components/home-page/HomeContent/tutorial-card";
 import Footer from "@/layout/Footer";
 import Header from "@/layout/HomeLayout/Header";
 import { Pencil, Save } from "lucide-react";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import EditDialog from "@/components/profile-page/edit-information";
-import { decodeAuthToken, getToken } from "@/lib/auth";
+import { decodeAuthToken, getCurrentUser, getToken } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "@/constants/QueryKeys";
+import { getUserAvatar } from "@/lib/avatar";
 
 const ProfilePage: FC = () => {
-	const [userProfile, setUserProfile] = useState(
-		"https://github.com/shadcn.png",
+	const [userAvatar, setUserAvatar] = useState<string>(
+		"/images/default_avatar.jpeg",
 	);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [savedProfile, setSaveProfile] = useState(true);
@@ -22,18 +25,27 @@ const ProfilePage: FC = () => {
 			const reader = new FileReader();
 			reader.onloadend = () => {
 				setPreview(reader.result as string);
-				setUserProfile(reader.result as string);
+				setUserAvatar(reader.result as string);
 			};
 			reader.readAsDataURL(file);
 			setSaveProfile(false);
 		}
 	};
 
-	const token = getToken();
+	const {
+		data: currentUser,
+		isLoading,
+		isSuccess,
+	} = useQuery([QueryKeys.CURRENT_USER], getCurrentUser);
 
-	if(token) {
-		const decodedToken = decodeAuthToken(token);
-		console.log(decodedToken)
+	useEffect(() => {
+		if (isSuccess && currentUser) {
+			setUserAvatar(currentUser.data!.avatar_link);
+		}
+	}, [isSuccess, currentUser]);
+
+	if (isLoading) {
+		return <div>Loading...</div>;
 	}
 
 	return (
@@ -44,10 +56,7 @@ const ProfilePage: FC = () => {
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-44 rounded-xl bg-white flex items-center gap-x-6 px-6 py-4">
 					<div className="relative">
-						<Profile
-							userProfile={preview || userProfile}
-							style="size-40 max-md:size-32"
-						/>
+						<Profile userAvatar={getUserAvatar(userAvatar)} style="size-40 max-md:size-32" />
 						<span className="absolute right-2 bottom-2 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer">
 							<label
 								htmlFor="profile-upload"
@@ -66,10 +75,10 @@ const ProfilePage: FC = () => {
 					</div>
 					<div className="flex flex-col justify-center">
 						<span className="text-xl md:text-2xl font-bold">
-							Gian Carlo Villar
+							{currentUser?.data?.name}
 						</span>
 						<span className="text-slate-600 max-md:text-sm">
-							San Jose Del Monte, Bulacan
+							{currentUser?.data?.location}
 						</span>
 					</div>
 					{!savedProfile && (
@@ -94,13 +103,7 @@ const ProfilePage: FC = () => {
 							<div className="flex flex-col">
 								<span className="text-gray-500 text-sm">Full Name</span>
 								<span className="text-sm md:text-lg font-medium text-gray-800 max-md:truncate">
-									John Doe
-								</span>
-							</div>
-							<div className="flex flex-col">
-								<span className="text-gray-500 text-sm">Email Address</span>
-								<span className="text-sm md:text-lg font-medium text-gray-800 max-md:truncate">
-									Darvey234244@gmail.com
+									{currentUser?.data?.name}
 								</span>
 							</div>
 						</div>
@@ -109,7 +112,7 @@ const ProfilePage: FC = () => {
 							<div className="flex flex-col">
 								<span className="text-gray-500 text-sm">Location</span>
 								<span className="text-sm md:text-lg font-medium text-gray-800 truncate">
-									Third World Country
+									{currentUser?.data?.location}
 								</span>
 							</div>
 						</div>

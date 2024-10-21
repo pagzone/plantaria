@@ -13,6 +13,9 @@ const Route = Router();
 |--------------------------------------------------------------------------
 */
 
+/* Users Routes */
+Route.get("/users/current", AuthMiddleware.authorize, UsersController.currentUser);
+
 /* Tutorials Routes */
 Route.post("/tutorials", AuthMiddleware.authorize, TutorialsController.create);
 Route.route("/tutorials/:id")
