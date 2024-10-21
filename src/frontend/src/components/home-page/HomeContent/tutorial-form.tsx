@@ -21,7 +21,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const TutorialForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
-	// const editorRef = useRef<EditorRef | null>(null);
 
 	const queryClient = useQueryClient();
 
@@ -62,7 +61,6 @@ const TutorialForm = () => {
 				toast.dismiss("post-tutorial");
 				toast.success(data.message);
 				form.reset();
-				// handleResetEditor();
 				setThumbnailURL(null);
 				if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
 			},
@@ -85,29 +83,7 @@ const TutorialForm = () => {
 		}
 	};
 
-	// const handleGetEditorData = () => {
-	// 	if (!editorRef.current) return;
-	// 	return editorRef.current.getEditorData();
-	// };
-
-	// const handleGetEditorText = () => {
-	// 	if (!editorRef.current) return;
-	// 	return editorRef.current.getEditorText();
-	// };
-
-	// const handleResetEditor = () => {
-	// 	if (!editorRef.current) return;
-	// 	editorRef.current.resetEditor();
-	// };
-
 	const formSubmit = async () => {
-		// const editorContent = handleGetEditorData();
-		// const editorText = handleGetEditorText();
-
-		// if (editorText?.trim() !== "" && editorContent) {
-		// 	form.setValue("content", editorContent);
-		// }
-
 		if (thumbnail && thumbnailURL) {
 			try {
 				const uploadData = await toast.promise(
@@ -124,7 +100,7 @@ const TutorialForm = () => {
 				form.setValue("thumbnail", uploadData.data!.fileName);
 			} catch (error) {
 				toast.error("Error uploading thumbnail");
-				return;
+				// return;
 			}
 		};
 
@@ -167,13 +143,12 @@ const TutorialForm = () => {
 					</div>
 
 					<div className="flex-1 flex flex-col overflow-auto">
-						<Editor  /> 
  						<FormField
 							control={form.control}
 							name="content"
 							render={({ field }) => (
 								<FormItem>
-									<input {...field} type="hidden" className="hidden" required />
+									<Editor {...field} /> 
 									<FormMessage />
 								</FormItem>
 							)}

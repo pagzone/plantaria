@@ -21,7 +21,6 @@ import Editor from "./editor";
 const StoryForm = () => {
 	const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
-	// const editorRef = useRef<EditorRef | null>(null);
 
 	const queryClient = useQueryClient();
 
@@ -61,7 +60,6 @@ const StoryForm = () => {
 				toast.dismiss("post-story");
 				toast.success(data.message);
 				form.reset();
-				// handleResetEditor();
 				setThumbnailURL(null);
 				if (thumbnailURL) URL.revokeObjectURL(thumbnailURL);
 			},
@@ -84,29 +82,7 @@ const StoryForm = () => {
 		}
 	};
 
-	// const handleGetEditorData = () => {
-	// 	if (!editorRef.current) return;
-	// 	return editorRef.current.getEditorData();
-	// };
-
-	// const handleGetEditorText = () => {
-	// 	if (!editorRef.current) return;
-	// 	return editorRef.current.getEditorText();
-	// };
-
-	// const handleResetEditor = () => {
-	// 	if (!editorRef.current) return;
-	// 	editorRef.current.resetEditor();
-	// };
-
 	const formSubmit = async () => {
-		// const editorContent = handleGetEditorData();
-		// const editorText = handleGetEditorText();
-
-		// if (editorText?.trim() !== "" && editorContent) {
-		// 	form.setValue("content", editorContent);
-		// }
-
 		if (thumbnail && thumbnailURL) {
 			try {
 				const uploadData = await toast.promise(
@@ -125,11 +101,11 @@ const StoryForm = () => {
 				toast.error("Error uploading thumbnail");
 				return;
 			}
-		};
+		}
 
 		form.handleSubmit(async (values) => {
 			mutation.mutate(values);
-		})
+		})();
 	};
 
 	return (
@@ -154,16 +130,12 @@ const StoryForm = () => {
 							)}
 						/>
 					</div>
-
-					<div className="flex-1 flex flex-col overflow-auto">
-						<Editor />
-					</div>
 					<FormField
 						control={form.control}
 						name="content"
 						render={({ field }) => (
-							<FormItem>
-								<input {...field} type="hidden" className="hidden" required />
+							<FormItem className="flex-1 flex flex-col overflow-auto">
+								<Editor {...field} />
 								<FormMessage />
 							</FormItem>
 						)}
