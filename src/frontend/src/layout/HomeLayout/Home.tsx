@@ -68,7 +68,7 @@ const HomeContent = () => {
 				</div>
 
 				<div className="flex flex-col gap-y-4 h-full">
-					<div className="flex flex-1 items-start flex-wrap gap-4">
+					<div className="flex flex-1 items-start flex-wrap gap-4 max-md:justify-center">
 						{isTutorialsLoading ? (
 							Array(6)
 								.fill(0)

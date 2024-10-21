@@ -1,4 +1,3 @@
-import CommentArea from "@/components/comment/CommentArea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { QueryKeys } from "@/constants/QueryKeys";
@@ -10,6 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton"; 
+import CommentSection from "@/components/comment/comment-section";
 
 const TutorialContent = () => {
 	const { id } = useParams();
@@ -42,7 +42,10 @@ const TutorialContent = () => {
 
 	return (
 		<div className="flex flex-col h-full gap-y-4 px-4 md:px-8 py-4">
-			<Link className="flex items-center gap-x-1" to={PageRoutes.HOME}>
+			<Link 
+			    className="flex items-center gap-x-1" 
+			    to={PageRoutes.HOME}
+			>
 				<ArrowLeft size={25} />
 				<span className="text-lg md:text-xl font-bold hover:underline">
 					Home
@@ -130,7 +133,7 @@ const TutorialContent = () => {
 						<Skeleton className="h-6 w-9/12 mb-2" />
 					</>
 				) : (
-					<CommentArea />
+					<CommentSection />
 				)}
 			</div>
 		</div>
