@@ -1,6 +1,8 @@
+import Profile from "@/components/profile-page/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { QueryKeys } from "@/constants/QueryKeys";
+import { useFetchAvatar } from "@/hooks/useFetchAvatar";
 import { fetchStory } from "@/lib/api";
 import { getUserAvatar } from "@/lib/avatar";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
@@ -13,24 +15,21 @@ import { Link, Navigate, useParams } from "react-router-dom";
 
 const StoriesContent = () => {
 	const { id } = useParams();
-	const [onFavorite, setOnFavorite] = useState(false);
 
 	if (!id) {
-		toast.error("Tutorial not found");
+		toast.error("Story not found");
 		return <Navigate to={PageRoutes.HOME} />;
 	}
 
 	const { data, isLoading, isError, error } = useQuery(
-		[QueryKeys.TUTORIAL, id],
+		[QueryKeys.STORY, id],
 		async () => {
 			const response = await fetchStory(id!);
 			return response;
 		},
 		{
 			enabled: !!id,
-			refetchOnWindowFocus: false,
-			refetchOnMount: true,
-			refetchOnReconnect: true,
+			refetchOnWindowFocus: false
 		},
 	);
 
@@ -39,6 +38,12 @@ const StoriesContent = () => {
 	}
 
 	const story = data?.data;
+
+	const { data: avatarUrl, isLoading: isAvatarLoading } = useFetchAvatar(
+		story?.user?.id ?? "",
+		story?.user?.avatar_link,
+	);
+
 	return (
 		<div className="flex flex-col h-full gap-y-4 px-4 md:px-8 py-4">
 			<Link className="flex items-center gap-x-1" to={PageRoutes.HOME}>
@@ -65,17 +70,18 @@ const StoriesContent = () => {
 
 				{/* Author and Date Section */}
 				<div className="flex items-center gap-2 ">
-					{isLoading ? (
+					{isAvatarLoading ? (
 						<>
 							<Skeleton className="w-10 h-10 md:w-12 md:h-12 rounded-full" />
 							<Skeleton className="h-6 w-32 rounded-md" />
 						</>
 					) : (
 						<>
-							<img
+							<Profile
 								className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-								src={getUserAvatar(story?.user.avatar_link)}
-								alt="avatar-image"
+								userAvatar={avatarUrl}
+								userName={story?.user?.name}
+								userId={story?.user?.id}
 							/>
 							<span className="text-sm font-medium hover:underline cursor-pointer hover:text-teal-400">
 								{story?.user.name}

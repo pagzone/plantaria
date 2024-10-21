@@ -77,6 +77,8 @@ const HomeContent = () => {
 							tutorials?.map((tutorial) => (
 								<Link key={tutorial.id} to={`/tutorial/${tutorial.id}`}>
 									<TutorialCard
+										userId={tutorial.user.id}
+										tutorialId={tutorial.id}
 										tutorialImage={tutorial.thumbnail}
 										userAvatar={tutorial.user.avatar_link}
 										userName={tutorial.user.name}

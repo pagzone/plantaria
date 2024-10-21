@@ -71,13 +71,14 @@ const ProfilePage: FC = () => {
 		<div className="md:mx-[75px] flex flex-col gap-y-4 max-md:px-4">
 			<Header />
 			<div className="flex flex-col gap-y-4">
-				<h1 className="text-3xl font-bold text-lime-700">My Profile</h1>
+				<h1 className="text-3xl font-bold text-primary">My Profile</h1>
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-44 rounded-xl bg-white flex items-center gap-x-6 px-6 py-4">
 					<div className="relative">
 						<Profile
-							userAvatar={getUserAvatar(userAvatarUrl)}
-							style="size-40 max-md:size-32"
+							userAvatar={userAvatarUrl}
+							userName={currentUser?.data?.name}
+							className="size-40 max-md:size-32"
 						/>
 						<button
 							className="absolute right-2 bottom-2 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer"
@@ -114,7 +115,7 @@ const ProfilePage: FC = () => {
 				</div>
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-56 rounded-xl p-6 bg-white">
-					<h1 className="text-xl md:text-2xl font-bold text-lime-700 mb-6">
+					<h1 className="text-xl md:text-2xl font-bold text-primary mb-6">
 						User Information
 					</h1>
 
@@ -143,7 +144,7 @@ const ProfilePage: FC = () => {
 				</div>
 
 				<div className="border border-gray-200 shadow-lg h-[30rem] rounded-xl p-6 bg-white">
-					<h1 className="text-2xl font-bold text-lime-700 mb-4">Timeline</h1>
+					<h1 className="text-2xl font-bold text-primary mb-4">Timeline</h1>
 					<ScrollArea className="h-96">
 						<div className="grid grid-col-1 md:grid-cols-4 gap-4 ">
 							{/* {timeline.length > 0 && timeline.map((value) => (

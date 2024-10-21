@@ -1,21 +1,43 @@
 import { FC, useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription, CardHeader,
+	CardTitle
+} from "@/components/ui/card";
 import { Heart } from "lucide-react";
+import { useFetchAvatar } from "@/hooks/useFetchAvatar";
+import Profile from "@/components/profile-page/avatar";
 
 type TutorialCardProps = {
+	tutorialId: string;
 	tutorialImage: string;
 	userAvatar: string;
 	userName: string;
+	userId?: string;
 	title: string;
 	content: string;
 };
 
-const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userName, title, content }) => {
+const TutorialCard: FC<TutorialCardProps> = ({
+	tutorialId,
+	tutorialImage,
+	userAvatar,
+	userName,
+	userId,
+	title,
+	content,
+}) => {
 	const [onFavorite, setOnFavorite] = useState(false);
 
 	const handleFavoriteClick = () => {
 		setOnFavorite(!onFavorite);
 	};
+
+	const { data: avatarUrl } = useFetchAvatar(
+		tutorialId,
+		userAvatar,
+	);
 
 	return (
 		<Card className="h-96 w-80 md:w-72 min-lg:w-60 cursor-pointer rounded-lg shadow-lg">
@@ -29,10 +51,11 @@ const TutorialCard: FC<TutorialCardProps> = ({ tutorialImage, userAvatar, userNa
 
 			<CardContent className="flex flex-col gap-y-4 p-4">
 				<div className="flex items-center gap-2">
-					<img
-						className="size-10 bg-slate-400 rounded-full object-cover"
-						src={userAvatar ? userAvatar : "./images/default_avatar.jpeg"}
-						alt={`Avatar`}
+					<Profile
+						className="size-10 bg-slate-400"
+						userAvatar={avatarUrl}
+						userName={userName}
+						userId={userId}
 					/>
 					<CardTitle className="font-medium text-base">{userName}</CardTitle>
 				</div>

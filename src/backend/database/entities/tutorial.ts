@@ -4,9 +4,11 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user";
+import { Favorite } from "./favorite";
 
 @Entity({
   name: "tutorials"
@@ -32,4 +34,7 @@ export class Tutorial extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.tutorials)
   user: User;
+
+  @OneToMany(() => Favorite, (favorite) => favorite.tutorial)
+  favorites: Favorite[]
 }

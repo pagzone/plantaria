@@ -34,13 +34,9 @@ Route.route("/stories/:id")
 Route.post("/images/upload", AuthMiddleware.authorize, ApisController.uploadImageUrl);
 
 /* Favorites Routes */
-Route.route("/tutorials/:id/favorites")
-  .post(AuthMiddleware.authorize, FavoritesController.favoriteTutorial)
-  .delete(AuthMiddleware.authorize, FavoritesController.unfavoriteTutorial);
-Route.route("/stories/:id/favorites")
-  .post(AuthMiddleware.authorize, FavoritesController.favoriteStory)
-  .delete(AuthMiddleware.authorize, FavoritesController.unfavoriteStory);
-Route.get("/users/:id/favorites", AuthMiddleware.authorize, FavoritesController.getUserFavorites);
+Route.get("/tutorials/:id/is_favorite", AuthMiddleware.authorize, FavoritesController.isFavorite)
+Route.post("/tutorials/:id/favorite", AuthMiddleware.authorize, FavoritesController.favoriteTutorial)
+Route.post("/tutorials/:id/unfavorite", AuthMiddleware.authorize, FavoritesController.unfavoriteTutorial);
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +60,8 @@ Route.get("/stories/:id", StoriesController.show);
 
 /* Download Routes */
 Route.post("/auth/download", ApisController.downloadAuthorization);
+
+/* Favorites Routes */
+Route.get("/users/:id/favorites", FavoritesController.getUserFavorites);
 
 export { Route as routes };

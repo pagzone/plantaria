@@ -226,3 +226,51 @@ export async function updateUserAvatar(file: File) {
     console.error('Update user avatar failed:', error);
   }
 }
+
+export async function favoriteTutorial(id: string) {
+  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}/${id}/favorite`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    console.error('Favorite tutorial failed:', data);
+  }
+}
+
+export async function unfavoriteTutorial(id: string) {
+  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}/${id}/unfavorite`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    console.error('Unfavorite tutorial failed:', data);
+  }
+}
+
+export async function isFavoriteTutorial(id: string) {
+  const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.TUTORIALS}/${id}/is_favorite`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    console.error('Is favorite tutorial failed:', data);
+  }
+}

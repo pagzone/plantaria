@@ -68,7 +68,7 @@ const OrganizationPage = () => {
 
                 <div className="h-52 flex flex-col items-center justify-center gap-y-2">
                     <div className="relative">
-                        <Profile userAvatar={preview || orgProfile} style="size-32 sm:size-40" />
+                        <Profile userAvatar={preview || orgProfile} className="size-32 sm:size-40" />
                         <span className="absolute right-2 bottom-2 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer">
                             <label htmlFor="profile-upload" aria-label="Change Profile Picture">
                                 <Pencil size={15} aria-hidden="true" />

@@ -2,14 +2,23 @@ import CommentArea from "@/components/comment/CommentArea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageRoutes } from "@/constants/PageRoutes";
 import { QueryKeys } from "@/constants/QueryKeys";
-import { fetchTutorial } from "@/lib/api";
+import {
+	fetchTutorial,
+	isFavoriteTutorial,
+	unfavoriteTutorial,
+} from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import parse from "html-react-parser";
 import { ArrowLeft, Heart } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { Skeleton } from "@/components/ui/skeleton"; 
+import { Skeleton } from "@/components/ui/skeleton";
+import { useFetchTutorial } from "@/hooks/useFetchTutorial";
+import { useFavoriteStatus } from "@/hooks/useFavoriteStatus";
+import { useFetchAvatar } from "@/hooks/useFetchAvatar";
+import { Avatar } from "@/components/ui/avatar";
+import Profile from "@/components/profile-page/avatar";
 
 const TutorialContent = () => {
 	const { id } = useParams();
@@ -20,25 +29,44 @@ const TutorialContent = () => {
 		return <Navigate to={PageRoutes.HOME} />;
 	}
 
-	const { data, isLoading, isError, error } = useQuery(
-		[QueryKeys.TUTORIAL, id],
-		async () => {
-			const response = await fetchTutorial(id!);
-			return response;
-		},
-		{
-			enabled: !!id,
-			refetchOnWindowFocus: false,
-			refetchOnMount: true,
-			refetchOnReconnect: true,
-		},
+	const {
+		data: tutorialData,
+		isLoading,
+		isError,
+		error,
+	} = useFetchTutorial(id);
+	const {
+		data: isFavorite,
+		isLoading: isFavoriteLoading,
+		isSuccess: isFavoriteSuccess,
+	} = useFavoriteStatus(id);
+
+	const tutorial = tutorialData?.data;
+
+	const { data: avatarUrl, isLoading: isAvatarLoading } = useFetchAvatar(
+		tutorial?.user?.id ?? "",
+		tutorial?.user?.avatar_link,
 	);
 
+	useEffect(() => {
+		if (isFavoriteSuccess) {
+			setOnFavorite(isFavorite);
+		}
+	}, [isFavoriteSuccess, isFavorite]);
+
+	const toggleFavorite = useCallback(async () => {
+		setOnFavorite((prev) => !prev);
+		if (onFavorite) {
+			await unfavoriteTutorial(id);
+		} else {
+			await fetchTutorial(id);
+		}
+	}, [onFavorite, id]);
+
+	// Error handling for fetching tutorial
 	if (isError && error instanceof Error) {
 		return <div>Error: {error.message}</div>;
 	}
-
-	const tutorial = data?.data;
 
 	return (
 		<div className="flex flex-col h-full gap-y-4 px-4 md:px-8 py-4">
@@ -50,6 +78,7 @@ const TutorialContent = () => {
 			</Link>
 
 			<div className="flex flex-col gap-y-4">
+				{/* Tutorial thumbnail */}
 				{isLoading ? (
 					<Skeleton className="rounded-xl h-60 md:h-72 p-6" />
 				) : (
@@ -62,28 +91,31 @@ const TutorialContent = () => {
 					/>
 				)}
 
+				{/* Tutorial title */}
 				{isLoading ? (
 					<Skeleton className="h-8 md:h-10 w-3/4 rounded-md" />
 				) : (
 					<h1 className="text-2xl md:text-4xl font-bold">{tutorial?.title}</h1>
 				)}
 
+				{/* User and Favorite button */}
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center gap-x-2">
-						{isLoading ? (
+						{isAvatarLoading ? (
 							<>
 								<Skeleton className="w-10 h-10 md:w-12 md:h-12 rounded-full" />
 								<Skeleton className="h-6 w-32 rounded-md" />
 							</>
 						) : (
 							<>
-								<img
+								<Profile
 									className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-									src={tutorial?.user.avatar_link ?? "./images/default_avatar.jpeg"}
-									alt="Avatar"
+									userAvatar={avatarUrl}
+									userName={tutorial?.user?.name}
+									userId={tutorial?.user?.id}
 								/>
 								<span className="text-lg font-medium hover:underline cursor-pointer">
-									{tutorial?.user.name}
+									{tutorial?.user?.name}
 								</span>
 							</>
 						)}
@@ -91,20 +123,28 @@ const TutorialContent = () => {
 
 					{/* Favorite Button */}
 					<div className="flex items-center gap-x-2">
-						<div
+						<button
 							className="flex items-center gap-x-1 text-sm cursor-pointer"
-							onClick={() => setOnFavorite(!onFavorite)}
+							onClick={toggleFavorite}
+							disabled={isFavoriteLoading}
 						>
-							<Heart
-								className={`${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
-								size={20}
-							/>
-							<span className="max-md:hidden">Add to favorites</span>
-						</div>
+							{isFavoriteLoading ? (
+								<Skeleton className="w-4 h-4" />
+							) : (
+								<>
+									<Heart
+										className={`${onFavorite ? "text-red-500 fill-red-500" : "text-black"}`}
+										size={20}
+									/>
+									<span className="max-md:hidden">Add to favorites</span>
+								</>
+							)}
+						</button>
 					</div>
 				</div>
 			</div>
 
+			{/* Tutorial Content */}
 			<ScrollArea>
 				<div className="min-h-96 mx-auto">
 					{isLoading ? (
@@ -120,6 +160,7 @@ const TutorialContent = () => {
 				</div>
 			</ScrollArea>
 
+			{/* Comments Section */}
 			<div className="h-96 p-4">
 				<h2 className="text-2xl font-semibold mb-4">Comments</h2>
 				{isLoading ? (
