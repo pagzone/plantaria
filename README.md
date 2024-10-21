@@ -3,7 +3,7 @@
 
 ## 🌿 Project Description 
 
-https://github.com/user-attachments/assets/31da4fbc-b610-48f7-bfca-5a18b28e1b08
+https://github.com/user-attachments/assets/a6a22346-c6ea-4cad-9f6b-0d4d2548affc
 
 Plantaria is a web-based app designed to facilitate online learning for urban farming. It offers beginner-friendly tutorials on various farming techniques, providing users with step-by-step guidance to create their own urban farms.
 
@@ -13,6 +13,47 @@ Plantaria is a web-based app designed to facilitate online learning for urban fa
 - #### Connect with partnered farming organizations for additional resources and learn about the latest farming community projects.
 
 Plantaria was developed for individuals struggling with food insecurity or anyone interested in cultivating a sustainable food source. By learning from the tutorials provided, users can start their own urban farms and contribute to solving hunger issues through self-sufficiency.
+
+## 🚀 Project Setup Installation
+
+This guide helps you set up a local Internet Computer Protocol (ICP) node and deploy your project using Docker or GitHub Codespaces or Gitpod. Follow the steps carefully to get your environment up and running
+
+**In your browser:**
+
+In Gitpod
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/pagzone/plantaria)
+
+### Develop
+
+*1. Start a Local ICP Node*
+
+Once you're inside your development environment (Docker or Codespace or Gitpod), start the local ICP node:
+
+```bash
+dfx start --clean
+```
+
+*2. Deploying the Project*
+
+In a new terminal window (or a separate terminal pane in VSCode), deploy the project:
+
+```bash
+dfx deploy
+```
+
+This command will:
+- Build the Wasm (WebAssembly) files for your canisters (smart contracts).
+- Deploy your canisters to the local node.
+
+*3. Access Your Deployed Canisters*
+
+After deployment, your smart contract will be accessible via the following local URL:
+
+```bash
+http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943
+```
+
 
 ## 🛠️ Technologies Used
 
