@@ -6,6 +6,7 @@ import { ITutorial } from "@/interface/ITutorial";
 import { IResponse } from "@/interface/IResponse";
 import { IDownloadAuth } from "@/interface/IDownloadAuth";
 import { IStory } from "@/interface/IStory";
+import { uploadImage } from "./upload";
 
 export async function fetchDownloadAuth(prefix: string) {
   const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.DOWNLOAD_AUTHORIZATION}`, {
@@ -19,7 +20,7 @@ export async function fetchDownloadAuth(prefix: string) {
   });
 
   const data: IResponse<IDownloadAuth> = await response.json();
-  
+
   if (response.ok) {
     return data;
   } else {
@@ -200,5 +201,28 @@ export async function deleteStory(id: string) {
     return data;
   } else {
     console.error('Delete story failed:', data);
+  }
+}
+
+export async function updateUserAvatar(file: File) {
+  try {
+    const uploadData = await uploadImage(file, "avatar")
+    if (!uploadData) return;
+
+    const response = await fetch(`${import.meta.env.VITE_CANISTER_URL}${APIRoutes.UPDATE_AVATAR}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({
+        fileName: uploadData.data!.fileName,
+      }),
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error('Update user avatar failed:', error);
   }
 }

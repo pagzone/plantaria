@@ -15,16 +15,17 @@ export function CreateServer() {
 	}
 
 	const app = express();
-	
+
 	// const corsOptions: cors.CorsOptions = {
-		// 	origin: "*",
-		// 	methods: ["GET", "POST", "PUT", "DELETE"],
-		// 	allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
-		// 	credentials: true,
-		// }
+	// 	origin: "*",
+	// 	methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+	// 	allowedHeaders: ["Content-Type", "Authorization"],
+	// 	credentials: true,
+	// }
 
 	app.use(express.json({ limit: "1.5mb" }));
 	app.use(cors());
+	// app.options("*", cors(corsOptions));
 	app.use(ExceptionHandler);
 	app.use("/icp", routes);
 	app.use(express.static("/dist"));

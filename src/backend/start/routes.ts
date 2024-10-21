@@ -2,9 +2,10 @@ import { ApisController } from "App/Controllers/Http/ApisController";
 import { FavoritesController } from "App/Controllers/Http/FavoritesController";
 import { StoriesController } from "App/Controllers/Http/StoriesController";
 import { TutorialsController } from "App/Controllers/Http/TutorialsController";
-import { UsersController } from "App/Controllers/Http/UsersController";
+import { AuthController } from "App/Controllers/Http/AuthController";
 import { AuthMiddleware } from "App/Middlewares/AuthMiddleware";
 import { Router } from "express";
+import { UsersController } from "App/Controllers/Http/UsersController";
 const Route = Router();
 
 /*
@@ -15,6 +16,7 @@ const Route = Router();
 
 /* Users Routes */
 Route.get("/users/current", AuthMiddleware.authorize, UsersController.currentUser);
+Route.post("/users/me/avatar", AuthMiddleware.authorize, UsersController.updateAvatar);
 
 /* Tutorials Routes */
 Route.post("/tutorials", AuthMiddleware.authorize, TutorialsController.create);
@@ -47,10 +49,10 @@ Route.get("/users/:id/favorites", AuthMiddleware.authorize, FavoritesController.
 */
 
 /* User Routes */
-Route.post("/auth/login", UsersController.login);
-Route.post("/auth/register", UsersController.register);
-Route.post("/auth/ii/login", UsersController.loginWithIdentity);
-Route.post("/auth/ii/register", UsersController.registerWithIdentity);
+Route.post("/auth/login", AuthController.login);
+Route.post("/auth/register", AuthController.register);
+Route.post("/auth/ii/login", AuthController.loginWithIdentity);
+Route.post("/auth/ii/register", AuthController.registerWithIdentity);
 
 /* Tutorials Routes */
 Route.get("/tutorials", TutorialsController.index);

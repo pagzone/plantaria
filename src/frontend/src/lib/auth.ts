@@ -2,6 +2,7 @@ import { APIRoutes } from "@/constants/ApiRoutes";
 import { LocalStorageKeys } from "@/constants/LocalStorageKeys";
 import { IResponse } from "@/interface/IResponse";
 import { IUser } from "@/interface/IUser";
+import { fetchDownloadAuth } from "./api";
 
 export const isAuthenticated = (): boolean => {
 	const token = localStorage.getItem(LocalStorageKeys.AUTH_TOKEN);
@@ -50,6 +51,12 @@ export const getCurrentUser = async () => {
 	});
 
 	const data: IResponse<IUser> = await response.json();
+
+	if (data && data.data && data.data.avatar_link) {
+		const avatarAuth = await fetchDownloadAuth("avatar");
+		data.data.avatar_link = `${data.data.avatar_link}?Authorization=${avatarAuth?.data?.authorizationToken}`
+	}
+
 	if (response.ok) {
 		return data;
 	} else {

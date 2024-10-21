@@ -11,7 +11,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./avatar";
 import { PageRoutes } from "@/constants/PageRoutes";
-import { getCurrentUser, removeToken } from "@/lib/auth";
+import { getCurrentUser, getToken, removeToken } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { getUserAvatar } from "@/lib/avatar";
@@ -25,7 +25,7 @@ const UserSetting = () => {
 		navigate(PageRoutes.LANDING);
 	};
 
-	const { data: user } = useQuery([QueryKeys.CURRENT_USER], getCurrentUser);
+	const { data: user } = useQuery([QueryKeys.CURRENT_USER, getToken()], getCurrentUser);
 
 	return (
 		<DropdownMenu>

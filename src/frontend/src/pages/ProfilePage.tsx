@@ -10,25 +10,24 @@ import { decodeAuthToken, getCurrentUser, getToken } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@/constants/QueryKeys";
 import { getUserAvatar } from "@/lib/avatar";
+import { updateUserAvatar } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const ProfilePage: FC = () => {
-	const [userAvatar, setUserAvatar] = useState<string>(
+	const [userAvatar, setUserAvatar] = useState<File>();
+	const [userAvatarUrl, setUserAvatarUrl] = useState<string>(
 		"/images/default_avatar.jpeg",
 	);
-	const [preview, setPreview] = useState<string | null>(null);
-	const [savedProfile, setSaveProfile] = useState(true);
+	// const [userAvatarUrl, setUserAvatarUrl] = useState<string>("");
+	const [isEditingProfile, setIsEditingProfile] = useState(false);
 	const [timeline, setTimeLine] = useState([]);
 
 	const handleChangeProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setPreview(reader.result as string);
-				setUserAvatar(reader.result as string);
-			};
-			reader.readAsDataURL(file);
-			setSaveProfile(false);
+		if (event.target.files && event.target.files.length > 0) {
+			const file = event.target.files[0];
+			setUserAvatar(file);
+			setUserAvatarUrl(URL.createObjectURL(file));
+			setIsEditingProfile(true);
 		}
 	};
 
@@ -36,11 +35,31 @@ const ProfilePage: FC = () => {
 		data: currentUser,
 		isLoading,
 		isSuccess,
-	} = useQuery([QueryKeys.CURRENT_USER], getCurrentUser);
+		refetch,
+	} = useQuery([QueryKeys.CURRENT_USER, getToken()], getCurrentUser);
+
+	const saveAvatar = async () => {
+		if (!userAvatar) return;
+
+		const uploadData = await toast
+			.promise(updateUserAvatar(userAvatar), {
+				loading: "Uploading avatar...",
+				success: "Avatar uploaded successfully",
+				error: "Failed to upload avatar",
+			})
+			.then((res) => {
+				setIsEditingProfile(false);
+				return res;
+			})
+			.finally(() => {
+				refetch();
+			});
+		console.log("uploadData", uploadData);
+	};
 
 	useEffect(() => {
 		if (isSuccess && currentUser) {
-			setUserAvatar(currentUser.data!.avatar_link);
+			setUserAvatarUrl(currentUser.data!.avatar_link);
 		}
 	}, [isSuccess, currentUser]);
 
@@ -56,14 +75,15 @@ const ProfilePage: FC = () => {
 
 				<div className="relative border border-gray-200 shadow-lg md:h-64 h-44 rounded-xl bg-white flex items-center gap-x-6 px-6 py-4">
 					<div className="relative">
-						<Profile userAvatar={getUserAvatar(userAvatar)} style="size-40 max-md:size-32" />
-						<span className="absolute right-2 bottom-2 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer">
-							<label
-								htmlFor="profile-upload"
-								aria-label="Change Profile Picture"
-							>
-								<Pencil size={15} aria-hidden="true" />
-							</label>
+						<Profile
+							userAvatar={getUserAvatar(userAvatarUrl)}
+							style="size-40 max-md:size-32"
+						/>
+						<button
+							className="absolute right-2 bottom-2 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer"
+							onClick={() => document.getElementById("profile-upload")?.click()}
+						>
+							<Pencil size={15} aria-hidden="true" />
 							<input
 								id="profile-upload"
 								type="file"
@@ -71,7 +91,7 @@ const ProfilePage: FC = () => {
 								className="hidden"
 								onChange={handleChangeProfile}
 							/>
-						</span>
+						</button>
 					</div>
 					<div className="flex flex-col justify-center">
 						<span className="text-xl md:text-2xl font-bold">
@@ -81,9 +101,9 @@ const ProfilePage: FC = () => {
 							{currentUser?.data?.location}
 						</span>
 					</div>
-					{!savedProfile && (
+					{isEditingProfile && (
 						<button
-							onClick={() => setSaveProfile(true)}
+							onClick={() => saveAvatar()}
 							className={`absolute right-3 top-3 font-medium md:px-4 md:py-2 py-1 px-2 flex items-center gap-x-1.5 rounded-lg transition-transform transform md:w-24 
       bg-lime-700 text-white hover:bg-lime-600 hover:scale-[1.05] cursor-pointer`}
 						>

@@ -17,4 +17,5 @@ export enum APIRoutes {
 
 	/* USER */
 	CURRENT_USER = "/icp/users/current",
+	UPDATE_AVATAR = "/icp/users/me/avatar",
 }
