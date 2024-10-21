@@ -72,20 +72,24 @@ const HomePage = () => {
 						<h2 className="text-xl font-semibold mb-4">Stories</h2>
 						<ScrollArea className="h-[40rem] lg:h-[67rem]">
 							<div className="flex flex-col gap-y-4 py-1.5 px-2">
-								{isStoriesLoading
-									? Array(stories?.length)
-											.fill(0)
-											.map((_, index) => <StoriesCardSkeleton key={index}/>)
-									: stories?.map((stories) => (
-											<Link key={stories.id} to={`/stories/${stories.id}`}>
-												<StoriesCard
-													key={stories.id}
-													storyImg={stories.thumbnail}
-													projectName={stories.title}
-													description={getPlainTextFromHtml(stories.content)}
-												/>
-											</Link>
-										))}
+								{isStoriesLoading ? (
+									Array(stories?.length)
+										.fill(0)
+										.map((_, index) => <StoriesCardSkeleton key={index} />)
+								) : stories && stories.length > 0 ? (
+									stories?.map((stories) => (
+										<Link key={stories.id} to={`/stories/${stories.id}`}>
+											<StoriesCard
+												key={stories.id}
+												storyImg={stories.thumbnail}
+												projectName={stories.title}
+												description={getPlainTextFromHtml(stories.content)}
+											/>
+										</Link>
+									))
+								) : (
+									<div className="text-center text-gray-400">No Stories</div>
+								)}
 							</div>
 						</ScrollArea>
 					</section>

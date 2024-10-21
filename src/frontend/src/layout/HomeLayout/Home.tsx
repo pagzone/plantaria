@@ -69,27 +69,34 @@ const HomeContent = () => {
 
 				<div className="flex flex-col gap-y-4 h-full">
 					<div className="flex flex-1 items-start flex-wrap gap-4">
-						{isTutorialsLoading
-							? Array(6)
-									.fill(0)
-									.map((_, index) => <TutorialCardSkeleton key={index} />)
-							: tutorials?.map((tutorial) => (
-									<Link key={tutorial.id} to={`/tutorial/${tutorial.id}`}>
-										<TutorialCard
-											tutorialImage={tutorial.thumbnail}
-											userAvatar={tutorial.user.avatar_link}
-											userName={tutorial.user.name}
-											title={tutorial.title}
-											content={getPlainTextFromHtml(tutorial.content)}
-										/>
-									</Link>
-								))}
+						{isTutorialsLoading ? (
+							Array(6)
+								.fill(0)
+								.map((_, index) => <TutorialCardSkeleton key={index} />)
+						) : tutorials && tutorials.length > 0 ? (
+							tutorials?.map((tutorial) => (
+								<Link key={tutorial.id} to={`/tutorial/${tutorial.id}`}>
+									<TutorialCard
+										tutorialImage={tutorial.thumbnail}
+										userAvatar={tutorial.user.avatar_link}
+										userName={tutorial.user.name}
+										title={tutorial.title}
+										content={getPlainTextFromHtml(tutorial.content)}
+									/>
+								</Link>
+							))
+						) : (
+							<p className="col-span-3">No tutorials found</p>
+						)}
 					</div>
 					<PageSelector
 						totalItems={count}
 						currentPage={parseInt(page || "1")}
 						setCurrentPage={(page) => {
-							queryClient.invalidateQueries([QueryKeys.TUTORIALS, page.toString()]);
+							queryClient.invalidateQueries([
+								QueryKeys.TUTORIALS,
+								page.toString(),
+							]);
 							setSearchParams({ page: page.toString() });
 							refetchTutorials();
 						}}
